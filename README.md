@@ -29,8 +29,6 @@ When stress reaches critical thresholds, the Director orchestrates events (like 
 The AI Director is built to communicate with other community mods to enhance the survival experience:
 - **[TACZ (Timeless and Classics Zero)]**: The Director listens for gunshots to increase player stress based on noise and action.
 - **[Enhanced Hordes]**: The Director takes control of the spawning logic, deciding exactly WHEN and WHERE a horde spawns based on stress, overriding random timers.
-- **[Improved Mobs]**: The Director dynamically scales the difficulty and block-breaking capabilities of monsters depending on the required scene intensity.
-
 ---
 
 ## 🛠️ For Modders: Source Installation
