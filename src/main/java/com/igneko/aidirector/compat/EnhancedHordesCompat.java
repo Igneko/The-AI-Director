@@ -1,19 +1,26 @@
 package com.igneko.aidirector.compat;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.network.chat.Component;
-
-// TODO: Importar la API real de Enhanced Hordes cuando VS Code lea el .jar de la carpeta libs
-// import dev.ceymikey.enhancedhordes.api.HordeAPI; 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.commands.CommandSourceStack;
 
 public class EnhancedHordesCompat {
 
-    public static void spawnHordeForPlayer(Player player) {
-        // Enlazar el StressManager con la API de Enhanced Hordes[cite: 2]
-        // TODO: Descomentar y usar el método correcto del mod para forzar la generación de la horda
-        // HordeAPI.spawnHordeAt(player.blockPosition(), player.level());
-        
-        // Mensaje en pantalla para el jugador notificando el evento de alta tensión
-        player.displayClientMessage(Component.literal("§c[The AI Director] El estrés llegó al límite. ¡Horda desencadenada!"), true);
+    public static void forceHorde(ServerPlayer player) {
+        MinecraftServer server = player.getServer();
+        if (server != null) {
+            // Reemplaza "horde spawn" por el comando exacto que usa Enhanced Hordes.
+            // Para averiguarlo, entra al juego, presiona la tecla "/" y escribe "horde" o "enhanced"
+            // para ver las opciones que el mod añade.
+            String command = "horde spawn"; 
+            
+            // Crea un ejecutor invisible con nivel de administrador (4)
+            CommandSourceStack source = server.createCommandSourceStack()
+                .withPermission(4)
+                .withSuppressedOutput();
+                
+            // El servidor ejecuta el comando de forma silenciosa
+            server.getCommands().performPrefixedCommand(source, command);
+        }
     }
 }
