@@ -1,26 +1,23 @@
 package com.igneko.aidirector.compat;
 
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class EnhancedHordesCompat {
 
-    public static void forceHorde(ServerPlayer player) {
-        MinecraftServer server = player.getServer();
+    public static void spawnHordeForPlayer(Player player) {
+        Level level = player.level();
+        MinecraftServer server = level.getServer();
+        
         if (server != null) {
-            // Reemplaza "horde spawn" por el comando exacto que usa Enhanced Hordes.
-            // Para averiguarlo, entra al juego, presiona la tecla "/" y escribe "horde" o "enhanced"
-            // para ver las opciones que el mod añade.
-            String command = "horde spawn"; 
-            
-            // Crea un ejecutor invisible con nivel de administrador (4)
             CommandSourceStack source = server.createCommandSourceStack()
+                .withPosition(player.position())
                 .withPermission(4)
-                .withSuppressedOutput();
-                
-            // El servidor ejecuta el comando de forma silenciosa
-            server.getCommands().performPrefixedCommand(source, command);
+                .withSuppressedOutput(); 
+
+            server.getCommands().performPrefixedCommand(source, "horde spawn");
         }
     }
 }
