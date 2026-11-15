@@ -1,6 +1,8 @@
 package com.igneko.aidirector.core;
 
+import com.igneko.aidirector.compat.enhancedhordes.EnhancedHordesCompat;
 import com.igneko.aidirector.config.AIDirectorConfig;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
 import com.igneko.aidirector.core.survivor.SurvivorRules;
@@ -45,16 +47,11 @@ public class CommandRegistry {
             }))
             
             // Subcomando: /aidirector force
-            .then(Commands.literal("force").executes(context -> {
-                CommandSourceStack source = context.getSource();
-                ServerPlayer player = source.getPlayerOrException();
-                
-                // Restamos muchísimo tiempo para forzar que el timer pase a 0 en el próximo tick
-                StressManager.deductTime(player, 99999);
-                source.sendSuccess(() -> Component.literal("§e[AI Director] §fHorda forzada."), false);
-                
-                return 1;
-            }))
+            // Genera la horda al instante (funciona también en creativo). Opcional: número de infectados.
+            .then(Commands.literal("force")
+                .executes(context -> forceHorde(context.getSource(), AIDirectorConfig.horde().size()))
+                .then(Commands.argument("count", IntegerArgumentType.integer(1, 300))
+                    .executes(context -> forceHorde(context.getSource(), IntegerArgumentType.getInteger(context, "count")))))
             
             // Subcomando: /aidirector reset
             .then(Commands.literal("reset").executes(context -> {
@@ -91,6 +88,17 @@ public class CommandRegistry {
                                         d.bleedHealth(), d.adrenalineTicks(), 0f, false));
                             })))))
         );
+    }
+
+    private static int forceHorde(CommandSourceStack source, int count) throws CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        int spawned = EnhancedHordesCompat.triggerPanicEvent(player.serverLevel(), player.blockPosition(), count, player);
+        StressManager.resetTimer(player);
+        int area = AIDirectorConfig.horde().areaSize();
+        source.sendSuccess(() -> Component.literal(String.format(
+            "§e[AI Director] §fHorda forzada: §c%d§f/%d infectados en un área de %dx%d bloques.",
+            spawned, count, area, area)), false);
+        return spawned;
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> survivorAction(

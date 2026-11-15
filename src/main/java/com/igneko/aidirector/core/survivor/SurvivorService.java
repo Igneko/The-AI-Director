@@ -44,8 +44,20 @@ public final class SurvivorService {
         return vanillaDamage * AIDirectorConfig.rules().maxHealth() / Math.max(1f, player.getMaxHealth());
     }
 
-    /** Aplica a la entidad todos los efectos derivados del estado actual. Idempotente. */
+    /** Aplica los efectos del estado actual sin bajar la vida vanilla (ver {@link #applyEffects(ServerPlayer, SurvivorHealthData, boolean)}). */
     public static void applyEffects(ServerPlayer player, SurvivorHealthData data) {
+        applyEffects(player, data, false);
+    }
+
+    /**
+     * Aplica a la entidad todos los efectos derivados del estado actual. Idempotente.
+     *
+     * @param allowHealthDrop si es false, la vida vanilla espejo solo puede subir. Cada bajada de vida
+     *                        sincronizada hace que el cliente reproduzca la animación de daño
+     *                        ({@code LocalPlayer.hurtTo}), así que el decaimiento temporal y el sangrado
+     *                        no deben bajarla: solo los golpes reales.
+     */
+    public static void applyEffects(ServerPlayer player, SurvivorHealthData data, boolean allowHealthDrop) {
         SurvivorRules rules = AIDirectorConfig.rules();
         boolean managed = isManaged(player);
 
@@ -68,10 +80,11 @@ public final class SurvivorService {
             }
         }
 
-        // Barra vanilla como espejo de la salud L4D2
+        // Vida vanilla como espejo aproximado de la salud L4D2 (la barra vanilla está oculta en el HUD).
         if (managed && !data.isDead()) {
             float mirror = data.vanillaHealth(rules, player.getMaxHealth());
-            if (Math.abs(player.getHealth() - mirror) > 0.01f) player.setHealth(mirror);
+            float current = player.getHealth();
+            if (mirror > current + 0.01f || (allowHealthDrop && mirror < current - 0.01f)) player.setHealth(mirror);
         }
     }
 
@@ -100,7 +113,7 @@ public final class SurvivorService {
             }
             default -> {}
         }
-        applyEffects(player, data);
+        applyEffects(player, data, outcome == SurvivorHealthData.Outcome.DAMAGED);
         sync(player, data);
     }
 

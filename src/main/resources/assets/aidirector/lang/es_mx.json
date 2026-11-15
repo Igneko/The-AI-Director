@@ -3,7 +3,6 @@
   "message.aidirector.incapacitated": "¡Estás incapacitado! Espera a que un compañero te levante.",
   "message.aidirector.revive.busy": "Alguien ya está reanimando a este superviviente.",
   "message.aidirector.revive.done": "Has levantado a %s.",
-  "hud.aidirector.incapacitated": "INCAPACITADO - Sangrado: %s",
   "hud.aidirector.black_and_white": "BLANCO Y NEGRO",
   "hud.aidirector.reviving": "Reanimando...",
   "block.aidirector.ammo_pile": "Montón de munición",
@@ -16,5 +15,6 @@
   "message.aidirector.ammo.no_gun": "Empuña un arma para coger munición",
   "message.aidirector.ammo.not_allowed": "Esta arma no se puede recargar en montones de munición",
   "message.aidirector.ammo.no_space": "No te cabe más munición en el inventario",
-  "message.aidirector.backup_pistol.no_space": "No hay hueco para la pistola de respaldo"
+  "message.aidirector.backup_pistol.no_space": "No hay hueco para la pistola de respaldo",
+  "hud.aidirector.downed": "INCAPACITADO"
 }

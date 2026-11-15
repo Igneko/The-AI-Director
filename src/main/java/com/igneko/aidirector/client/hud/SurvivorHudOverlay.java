@@ -12,63 +12,81 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * HUD provisional de la Fase 1: barra de salud permanente (sólida) + temporal (punteada),
- * estado de incapacitación y progreso de reanimación. La Fase 6 lo sustituirá por el panel de escuadrón.
+ * Barra de salud del superviviente. Sustituye a los corazones vanilla y ocupa su mismo hueco
+ * (izquierda, sobre el hotbar): salud permanente sólida + temporal punteada, o el sangrado si está
+ * incapacitado. También dibuja la barra de reanimación en el centro de la pantalla.
+ * La Fase 6 añadirá el panel de escuadrón con los compañeros.
  */
 @Mod.EventBusSubscriber(modid = TheAIDirector.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class SurvivorHudOverlay implements IGuiOverlay {
 
-    private static final int BAR_WIDTH = 100;
-    private static final int BAR_HEIGHT = 5;
+    /** Mismo ancho que la fila de 10 corazones vanilla. */
+    private static final int BAR_WIDTH = 81;
+    private static final int BAR_HEIGHT = 9;
 
     @SubscribeEvent
     public static void register(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "survivor_health", new SurvivorHudOverlay());
+        // Justo después de PLAYER_HEALTH: así sumamos nuestra altura a leftHeight antes de que
+        // armadura y aire calculen su posición.
+        event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "survivor_health", new SurvivorHudOverlay());
+        MinecraftForge.EVENT_BUS.addListener(SurvivorHudOverlay::hideVanillaHearts);
+    }
+
+    /** Oculta los corazones vanilla mientras el jugador esté gestionado por el sistema de salud. */
+    private static void hideVanillaHearts(RenderGuiOverlayEvent.Pre event) {
+        if (!event.getOverlay().id().equals(VanillaGuiOverlay.PLAYER_HEALTH.id())) return;
+        Player player = Minecraft.getInstance().player;
+        if (player != null && SurvivorCapability.get(player).isPresent()) event.setCanceled(true);
     }
 
     @Override
     public void render(ForgeGui gui, GuiGraphics g, float partialTick, int width, int height) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
-        if (player == null || mc.options.hideGui || player.isCreative() || player.isSpectator()) return;
+        if (player == null || mc.options.hideGui) return;
         SurvivorHealthData data = SurvivorCapability.get(player).orElse(null);
         if (data == null) return;
 
         SurvivorRules rules = AIDirectorConfig.rules();
         Font font = mc.font;
-        int x = 8;
-        int y = height - 30;
 
-        if (data.isIncapacitated()) {
-            float bleedRatio = data.bleedHealth() / rules.bleedPool();
-            g.drawString(font, Component.translatable("hud.aidirector.incapacitated", Math.round(data.bleedHealth())), x, y - 10, 0xFF5555);
-            drawBar(g, x, y, bleedRatio, 0xFFAA0000, 0);
-            if (data.isBeingRevived()) drawReviveBar(g, font, width, height, data.reviveProgress());
-        } else if (data.isAlive()) {
-            int color = data.isBlackAndWhite(rules) ? 0xAAAAAA : 0xFFFFFF;
-            String label = Math.round(data.permHealth()) + (data.tempHealth() >= 0.5f ? " +" + Math.round(data.tempHealth()) : "");
-            g.drawString(font, label, x, y - 10, color);
-            if (data.isBlackAndWhite(rules)) {
-                g.drawString(font, Component.translatable("hud.aidirector.black_and_white"), x + 50, y - 10, 0x888888);
+        if (gui.shouldDrawSurvivalElements()) {
+            int x = width / 2 - 91;
+            int y = height - gui.leftHeight;
+            gui.leftHeight += BAR_HEIGHT + 1;
+
+            if (data.isIncapacitated()) {
+                drawBar(g, x, y, data.bleedHealth() / rules.bleedPool(), 0xFFAA0000, 0f);
+                drawLabel(g, font, x, y, String.valueOf(Math.round(data.bleedHealth())), 0xFFFFFF);
+                drawTitle(g, font, x, y, Component.translatable("hud.aidirector.downed"), 0xFF5555);
+            } else if (data.isAlive()) {
+                boolean bw = data.isBlackAndWhite(rules);
+                drawBar(g, x, y, data.permHealth() / rules.maxHealth(), healthColor(data, rules), data.tempHealth() / rules.maxHealth());
+                String label = Math.round(data.permHealth()) + (data.tempHealth() >= 0.5f ? " +" + Math.round(data.tempHealth()) : "");
+                drawLabel(g, font, x, y, label, bw ? 0xBBBBBB : 0xFFFFFF);
+                if (bw) drawTitle(g, font, x, y, Component.translatable("hud.aidirector.black_and_white"), 0xAAAAAA);
             }
-            drawBar(g, x, y, data.permHealth() / rules.maxHealth(), healthColor(data, rules), data.tempHealth() / rules.maxHealth());
         }
 
-        // Reanimando a otro: barra en el centro
-        if (data.isAlive() && mc.crosshairPickEntity instanceof Player target) {
+        if (data.isIncapacitated() && data.isBeingRevived()) {
+            drawReviveBar(g, font, width, height, data.reviveProgress());
+        } else if (data.isAlive() && mc.crosshairPickEntity instanceof Player target) {
             SurvivorCapability.get(target).filter(SurvivorHealthData::isBeingRevived)
                     .ifPresent(t -> drawReviveBar(g, font, width, height, t.reviveProgress()));
         }
     }
 
     private static int healthColor(SurvivorHealthData data, SurvivorRules rules) {
+        if (data.isBlackAndWhite(rules)) return 0xFF8A8A8A;
         float ratio = data.totalHealth() / rules.maxHealth();
         if (ratio >= rules.limpThresholdRatio()) return 0xFF33CC33;
         if (ratio > 0.01f) return 0xFFE0C020;
@@ -76,14 +94,25 @@ public final class SurvivorHudOverlay implements IGuiOverlay {
     }
 
     private static void drawBar(GuiGraphics g, int x, int y, float permRatio, int permColor, float tempRatio) {
-        g.fill(x - 1, y - 1, x + BAR_WIDTH + 1, y + BAR_HEIGHT + 1, 0xAA000000);
+        g.fill(x - 1, y - 1, x + BAR_WIDTH + 1, y + BAR_HEIGHT + 1, 0xC0000000);
+        g.fill(x, y, x + BAR_WIDTH, y + BAR_HEIGHT, 0xFF2A2A2A);
         int permW = Math.round(clamp(permRatio) * BAR_WIDTH);
         g.fill(x, y, x + permW, y + BAR_HEIGHT, permColor);
-        int tempW = Math.round(clamp(tempRatio) * BAR_WIDTH);
+        int tempW = Math.min(Math.round(clamp(tempRatio) * BAR_WIDTH), BAR_WIDTH - permW);
         // Salud temporal: segmentos punteados a continuación de la permanente.
         for (int i = 0; i < tempW; i += 3) {
-            g.fill(x + permW + i, y, x + permW + Math.min(i + 2, tempW), y + BAR_HEIGHT, 0xFFDDDDDD);
+            g.fill(x + permW + i, y + 1, x + permW + Math.min(i + 2, tempW), y + BAR_HEIGHT - 1, 0xFFDDDDDD);
         }
+    }
+
+    private static void drawLabel(GuiGraphics g, Font font, int x, int y, String text, int color) {
+        int tx = x + (BAR_WIDTH - font.width(text)) / 2;
+        g.drawString(font, text, tx, y + 1, color, true);
+    }
+
+    /** Etiqueta de estado a la izquierda de la barra (encima quedaría tapada por la armadura). */
+    private static void drawTitle(GuiGraphics g, Font font, int x, int y, Component text, int color) {
+        g.drawString(font, text, x - 4 - font.width(text), y + 1, color, true);
     }
 
     private static void drawReviveBar(GuiGraphics g, Font font, int width, int height, float progress) {

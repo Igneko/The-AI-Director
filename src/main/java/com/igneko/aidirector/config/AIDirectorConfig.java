@@ -60,6 +60,17 @@ public final class AIDirectorConfig {
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> PILE_EXCLUDED_GUNS;
     private static final ForgeConfigSpec.IntValue RESERVE_MAGAZINES;
 
+    // Hordas
+    private static final ForgeConfigSpec.IntValue HORDE_SIZE;
+    private static final ForgeConfigSpec.IntValue HORDE_AREA;
+    private static final ForgeConfigSpec.DoubleValue HORDE_MIN_DISTANCE;
+    private static final ForgeConfigSpec.IntValue HORDE_VERTICAL_SEARCH;
+    private static final ForgeConfigSpec.DoubleValue HORDE_SPEED_BONUS;
+    private static final ForgeConfigSpec.BooleanValue HORDE_FIRE_IMMUNE;
+
+    public record HordeSettings(int size, int areaSize, double minDistance, int verticalSearch,
+                                double speedBonus, boolean fireImmune) {}
+
     public record CombatSettings(double shoveRange, double shoveHalfAngleCos, double knockback, int staggerTicks,
                                  double chainRadius, ShoveFatigue.Rules fatigue, boolean taczMeleeShoves) {}
 
@@ -76,6 +87,8 @@ public final class AIDirectorConfig {
     private static volatile TaczSettings tacz = new TaczSettings(45, 55, 65, 12, 10,
             Set.of("pistol", "smg"), Set.of("shotgun", "sniper", "mg", "rpg"), Set.of("pistol"),
             "tacz:glock_17", Set.of("rpg", "mg"), Set.of(), 6);
+
+    private static volatile HordeSettings horde = new HordeSettings(30, 40, 8.0, 12, 0.3, true);
 
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
@@ -148,6 +161,21 @@ public final class AIDirectorConfig {
                 .defineInRange("reserveMagazines", 6, 1, 64);
         b.pop();
 
+        b.comment("Hordas (generadas por el Director; Enhanced Hordes les aplica su IA de horda)").push("horde");
+        HORDE_SIZE = b.comment("Infectados por horda")
+                .defineInRange("hordeSize", 30, 1, 300);
+        HORDE_AREA = b.comment("Lado del cuadrado (bloques) alrededor del jugador donde aparece la horda")
+                .defineInRange("hordeAreaSize", 40, 8, 128);
+        HORDE_MIN_DISTANCE = b.comment("Distancia mínima al jugador para no aparecer encima de él")
+                .defineInRange("hordeMinDistance", 8.0, 0.0, 60.0);
+        HORDE_VERTICAL_SEARCH = b.comment("Bloques arriba/abajo que se exploran buscando suelo")
+                .defineInRange("hordeVerticalSearch", 12, 1, 64);
+        HORDE_SPEED_BONUS = b.comment("Bonificación de velocidad de los infectados de horda (0.3 = +30 %)")
+                .defineInRange("hordeSpeedBonus", 0.3, 0.0, 3.0);
+        HORDE_FIRE_IMMUNE = b.comment("Los infectados de horda no mueren quemados por el sol")
+                .define("hordeFireImmune", true);
+        b.pop();
+
         SPEC = b.build();
     }
 
@@ -158,6 +186,7 @@ public final class AIDirectorConfig {
     public static boolean blockVanillaHealing() { return blockVanillaHealing; }
     public static CombatSettings combat() { return combat; }
     public static TaczSettings tacz() { return tacz; }
+    public static HordeSettings horde() { return horde; }
 
     private static Set<String> set(ForgeConfigSpec.ConfigValue<List<? extends String>> value) {
         return Set.copyOf(value.get().stream().map(String::toLowerCase).toList());
@@ -203,5 +232,8 @@ public final class AIDirectorConfig {
         tacz = new TaczSettings(NOISE_LIGHT.get(), NOISE_MEDIUM.get(), NOISE_HEAVY.get(), NOISE_SUPPRESSED.get(),
                 NOISE_COOLDOWN.get(), set(LIGHT_TYPES), set(HEAVY_TYPES), set(INCAP_TYPES), BACKUP_PISTOL.get().trim(),
                 set(PILE_EXCLUDED_TYPES), set(PILE_EXCLUDED_GUNS), RESERVE_MAGAZINES.get());
+
+        horde = new HordeSettings(HORDE_SIZE.get(), HORDE_AREA.get(), HORDE_MIN_DISTANCE.get(),
+                HORDE_VERTICAL_SEARCH.get(), HORDE_SPEED_BONUS.get(), HORDE_FIRE_IMMUNE.get());
     }
 }
