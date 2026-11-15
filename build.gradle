@@ -83,6 +83,18 @@ dependencies {
     // Desofuscación de mods locales en la carpeta "libs"
     implementation fg.deobf("blank:enhanced-hordes:1.1.0")
     implementation fg.deobf("blank:tacz:1.1.8-hotfix2")
+
+    // Tests unitarios del dominio (Java puro, sin arrancar Minecraft)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
 }
 
 tasks.named('processResources', ProcessResources).configure {

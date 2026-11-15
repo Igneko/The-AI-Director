@@ -1,0 +1,20 @@
+{
+  "death.attack.aidirector.bleedOut": "%1$s bled out",
+  "message.aidirector.incapacitated": "You are incapacitated! Wait for a teammate to help you up.",
+  "message.aidirector.revive.busy": "Someone is already reviving this survivor.",
+  "message.aidirector.revive.done": "You helped %s up.",
+  "hud.aidirector.incapacitated": "INCAPACITATED - Bleeding: %s",
+  "hud.aidirector.black_and_white": "BLACK & WHITE",
+  "hud.aidirector.reviving": "Reviving...",
+  "block.aidirector.ammo_pile": "Ammo Pile",
+  "effect.aidirector.staggered": "Staggered",
+  "key.categories.aidirector": "The AI Director",
+  "key.aidirector.shove": "Shove",
+  "key.aidirector.use": "Interact / Revive",
+  "message.aidirector.ammo.refilled": "Ammo replenished",
+  "message.aidirector.ammo.full": "Your ammo reserve is already full",
+  "message.aidirector.ammo.no_gun": "Hold a gun to pick up ammo",
+  "message.aidirector.ammo.not_allowed": "This weapon can't be refilled at ammo piles",
+  "message.aidirector.ammo.no_space": "No room in your inventory for more ammo",
+  "message.aidirector.backup_pistol.no_space": "No free slot for a backup pistol"
+}

@@ -3,7 +3,7 @@ loaderVersion="[47,)"
 license="MIT"
 
 [[mods]]
-modId="ai_director"
+modId="aidirector"
 version="1.0.0"
 displayName="The AI Director"
 authors="Igneko"

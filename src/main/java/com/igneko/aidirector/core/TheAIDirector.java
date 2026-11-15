@@ -1,20 +1,54 @@
 package com.igneko.aidirector.core;
 
+import com.igneko.aidirector.compat.tacz.IncapWeaponHandler;
+import com.igneko.aidirector.compat.tacz.TaczEventBridge;
+import com.igneko.aidirector.core.combat.StaggerHandler;
+import com.igneko.aidirector.core.director.NoiseAttractionHandler;
+import com.igneko.aidirector.registry.ModRegistries;
+import com.igneko.aidirector.config.AIDirectorConfig;
+import com.igneko.aidirector.core.survivor.SurvivorEventHandler;
+import com.igneko.aidirector.core.survivor.SurvivorHealthData;
+import com.igneko.aidirector.events.PlayerDamageListener;
+import com.igneko.aidirector.events.PlayerTickHandler;
+import com.igneko.aidirector.network.ModNetwork;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-// El modId definido en la estructura del proyecto es "ai_director"
 @Mod(TheAIDirector.MOD_ID)
 public class TheAIDirector {
-    
-    public static final String MOD_ID = "ai_director";
+    public static final String MOD_ID = "aidirector";
 
     public TheAIDirector() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Registrar el mod en el bus de eventos de Forge
-        MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AIDirectorConfig.SPEC);
+        modBus.addListener(AIDirectorConfig::onConfigChanged);
+        modBus.addListener(this::onRegisterCapabilities);
+        modBus.addListener(this::onCommonSetup);
+        ModRegistries.register(modBus);
+
+        // Bus global de Forge (eventos de juego).
+        MinecraftForge.EVENT_BUS.register(new CommandRegistry());
+        MinecraftForge.EVENT_BUS.register(new SurvivorEventHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerTickHandler());
+        MinecraftForge.EVENT_BUS.register(new PlayerDamageListener());
+        MinecraftForge.EVENT_BUS.register(new StaggerHandler());
+        MinecraftForge.EVENT_BUS.register(new NoiseAttractionHandler());
+        MinecraftForge.EVENT_BUS.register(new TaczEventBridge());
+        MinecraftForge.EVENT_BUS.register(new IncapWeaponHandler());
+    }
+
+    private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(SurvivorHealthData.class);
+    }
+
+    private void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(ModNetwork::register);
     }
 }

@@ -3,24 +3,38 @@ loaderVersion="[47,)"
 license="All rights reserved"
 
 [[mods]]
-modId="ai_director"
+modId="aidirector"
 version="1.0.0"
 displayName="The AI Director"
 authors="igneko"
 description='''
-Un sistema de dirección de IA dinámico que ajusta la tensión del jugador basado en el estrés.
+Overhaul táctico cooperativo estilo Left 4 Dead 2: AI Director adaptativo, salud híbrida, incapacitación y reanimación.
 '''
 
-[[dependencies.ai_director]]
+[[dependencies.aidirector]]
     modId="forge"
     mandatory=true
     versionRange="[47,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.ai_director]]
+[[dependencies.aidirector]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.20.1,1.21)"
     ordering="NONE"
+    side="BOTH"
+
+[[dependencies.aidirector]]
+    modId="tacz"
+    mandatory=true
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.aidirector]]
+    modId="enhanced_hordes"
+    mandatory=true
+    versionRange="[1.1.0,)"
+    ordering="AFTER"
     side="BOTH"

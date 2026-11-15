@@ -1,4 +1,4 @@
-package com.igneko.aidirector.compat;
+package com.igneko.aidirector.compat.enhancedhordes;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
