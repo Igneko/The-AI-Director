@@ -5,6 +5,12 @@ import com.igneko.aidirector.compat.tacz.TaczEventBridge;
 import com.igneko.aidirector.core.combat.StaggerHandler;
 import com.igneko.aidirector.core.director.NoiseAttractionHandler;
 import com.igneko.aidirector.registry.ModRegistries;
+import com.igneko.aidirector.registry.ModEntities;
+import com.igneko.aidirector.registry.ModSounds;
+import com.igneko.aidirector.registry.ModWeapons;
+import com.igneko.aidirector.core.survivor.PinService;
+import com.igneko.aidirector.core.director.BileService;
+import com.igneko.aidirector.entity.infected.WailerEntity;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.survivor.SurvivorEventHandler;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
@@ -32,6 +38,9 @@ public class TheAIDirector {
         modBus.addListener(this::onRegisterCapabilities);
         modBus.addListener(this::onCommonSetup);
         ModRegistries.register(modBus);
+        ModSounds.register(modBus);
+        ModEntities.register(modBus);
+        ModWeapons.register(modBus);
 
         // Bus global de Forge (eventos de juego).
         MinecraftForge.EVENT_BUS.register(new CommandRegistry());
@@ -42,6 +51,12 @@ public class TheAIDirector {
         MinecraftForge.EVENT_BUS.register(new NoiseAttractionHandler());
         MinecraftForge.EVENT_BUS.register(new TaczEventBridge());
         MinecraftForge.EVENT_BUS.register(new IncapWeaponHandler());
+        MinecraftForge.EVENT_BUS.register(new PinService());
+        MinecraftForge.EVENT_BUS.register(new BileService());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.combat.MeleeHandler());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.IntensityTracker());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.SpecialInfectedSpawner());
+        MinecraftForge.EVENT_BUS.register(new WailerEntity.NoiseListener());
     }
 
     private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {

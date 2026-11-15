@@ -59,6 +59,7 @@ public final class AIDirectorConfig {
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> PILE_EXCLUDED_TYPES;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> PILE_EXCLUDED_GUNS;
     private static final ForgeConfigSpec.IntValue RESERVE_MAGAZINES;
+    private static final ForgeConfigSpec.BooleanValue PILE_SINGLE_USE;
 
     // Hordas
     private static final ForgeConfigSpec.IntValue HORDE_SIZE;
@@ -67,6 +68,29 @@ public final class AIDirectorConfig {
     private static final ForgeConfigSpec.IntValue HORDE_VERTICAL_SEARCH;
     private static final ForgeConfigSpec.DoubleValue HORDE_SPEED_BONUS;
     private static final ForgeConfigSpec.BooleanValue HORDE_FIRE_IMMUNE;
+
+    // Infectados especiales
+    private static final ForgeConfigSpec.DoubleValue INF_HEALTH_MULT;
+    private static final ForgeConfigSpec.DoubleValue INF_DAMAGE_MULT;
+    private static final ForgeConfigSpec.DoubleValue BEHEMOTH_HEALTH;
+    private static final ForgeConfigSpec.BooleanValue TEAM_WIPE;
+    private static final ForgeConfigSpec.IntValue TEAM_WIPE_MIN;
+    private static final ForgeConfigSpec.IntValue BILE_HORDE_SIZE;
+
+    public record InfectedSettings(double healthMultiplier, double damageMultiplier, double behemothHealth,
+                                   boolean teamWipe, int teamWipeMinPlayers, int bileHordeSize) {}
+
+    // Aparición natural de especiales
+    private static final ForgeConfigSpec.BooleanValue SPAWN_ENABLED;
+    private static final ForgeConfigSpec.DoubleValue SPAWN_CHANCE;
+    private static final ForgeConfigSpec.IntValue SPAWN_MAX_NEARBY;
+    private static final ForgeConfigSpec.IntValue SPAWN_MIN_SECONDS;
+    private static final ForgeConfigSpec.IntValue SPAWN_RELAX_SECONDS;
+    private static final ForgeConfigSpec.DoubleValue BEHEMOTH_CHANCE;
+    private static final ForgeConfigSpec.IntValue BEHEMOTH_COOLDOWN;
+
+    public record SpawnSettings(boolean enabled, double baseChance, int maxNearby, int minSecondsBetween,
+                                int relaxSeconds, double behemothChance, int behemothCooldownMinutes) {}
 
     public record HordeSettings(int size, int areaSize, double minDistance, int verticalSearch,
                                 double speedBonus, boolean fireImmune) {}
@@ -77,7 +101,7 @@ public final class AIDirectorConfig {
     public record TaczSettings(double noiseLight, double noiseMedium, double noiseHeavy, double noiseSuppressed,
                                int noiseCooldownTicks, Set<String> lightTypes, Set<String> heavyTypes,
                                Set<String> incapTypes, String backupPistol, Set<String> pileExcludedTypes,
-                               Set<String> pileExcludedGuns, int reserveMagazines) {}
+                               Set<String> pileExcludedGuns, int reserveMagazines, boolean ammoPileSingleUse) {}
 
     private static volatile SurvivorRules rules = SurvivorRules.DEFAULTS;
     private static volatile double reviveRange = 2.5;
@@ -86,8 +110,10 @@ public final class AIDirectorConfig {
             1.2, ShoveFatigue.Rules.DEFAULTS, false);
     private static volatile TaczSettings tacz = new TaczSettings(45, 55, 65, 12, 10,
             Set.of("pistol", "smg"), Set.of("shotgun", "sniper", "mg", "rpg"), Set.of("pistol"),
-            "tacz:glock_17", Set.of("rpg", "mg"), Set.of(), 6);
+            "tacz:glock_17", Set.of("rpg", "mg"), Set.of(), 6, true);
 
+    private static volatile SpawnSettings spawning = new SpawnSettings(true, 0.05, 3, 25, 35, 0.03, 15);
+    private static volatile InfectedSettings infected = new InfectedSettings(1.0, 1.0, 800.0, true, 2, 15);
     private static volatile HordeSettings horde = new HordeSettings(30, 40, 8.0, 12, 0.3, true);
 
     static {
@@ -159,6 +185,8 @@ public final class AIDirectorConfig {
                 .defineListAllowEmpty("ammoPileExcludedGuns", List.of(), o -> o instanceof String);
         RESERVE_MAGAZINES = b.comment("Reserva máxima de munición = tamaño de cargador x este valor")
                 .defineInRange("reserveMagazines", 6, 1, 64);
+        PILE_SINGLE_USE = b.comment("Si es true, el montón de munición desaparece tras reponer munición una vez")
+                .define("ammoPileSingleUse", true);
         b.pop();
 
         b.comment("Hordas (generadas por el Director; Enhanced Hordes les aplica su IA de horda)").push("horde");
@@ -176,6 +204,35 @@ public final class AIDirectorConfig {
                 .define("hordeFireImmune", true);
         b.pop();
 
+        b.comment("Infectados especiales (vida y daño en puntos vanilla: 1 = medio corazón; L4D2 / 5)").push("infected");
+        INF_HEALTH_MULT = b.defineInRange("healthMultiplier", 1.0, 0.1, 20.0);
+        INF_DAMAGE_MULT = b.defineInRange("damageMultiplier", 1.0, 0.0, 20.0);
+        BEHEMOTH_HEALTH = b.comment("Vida base del Coloso en dificultad normal (fácil x0.75, difícil x2)")
+                .defineInRange("behemothHealth", 800.0, 50.0, 10000.0);
+        TEAM_WIPE = b.comment("Derrota inmediata si todos los supervivientes están incapacitados o atrapados")
+                .define("teamWipe", true);
+        TEAM_WIPE_MIN = b.comment("Supervivientes mínimos para aplicar la derrota de equipo (en solitario se puede forcejear)")
+                .defineInRange("teamWipeMinPlayers", 2, 1, 64);
+        BILE_HORDE_SIZE = b.comment("Infectados que acuden al ser cubierto de bilis")
+                .defineInRange("bileHordeSize", 15, 0, 200);
+        b.pop();
+
+        b.comment("Aparición natural de Infectados Especiales guiada por la intensidad (estrés) de cada jugador").push("spawning");
+        SPAWN_ENABLED = b.define("naturalSpawning", true);
+        SPAWN_CHANCE = b.comment("Probabilidad base por comprobación (cada 2 s); crece con el tiempo sin especiales y con el estrés")
+                .defineInRange("baseChance", 0.05, 0.0, 1.0);
+        SPAWN_MAX_NEARBY = b.comment("Máximo de especiales vivos a 64 bloques de un jugador")
+                .defineInRange("maxNearby", 3, 0, 32);
+        SPAWN_MIN_SECONDS = b.comment("Segundos mínimos entre especiales cerca del mismo jugador")
+                .defineInRange("minSecondsBetween", 25, 0, 3600);
+        SPAWN_RELAX_SECONDS = b.comment("Calma tras alcanzar el pico de estrés (sin especiales nuevos)")
+                .defineInRange("relaxSeconds", 35, 0, 600);
+        BEHEMOTH_CHANCE = b.comment("Probabilidad de que una aparición sea un Coloso (si se cumplen sus condiciones)")
+                .defineInRange("behemothChance", 0.03, 0.0, 1.0);
+        BEHEMOTH_COOLDOWN = b.comment("Minutos mínimos entre Colosos")
+                .defineInRange("behemothCooldownMinutes", 15, 0, 1440);
+        b.pop();
+
         SPEC = b.build();
     }
 
@@ -187,6 +244,8 @@ public final class AIDirectorConfig {
     public static CombatSettings combat() { return combat; }
     public static TaczSettings tacz() { return tacz; }
     public static HordeSettings horde() { return horde; }
+    public static InfectedSettings infected() { return infected; }
+    public static SpawnSettings spawning() { return spawning; }
 
     private static Set<String> set(ForgeConfigSpec.ConfigValue<List<? extends String>> value) {
         return Set.copyOf(value.get().stream().map(String::toLowerCase).toList());
@@ -231,8 +290,13 @@ public final class AIDirectorConfig {
 
         tacz = new TaczSettings(NOISE_LIGHT.get(), NOISE_MEDIUM.get(), NOISE_HEAVY.get(), NOISE_SUPPRESSED.get(),
                 NOISE_COOLDOWN.get(), set(LIGHT_TYPES), set(HEAVY_TYPES), set(INCAP_TYPES), BACKUP_PISTOL.get().trim(),
-                set(PILE_EXCLUDED_TYPES), set(PILE_EXCLUDED_GUNS), RESERVE_MAGAZINES.get());
+                set(PILE_EXCLUDED_TYPES), set(PILE_EXCLUDED_GUNS), RESERVE_MAGAZINES.get(),
+                PILE_SINGLE_USE.get());
 
+        spawning = new SpawnSettings(SPAWN_ENABLED.get(), SPAWN_CHANCE.get(), SPAWN_MAX_NEARBY.get(), SPAWN_MIN_SECONDS.get(),
+                SPAWN_RELAX_SECONDS.get(), BEHEMOTH_CHANCE.get(), BEHEMOTH_COOLDOWN.get());
+        infected = new InfectedSettings(INF_HEALTH_MULT.get(), INF_DAMAGE_MULT.get(), BEHEMOTH_HEALTH.get(),
+                TEAM_WIPE.get(), TEAM_WIPE_MIN.get(), BILE_HORDE_SIZE.get());
         horde = new HordeSettings(HORDE_SIZE.get(), HORDE_AREA.get(), HORDE_MIN_DISTANCE.get(),
                 HORDE_VERTICAL_SEARCH.get(), HORDE_SPEED_BONUS.get(), HORDE_FIRE_IMMUNE.get());
     }

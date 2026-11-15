@@ -1,6 +1,7 @@
 package com.igneko.aidirector.world.supply;
 
 import com.igneko.aidirector.compat.tacz.AmmoRefillService;
+import com.igneko.aidirector.config.AIDirectorConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -16,7 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Montón de munición L4D2: al usarlo con un arma de TaCZ en la mano, rellena la reserva del calibre
- * del arma hasta el máximo. Las armas de nivel 3 (lanzagranadas, M60...) no se pueden recargar aquí.
+ * del arma hasta el máximo y, por defecto, se consume (un solo uso). Las armas de nivel 3 (lanzagranadas, M60...) no se pueden recargar aquí.
  */
 public class AmmoPileBlock extends Block {
 
@@ -37,7 +38,12 @@ public class AmmoPileBlock extends Block {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
                                  BlockHitResult hit) {
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
-        if (!level.isClientSide() && player instanceof ServerPlayer sp) AmmoRefillService.refill(sp);
+        if (!level.isClientSide() && player instanceof ServerPlayer sp
+                && AmmoRefillService.refill(sp) == AmmoRefillService.Result.REFILLED
+                && AIDirectorConfig.tacz().ammoPileSingleUse()) {
+            // Montón de un solo uso: se consume (con partículas y sonido de rotura, sin soltar el bloque).
+            level.destroyBlock(pos, false, player);
+        }
         return InteractionResult.sidedSuccess(level.isClientSide());
     }
 }

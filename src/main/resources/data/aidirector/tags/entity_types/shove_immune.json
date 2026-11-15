@@ -1,1 +1,13 @@
-{ "replace": false, "values": ["minecraft:ravager", "minecraft:warden", "minecraft:wither", "minecraft:ender_dragon", "minecraft:iron_golem"] }
+{
+  "replace": false,
+  "values": [
+    "minecraft:ravager",
+    "minecraft:warden",
+    "minecraft:wither",
+    "minecraft:ender_dragon",
+    "minecraft:iron_golem",
+    "aidirector:rammer",
+    "aidirector:behemoth",
+    "aidirector:wailer"
+  ]
+}

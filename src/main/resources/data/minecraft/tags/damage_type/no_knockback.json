@@ -1,4 +1,8 @@
 {
   "replace": false,
-  "values": ["aidirector:bleed_out"]
+  "values": [
+    "aidirector:acid",
+    "aidirector:bleed_out",
+    "aidirector:infected_pin"
+  ]
 }

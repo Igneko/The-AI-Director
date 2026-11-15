@@ -3,6 +3,7 @@ package com.igneko.aidirector.compat.tacz;
 import com.igneko.aidirector.api.event.AcousticPulseEvent;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.combat.ShoveService;
+import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
 import com.igneko.aidirector.core.survivor.SurvivorService;
@@ -41,6 +42,8 @@ public final class TaczEventBridge {
         if (downed && !IncapWeaponHandler.isAllowedWhileDowned(event.getGunItemStack())) {
             event.setCanceled(true);
         }
+        // Atrapado por un Infectado Especial: solo se dispara durante el arrastre de la lengua.
+        if (SurvivorService.isManaged(player) && !PinService.canShoot(player)) event.setCanceled(true);
     }
 
     @SubscribeEvent

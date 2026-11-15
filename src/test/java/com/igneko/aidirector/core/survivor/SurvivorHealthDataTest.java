@@ -127,4 +127,21 @@ class SurvivorHealthDataTest {
         d.forceIncapacitate(R);
         assertEquals(0f, d.speedMultiplier(R), EPS);
     }
+
+    @Test
+    void pinnedSurvivorCannotMoveAndPinClearsOnDeath() {
+        SurvivorHealthData d = new SurvivorHealthData(R);
+        d.setPin(42, PinType.POUNCE);
+        assertTrue(d.isPinned());
+        assertEquals(42, d.pinnerEntityId());
+        assertEquals(0f, d.speedMultiplier(R), EPS);
+        d.clearPin();
+        assertFalse(d.isPinned());
+        assertEquals(-1, d.pinnerEntityId());
+        assertEquals(1f, d.speedMultiplier(R), EPS);
+
+        d.setPin(7, PinType.CHOKE);
+        d.forceDead();
+        assertFalse(d.isPinned());
+    }
 }

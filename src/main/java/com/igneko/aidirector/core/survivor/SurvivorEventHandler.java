@@ -68,7 +68,10 @@ public final class SurvivorEventHandler {
 
     @SubscribeEvent
     public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (event.getEntity() instanceof ServerPlayer sp) ReviveManager.cancelAllInvolving(sp);
+        if (event.getEntity() instanceof ServerPlayer sp) {
+            ReviveManager.cancelAllInvolving(sp);
+            PinService.release(sp);
+        }
         com.igneko.aidirector.core.combat.ShoveService.forget(event.getEntity().getUUID());
     }
 
@@ -82,6 +85,7 @@ public final class SurvivorEventHandler {
     @SubscribeEvent
     public void onServerStopped(ServerStoppedEvent event) {
         ReviveManager.clear();
+        PinService.clear();
     }
 
     private static void refresh(Player player) {
@@ -115,6 +119,7 @@ public final class SurvivorEventHandler {
         if (outcome == SurvivorHealthData.Outcome.KILLED) {
             event.setAmount(Float.MAX_VALUE);
             ReviveManager.cancelAllInvolving(player);
+            PinService.release(player);
             return;
         }
 

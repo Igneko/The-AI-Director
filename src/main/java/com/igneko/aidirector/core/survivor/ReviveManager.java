@@ -31,7 +31,7 @@ public final class ReviveManager {
         SurvivorHealthData targetData = SurvivorCapability.get(target).orElse(null);
         SurvivorHealthData reviverData = SurvivorCapability.get(reviver).orElse(null);
         if (targetData == null || reviverData == null) return false;
-        if (!targetData.isIncapacitated() || !reviverData.isAlive()) return false;
+        if (!targetData.isIncapacitated() || !reviverData.isAlive() || reviverData.isPinned()) return false;
 
         Session existing = SESSIONS.get(reviver.getUUID());
         if (existing != null && !existing.target().equals(target.getUUID())) {
@@ -59,7 +59,7 @@ public final class ReviveManager {
 
             boolean valid = reviver != null && target != null && targetData != null && reviverData != null
                     && reviver.level() == target.level()
-                    && reviverData.isAlive() && targetData.isIncapacitated()
+                    && reviverData.isAlive() && !reviverData.isPinned() && targetData.isIncapacitated()
                     && entry.getKey().equals(targetData.reviverId())
                     && reviver.distanceToSqr(target) <= maxRangeSq
                     && reviver.level().getGameTime() - entry.getValue().lastInteractTick() <= HOLD_TIMEOUT_TICKS;

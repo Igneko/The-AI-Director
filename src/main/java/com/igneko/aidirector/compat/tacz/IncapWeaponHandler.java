@@ -79,15 +79,14 @@ public final class IncapWeaponHandler {
 
         int slot = freeHotbarSlot(inv);
         if (slot < 0) {
-            // Liberamos la última ranura del hotbar moviendo su contenido a la mochila.
-            int free = freeMainSlot(inv);
-            if (free < 0) {
-                player.displayClientMessage(Component.translatable("message.aidirector.backup_pistol.no_space"), true);
-                return inv.selected;
-            }
+            // Liberamos la ranura 9 del hotbar: a la mochila si cabe; si el inventario está lleno,
+            // el jugador la suelta al suelo (como si la tirara) para empuñar la pistola.
             slot = Inventory.getSelectionSize() - 1;
-            inv.setItem(free, inv.getItem(slot));
+            ItemStack displaced = inv.getItem(slot);
+            int free = freeMainSlot(inv);
             inv.setItem(slot, ItemStack.EMPTY);
+            if (free >= 0) inv.setItem(free, displaced);
+            else player.drop(displaced, false, true);
         }
         ItemStack backup = TaczGuns.buildGun(gunId);
         backup.getOrCreateTag().putBoolean(BACKUP_TAG, true);

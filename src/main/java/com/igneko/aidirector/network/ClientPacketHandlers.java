@@ -22,11 +22,15 @@ final class ClientPacketHandlers {
         Entity entity = mc.level.getEntity(msg.entityId());
         if (!(entity instanceof Player player)) return;
 
-        SurvivorCapability.get(player).ifPresent(d -> d.restore(msg.perm(), msg.temp(), msg.state(),
-                msg.incapCount(), msg.bleed(), msg.adrenalineTicks(), msg.reviveProgress(), msg.beingRevived()));
+        SurvivorCapability.get(player).ifPresent(d -> {
+            d.restore(msg.perm(), msg.temp(), msg.state(), msg.incapCount(), msg.bleed(), msg.adrenalineTicks(),
+                    msg.reviveProgress(), msg.beingRevived());
+            d.setPin(msg.pinnerId(), msg.pinType());
+        });
 
         // La pose se calcula localmente en cada tick: hay que forzarla también en el cliente.
-        player.setForcedPose(msg.state() == SurvivorState.INCAPACITATED ? Pose.SWIMMING : null);
+        boolean lying = msg.state() == SurvivorState.INCAPACITATED || msg.pinType().lying();
+        player.setForcedPose(lying ? Pose.SWIMMING : null);
     }
 
     static void handleShoveCooldown(ShoveCooldownPacket msg) {

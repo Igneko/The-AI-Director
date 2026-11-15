@@ -1,5 +1,6 @@
 package com.igneko.aidirector.client.hud;
 
+import com.igneko.aidirector.client.BlackAndWhiteEffect;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.TheAIDirector;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
@@ -38,6 +39,8 @@ public final class SurvivorHudOverlay implements IGuiOverlay {
         // Justo después de PLAYER_HEALTH: así sumamos nuestra altura a leftHeight antes de que
         // armadura y aire calculen su posición.
         event.registerAbove(VanillaGuiOverlay.PLAYER_HEALTH.id(), "survivor_health", new SurvivorHudOverlay());
+        event.registerBelowAll("black_and_white_vignette", SurvivorHudOverlay::renderBlackAndWhiteVignette);
+        event.registerBelowAll("bile_splatter", SurvivorHudOverlay::renderBile);
         MinecraftForge.EVENT_BUS.addListener(SurvivorHudOverlay::hideVanillaHearts);
     }
 
@@ -77,11 +80,61 @@ public final class SurvivorHudOverlay implements IGuiOverlay {
             }
         }
 
+        if (data.isPinned()) {
+            boolean flash = (player.tickCount / 6) % 2 == 0;
+            Component pinned = Component.translatable("hud.aidirector.pinned." + data.pinType().name().toLowerCase(java.util.Locale.ROOT));
+            g.drawCenteredString(font, pinned, width / 2, height / 2 - 34, flash ? 0xFF4040 : 0xFFAAAA);
+            if (data.pinType().canShoot()) {
+                g.drawCenteredString(font, Component.translatable("hud.aidirector.pinned.shoot"), width / 2, height / 2 - 23, 0xFFFFFF);
+            }
+        }
+
         if (data.isIncapacitated() && data.isBeingRevived()) {
             drawReviveBar(g, font, width, height, data.reviveProgress());
         } else if (data.isAlive() && mc.crosshairPickEntity instanceof Player target) {
             SurvivorCapability.get(target).filter(SurvivorHealthData::isBeingRevived)
                     .ifPresent(t -> drawReviveBar(g, font, width, height, t.reviveProgress()));
+        }
+    }
+
+    /** Viñeta roja tenue en los bordes durante el estado Blanco y Negro (late con el corazón). */
+    private static void renderBlackAndWhiteVignette(ForgeGui gui, GuiGraphics g, float partialTick, int width, int height) {
+        if (!BlackAndWhiteEffect.isActive() || Minecraft.getInstance().options.hideGui) return;
+        Player player = Minecraft.getInstance().player;
+        float time = (player == null ? 0 : player.tickCount) + partialTick;
+        float pulse = 0.75f + 0.25f * (float) Math.pow(Math.abs(Math.sin(time * Math.PI / 22.0)), 6);
+        int steps = 12;
+        int band = Math.max(2, Math.min(width, height) / 40);
+        for (int i = 0; i < steps; i++) {
+            int alpha = Math.round(70 * pulse * (1f - (float) i / steps));
+            int color = (alpha << 24) | 0x8A0000;
+            int o = i * band;
+            g.fill(o, o, width - o, o + band, color);                       // arriba
+            g.fill(o, height - o - band, width - o, height - o, color);      // abajo
+            g.fill(o, o + band, o + band, height - o - band, color);        // izquierda
+            g.fill(width - o - band, o + band, width - o, height - o - band, color); // derecha
+        }
+    }
+
+    /** Bilis: manchas verdosas que emborronan parte de la pantalla y se desvanecen al final. */
+    private static void renderBile(ForgeGui gui, GuiGraphics g, float partialTick, int width, int height) {
+        Player player = Minecraft.getInstance().player;
+        if (player == null || Minecraft.getInstance().options.hideGui) return;
+        var effect = player.getEffect(com.igneko.aidirector.registry.ModRegistries.BILED.get());
+        if (effect == null) return;
+        float fade = Math.min(1f, effect.getDuration() / 60f);
+        java.util.Random rng = new java.util.Random(player.getId() * 31L + 7);
+        for (int i = 0; i < 14; i++) {
+            int cx = rng.nextInt(width), cy = rng.nextInt(height);
+            int r = 25 + rng.nextInt(Math.max(1, Math.min(width, height) / 5));
+            int alpha = Math.round((110 + rng.nextInt(70)) * fade);
+            int color = (alpha << 24) | (rng.nextBoolean() ? 0x5C7A12 : 0x7A8F1E);
+            // Mancha irregular: pila de rectángulos de anchura senoidal.
+            for (int dy = -r; dy <= r; dy += 3) {
+                double k = Math.sqrt(1 - (dy / (double) r) * (dy / (double) r));
+                int w = (int) (r * k * (0.75 + 0.25 * Math.sin(dy * 0.3 + i)));
+                g.fill(cx - w, cy + dy, cx + w, cy + dy + 3, color);
+            }
         }
     }
 

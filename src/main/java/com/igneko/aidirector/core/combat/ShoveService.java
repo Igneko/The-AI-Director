@@ -3,6 +3,7 @@ package com.igneko.aidirector.core.combat;
 import com.igneko.aidirector.api.event.ShoveEvent;
 import com.igneko.aidirector.compat.tacz.TaczGuns;
 import com.igneko.aidirector.config.AIDirectorConfig;
+import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.ReviveManager;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
@@ -45,8 +46,9 @@ public final class ShoveService {
     public static boolean tryShove(ServerPlayer player) {
         if (!SurvivorService.isManaged(player) || !player.isAlive()) return false;
         SurvivorHealthData data = SurvivorCapability.get(player).orElse(null);
-        if (data == null || !data.isAlive() || ReviveManager.isReviving(player)) return false;
-        // TODO Fase 5: tampoco se puede empujar estando PINNED.
+        if (data == null) return false;
+        if (data.isPinned()) return PinService.tryStruggle(player);
+        if (!data.isAlive() || ReviveManager.isReviving(player)) return false;
 
         AIDirectorConfig.CombatSettings cfg = AIDirectorConfig.combat();
         ShoveFatigue fatigue = FATIGUE.computeIfAbsent(player.getUUID(), id -> new ShoveFatigue());

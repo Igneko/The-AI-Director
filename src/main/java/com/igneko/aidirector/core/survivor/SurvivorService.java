@@ -62,8 +62,9 @@ public final class SurvivorService {
         boolean managed = isManaged(player);
 
         // Pose derribada
-        Pose wanted = managed && data.isIncapacitated() ? Pose.SWIMMING : null;
+        Pose wanted = managed && (data.isIncapacitated() || data.pinType().lying()) ? Pose.SWIMMING : null;
         if (player.getForcedPose() != wanted) player.setForcedPose(wanted);
+        if (wanted != null && player.getPose() != wanted) player.setPose(wanted);
 
         // Limp Mode / inmovilización
         float multiplier = managed ? data.speedMultiplier(rules) : 1f;
@@ -105,10 +106,11 @@ public final class SurvivorService {
                 ReviveManager.cancelAllInvolving(player);
                 player.stopUsingItem();
                 player.displayClientMessage(Component.translatable("message.aidirector.incapacitated"), true);
-                // TODO Fase 3: notificar al AI Director (+0.40 de intensidad a aliados en 24 bloques).
+                com.igneko.aidirector.core.director.IntensityTracker.onAllyIncapacitated(player);
             }
             case KILLED -> {
                 ReviveManager.cancelAllInvolving(player);
+                PinService.release(player);
                 // TODO Fase 3: notificar al AI Director (+0.75 de intensidad a aliados).
             }
             default -> {}

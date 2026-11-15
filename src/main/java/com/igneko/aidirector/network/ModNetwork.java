@@ -9,7 +9,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 /** Canal de red único del mod. Todo paquete S2C es informativo; el servidor es la autoridad. */
 public final class ModNetwork {
 
-    private static final String PROTOCOL = "2";
+    private static final String PROTOCOL = "3";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(TheAIDirector.MOD_ID, "main"),

@@ -3,6 +3,7 @@ package com.igneko.aidirector.core;
 import com.igneko.aidirector.compat.enhancedhordes.EnhancedHordesCompat;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.igneko.aidirector.core.survivor.MedicalService;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
 import com.igneko.aidirector.core.survivor.SurvivorRules;
@@ -39,8 +40,10 @@ public class CommandRegistry {
                 long minutes = secondsLeft / 60;
                 long seconds = secondsLeft % 60;
 
+                float stress = com.igneko.aidirector.core.director.IntensityTracker.get(player);
                 source.sendSuccess(() -> Component.literal(
                     "§e[AI Director] §fTiempo estimado para horda: §c" + minutes + "m " + seconds + "s"
+                    + " §f| Estrés: §c" + Math.round(stress * 100) + "%"
                 ), false);
                 
                 return 1;
@@ -67,9 +70,9 @@ public class CommandRegistry {
             // Subcomandos de depuración del sistema de salud: /aidirector survivor <acción> [jugador]
             .then(Commands.literal("survivor")
                 .then(survivorAction("info", (p, d) -> {}))
-                .then(survivorAction("pills", (p, d) -> d.usePainPills(AIDirectorConfig.rules())))
-                .then(survivorAction("adrenaline", (p, d) -> d.useAdrenaline(AIDirectorConfig.rules())))
-                .then(survivorAction("firstaid", (p, d) -> d.useFirstAid(AIDirectorConfig.rules())))
+                .then(survivorAction("pills", (p, d) -> MedicalService.applyPainPills(p)))
+                .then(survivorAction("adrenaline", (p, d) -> MedicalService.applyAdrenaline(p)))
+                .then(survivorAction("firstaid", (p, d) -> MedicalService.applyFirstAid(p)))
                 .then(survivorAction("incap", (p, d) -> {
                     SurvivorHealthData.Outcome o = d.forceIncapacitate(AIDirectorConfig.rules());
                     if (o == SurvivorHealthData.Outcome.KILLED) SurvivorService.killForReal(p);

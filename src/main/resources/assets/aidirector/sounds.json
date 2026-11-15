@@ -1,0 +1,703 @@
+{
+  "lurker.ambient": {
+    "subtitle": "subtitles.aidirector.lurker.ambient",
+    "sounds": [
+      {
+        "name": "entity.wolf.growl",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 0.8
+      },
+      {
+        "name": "entity.zombie.ambient",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 0.7
+      }
+    ]
+  },
+  "lurker.pounce": {
+    "subtitle": "subtitles.aidirector.lurker.pounce",
+    "sounds": [
+      {
+        "name": "entity.fox.screech",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 1.2
+      },
+      {
+        "name": "entity.phantom.swoop",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 0.9
+      }
+    ]
+  },
+  "lurker.hurt": {
+    "subtitle": "subtitles.aidirector.lurker.hurt",
+    "sounds": [
+      {
+        "name": "entity.zombie.hurt",
+        "type": "event",
+        "pitch": 0.75,
+        "volume": 1.0
+      }
+    ]
+  },
+  "lurker.death": {
+    "subtitle": "subtitles.aidirector.lurker.death",
+    "sounds": [
+      {
+        "name": "entity.zombie.death",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.0
+      }
+    ]
+  },
+  "lurker.spawn": {
+    "subtitle": "subtitles.aidirector.lurker.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.didgeridoo",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 2.5
+      }
+    ]
+  },
+  "strangler.ambient": {
+    "subtitle": "subtitles.aidirector.strangler.ambient",
+    "sounds": [
+      {
+        "name": "entity.panda.sneeze",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 0.9
+      },
+      {
+        "name": "entity.drowned.ambient",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 0.8
+      }
+    ]
+  },
+  "strangler.tongue": {
+    "subtitle": "subtitles.aidirector.strangler.tongue",
+    "sounds": [
+      {
+        "name": "entity.fishing_bobber.throw",
+        "type": "event",
+        "pitch": 0.45,
+        "volume": 1.4
+      },
+      {
+        "name": "entity.slime.jump",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.2
+      }
+    ]
+  },
+  "strangler.hurt": {
+    "subtitle": "subtitles.aidirector.strangler.hurt",
+    "sounds": [
+      {
+        "name": "entity.drowned.hurt",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.0
+      }
+    ]
+  },
+  "strangler.death": {
+    "subtitle": "subtitles.aidirector.strangler.death",
+    "sounds": [
+      {
+        "name": "entity.drowned.death",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.0
+      }
+    ]
+  },
+  "strangler.spawn": {
+    "subtitle": "subtitles.aidirector.strangler.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.bass",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 2.5
+      }
+    ]
+  },
+  "smoke.cough": {
+    "subtitle": "subtitles.aidirector.smoke.cough",
+    "sounds": [
+      {
+        "name": "entity.panda.sneeze",
+        "type": "event",
+        "pitch": 0.75,
+        "volume": 0.8
+      }
+    ]
+  },
+  "bloater.ambient": {
+    "subtitle": "subtitles.aidirector.bloater.ambient",
+    "sounds": [
+      {
+        "name": "entity.player.burp",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.0
+      },
+      {
+        "name": "entity.hoglin.ambient",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 0.7
+      }
+    ]
+  },
+  "bloater.vomit": {
+    "subtitle": "subtitles.aidirector.bloater.vomit",
+    "sounds": [
+      {
+        "name": "entity.llama.spit",
+        "type": "event",
+        "pitch": 0.45,
+        "volume": 1.5
+      },
+      {
+        "name": "entity.generic.drink",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.2
+      }
+    ]
+  },
+  "bloater.explode": {
+    "subtitle": "subtitles.aidirector.bloater.explode",
+    "sounds": [
+      {
+        "name": "entity.slime.death",
+        "type": "event",
+        "pitch": 0.45,
+        "volume": 2.0
+      },
+      {
+        "name": "entity.generic.explode",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 0.8
+      }
+    ]
+  },
+  "bloater.hurt": {
+    "subtitle": "subtitles.aidirector.bloater.hurt",
+    "sounds": [
+      {
+        "name": "entity.hoglin.hurt",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.0
+      }
+    ]
+  },
+  "bloater.spawn": {
+    "subtitle": "subtitles.aidirector.bloater.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.basedrum",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 2.5
+      }
+    ]
+  },
+  "corroder.ambient": {
+    "subtitle": "subtitles.aidirector.corroder.ambient",
+    "sounds": [
+      {
+        "name": "entity.witch.ambient",
+        "type": "event",
+        "pitch": 1.15,
+        "volume": 0.9
+      }
+    ]
+  },
+  "corroder.spit": {
+    "subtitle": "subtitles.aidirector.corroder.spit",
+    "sounds": [
+      {
+        "name": "entity.llama.spit",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.4
+      }
+    ]
+  },
+  "corroder.hurt": {
+    "subtitle": "subtitles.aidirector.corroder.hurt",
+    "sounds": [
+      {
+        "name": "entity.witch.hurt",
+        "type": "event",
+        "pitch": 1.1,
+        "volume": 1.0
+      }
+    ]
+  },
+  "corroder.death": {
+    "subtitle": "subtitles.aidirector.corroder.death",
+    "sounds": [
+      {
+        "name": "entity.witch.death",
+        "type": "event",
+        "pitch": 1.1,
+        "volume": 1.0
+      }
+    ]
+  },
+  "corroder.spawn": {
+    "subtitle": "subtitles.aidirector.corroder.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.flute",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 2.5
+      }
+    ]
+  },
+  "acid.sizzle": {
+    "subtitle": "subtitles.aidirector.acid.sizzle",
+    "sounds": [
+      {
+        "name": "block.lava.extinguish",
+        "type": "event",
+        "pitch": 1.3,
+        "volume": 0.6
+      }
+    ]
+  },
+  "leech.ambient": {
+    "subtitle": "subtitles.aidirector.leech.ambient",
+    "sounds": [
+      {
+        "name": "entity.witch.celebrate",
+        "type": "event",
+        "pitch": 1.6,
+        "volume": 0.9
+      }
+    ]
+  },
+  "leech.leap": {
+    "subtitle": "subtitles.aidirector.leech.leap",
+    "sounds": [
+      {
+        "name": "entity.witch.celebrate",
+        "type": "event",
+        "pitch": 1.9,
+        "volume": 1.2
+      },
+      {
+        "name": "entity.goat.screaming.long_jump",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 1.0
+      }
+    ]
+  },
+  "leech.hurt": {
+    "subtitle": "subtitles.aidirector.leech.hurt",
+    "sounds": [
+      {
+        "name": "entity.piglin.hurt",
+        "type": "event",
+        "pitch": 1.5,
+        "volume": 1.0
+      }
+    ]
+  },
+  "leech.death": {
+    "subtitle": "subtitles.aidirector.leech.death",
+    "sounds": [
+      {
+        "name": "entity.piglin.death",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 1.0
+      }
+    ]
+  },
+  "leech.spawn": {
+    "subtitle": "subtitles.aidirector.leech.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.banjo",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 2.5
+      }
+    ]
+  },
+  "rammer.ambient": {
+    "subtitle": "subtitles.aidirector.rammer.ambient",
+    "sounds": [
+      {
+        "name": "entity.ravager.ambient",
+        "type": "event",
+        "pitch": 1.1,
+        "volume": 0.8
+      }
+    ]
+  },
+  "rammer.roar": {
+    "subtitle": "subtitles.aidirector.rammer.roar",
+    "sounds": [
+      {
+        "name": "entity.ravager.roar",
+        "type": "event",
+        "pitch": 1.15,
+        "volume": 1.6
+      }
+    ]
+  },
+  "rammer.impact": {
+    "subtitle": "subtitles.aidirector.rammer.impact",
+    "sounds": [
+      {
+        "name": "entity.iron_golem.damage",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.5
+      },
+      {
+        "name": "entity.ravager.attack",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 1.2
+      }
+    ]
+  },
+  "rammer.hurt": {
+    "subtitle": "subtitles.aidirector.rammer.hurt",
+    "sounds": [
+      {
+        "name": "entity.ravager.hurt",
+        "type": "event",
+        "pitch": 1.2,
+        "volume": 1.0
+      }
+    ]
+  },
+  "rammer.death": {
+    "subtitle": "subtitles.aidirector.rammer.death",
+    "sounds": [
+      {
+        "name": "entity.ravager.death",
+        "type": "event",
+        "pitch": 1.2,
+        "volume": 1.0
+      }
+    ]
+  },
+  "rammer.spawn": {
+    "subtitle": "subtitles.aidirector.rammer.spawn",
+    "sounds": [
+      {
+        "name": "block.note_block.iron_xylophone",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 2.5
+      }
+    ]
+  },
+  "wailer.cry": {
+    "subtitle": "subtitles.aidirector.wailer.cry",
+    "sounds": [
+      {
+        "name": "entity.ghast.ambient",
+        "type": "event",
+        "pitch": 1.55,
+        "volume": 0.7
+      },
+      {
+        "name": "entity.ghast.warn",
+        "type": "event",
+        "pitch": 1.7,
+        "volume": 0.5
+      }
+    ]
+  },
+  "wailer.growl": {
+    "subtitle": "subtitles.aidirector.wailer.growl",
+    "sounds": [
+      {
+        "name": "entity.warden.angry",
+        "type": "event",
+        "pitch": 1.5,
+        "volume": 1.0
+      }
+    ]
+  },
+  "wailer.rage": {
+    "subtitle": "subtitles.aidirector.wailer.rage",
+    "sounds": [
+      {
+        "name": "entity.ghast.scream",
+        "type": "event",
+        "pitch": 1.25,
+        "volume": 2.0
+      },
+      {
+        "name": "entity.warden.roar",
+        "type": "event",
+        "pitch": 1.6,
+        "volume": 1.4
+      }
+    ]
+  },
+  "wailer.hurt": {
+    "subtitle": "subtitles.aidirector.wailer.hurt",
+    "sounds": [
+      {
+        "name": "entity.ghast.hurt",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 1.0
+      }
+    ]
+  },
+  "wailer.death": {
+    "subtitle": "subtitles.aidirector.wailer.death",
+    "sounds": [
+      {
+        "name": "entity.ghast.death",
+        "type": "event",
+        "pitch": 1.3,
+        "volume": 1.0
+      }
+    ]
+  },
+  "behemoth.ambient": {
+    "subtitle": "subtitles.aidirector.behemoth.ambient",
+    "sounds": [
+      {
+        "name": "entity.ravager.ambient",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 1.2
+      }
+    ]
+  },
+  "behemoth.roar": {
+    "subtitle": "subtitles.aidirector.behemoth.roar",
+    "sounds": [
+      {
+        "name": "entity.ravager.roar",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 2.5
+      },
+      {
+        "name": "entity.warden.roar",
+        "type": "event",
+        "pitch": 0.85,
+        "volume": 2.0
+      }
+    ]
+  },
+  "behemoth.punch": {
+    "subtitle": "subtitles.aidirector.behemoth.punch",
+    "sounds": [
+      {
+        "name": "entity.iron_golem.attack",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 1.6
+      },
+      {
+        "name": "entity.player.attack.knockback",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.5
+      }
+    ]
+  },
+  "behemoth.throw": {
+    "subtitle": "subtitles.aidirector.behemoth.throw",
+    "sounds": [
+      {
+        "name": "entity.ravager.attack",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.6
+      }
+    ]
+  },
+  "behemoth.step": {
+    "subtitle": "subtitles.aidirector.behemoth.step",
+    "sounds": [
+      {
+        "name": "entity.ravager.step",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.2
+      }
+    ]
+  },
+  "behemoth.hurt": {
+    "subtitle": "subtitles.aidirector.behemoth.hurt",
+    "sounds": [
+      {
+        "name": "entity.ravager.hurt",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 1.2
+      }
+    ]
+  },
+  "behemoth.death": {
+    "subtitle": "subtitles.aidirector.behemoth.death",
+    "sounds": [
+      {
+        "name": "entity.ravager.death",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 2.0
+      }
+    ]
+  },
+  "behemoth.spawn": {
+    "subtitle": "subtitles.aidirector.behemoth.spawn",
+    "sounds": [
+      {
+        "name": "event.raid.horn",
+        "type": "event",
+        "pitch": 0.75,
+        "volume": 3.0
+      }
+    ]
+  },
+  "rock.shatter": {
+    "subtitle": "subtitles.aidirector.rock.shatter",
+    "sounds": [
+      {
+        "name": "block.stone.break",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.5
+      },
+      {
+        "name": "entity.generic.explode",
+        "type": "event",
+        "pitch": 1.6,
+        "volume": 0.6
+      }
+    ]
+  },
+  "chainsaw.rev": {
+    "subtitle": "subtitles.aidirector.chainsaw.rev",
+    "sounds": [
+      {
+        "name": "block.grindstone.use",
+        "type": "event",
+        "pitch": 0.55,
+        "volume": 1.4
+      },
+      {
+        "name": "entity.bee.loop_aggressive",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.2
+      }
+    ]
+  },
+  "frying_pan.clang": {
+    "subtitle": "subtitles.aidirector.frying_pan.clang",
+    "sounds": [
+      {
+        "name": "block.anvil.land",
+        "type": "event",
+        "pitch": 1.8,
+        "volume": 0.5
+      }
+    ]
+  },
+  "melee.swing": {
+    "subtitle": "subtitles.aidirector.melee.swing",
+    "sounds": [
+      {
+        "name": "entity.player.attack.sweep",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 0.8
+      }
+    ]
+  },
+  "pipebomb.throw": {
+    "subtitle": "subtitles.aidirector.pipebomb.throw",
+    "sounds": [
+      {
+        "name": "entity.snowball.throw",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.0
+      }
+    ]
+  },
+  "pipebomb.beep": {
+    "subtitle": "subtitles.aidirector.pipebomb.beep",
+    "sounds": [
+      {
+        "name": "block.note_block.pling",
+        "type": "event",
+        "pitch": 2.0,
+        "volume": 1.4
+      }
+    ]
+  },
+  "pipebomb.explode": {
+    "subtitle": "subtitles.aidirector.pipebomb.explode",
+    "sounds": [
+      {
+        "name": "entity.generic.explode",
+        "type": "event",
+        "pitch": 0.9,
+        "volume": 2.5
+      }
+    ]
+  },
+  "bilejar.throw": {
+    "subtitle": "subtitles.aidirector.bilejar.throw",
+    "sounds": [
+      {
+        "name": "entity.splash_potion.throw",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 1.0
+      }
+    ]
+  },
+  "bilejar.shatter": {
+    "subtitle": "subtitles.aidirector.bilejar.shatter",
+    "sounds": [
+      {
+        "name": "block.glass.break",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.2
+      },
+      {
+        "name": "entity.slime.squish",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.2
+      }
+    ]
+  }
+}

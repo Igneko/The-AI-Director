@@ -97,7 +97,7 @@ public final class EnhancedHordesCompat {
 
     /** Busca, en vertical cerca de {@code baseY}, una celda de 2 bloques libres sobre suelo firme y seco. */
     @Nullable
-    private static BlockPos findGround(ServerLevel level, int x, int baseY, int z, int range) {
+    public static BlockPos findGround(ServerLevel level, int x, int baseY, int z, int range) {
         for (int i = 0; i <= range * 2; i++) {
             // Se alterna arriba/abajo empezando por la altura del jugador: 0, +1, -1, +2, -2...
             int offset = (i % 2 == 0) ? i / 2 : -(i / 2 + 1);

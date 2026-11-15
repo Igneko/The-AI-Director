@@ -25,6 +25,10 @@ public final class SurvivorHealthData {
     private float reviveProgress;
     private int reviveElapsedTicks;
 
+    // Agarre de un Infectado Especial (transitorio, decidido por el servidor).
+    private int pinnerEntityId = -1;
+    private PinType pinType = PinType.NONE;
+
     private boolean dirty = true;
 
     public SurvivorHealthData() {
@@ -49,6 +53,10 @@ public final class SurvivorHealthData {
     public float reviveProgress() { return reviveProgress; }
     public boolean isBeingRevived() { return reviverId != null; }
 
+    public boolean isPinned() { return pinType != PinType.NONE; }
+    public PinType pinType() { return pinType; }
+    public int pinnerEntityId() { return pinnerEntityId; }
+
     public boolean isAlive() { return state == SurvivorState.ALIVE; }
     public boolean isIncapacitated() { return state == SurvivorState.INCAPACITATED; }
     public boolean isDead() { return state == SurvivorState.DEAD; }
@@ -60,7 +68,7 @@ public final class SurvivorHealthData {
 
     /** Multiplicador de velocidad (Limp Mode). 0 si está incapacitado o muerto. */
     public float speedMultiplier(SurvivorRules rules) {
-        if (state != SurvivorState.ALIVE) return 0f;
+        if (state != SurvivorState.ALIVE || isPinned()) return 0f;
         if (hasAdrenaline()) return 1f; // la adrenalina anula la cojera, como en L4D2
         float total = totalHealth();
         if (total >= rules.maxHealth() * rules.limpThresholdRatio()) return 1f;
@@ -143,6 +151,21 @@ public final class SurvivorHealthData {
         permHealth = 0f;
         tempHealth = 0f;
         return incapCount < rules.maxIncaps() ? incapacitate(rules) : kill();
+    }
+
+    /** Marca (o quita, con {@link PinType#NONE}) el agarre de un Infectado Especial. */
+    public void setPin(int pinnerEntityId, PinType type) {
+        PinType newType = type == null ? PinType.NONE : type;
+        int newId = newType == PinType.NONE ? -1 : pinnerEntityId;
+        if (newType != this.pinType || newId != this.pinnerEntityId) {
+            this.pinType = newType;
+            this.pinnerEntityId = newId;
+            dirty = true;
+        }
+    }
+
+    public void clearPin() {
+        setPin(-1, PinType.NONE);
     }
 
     /** Muerte definitiva decidida fuera del flujo normal (vacío, /kill). */
@@ -229,6 +252,8 @@ public final class SurvivorHealthData {
 
     /** Estado limpio tras reaparecer. */
     public void reset(SurvivorRules rules) {
+        pinType = PinType.NONE;
+        pinnerEntityId = -1;
         permHealth = rules.maxHealth();
         tempHealth = 0f;
         state = SurvivorState.ALIVE;
@@ -274,6 +299,8 @@ public final class SurvivorHealthData {
 
     private Outcome kill() {
         state = SurvivorState.DEAD;
+        pinType = PinType.NONE;
+        pinnerEntityId = -1;
         permHealth = 0f;
         tempHealth = 0f;
         bleedHealth = 0f;
