@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Almanacco del sopravvissuto",
+ "ui": {
+  "chapters": "Capitoli",
+  "entries": "Voci"
+ },
+ "intro": [
+  "Se stai leggendo, sei ancora vivo. Complimenti: è più di quanto possano dire in molti.",
+  "Tienilo in tasca. Leggilo nei rifugi. Non leggerlo mai ad alta voce.",
+  "__Fai clic su un capitolo per iniziare.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "Il Direttore",
+   "desc": "Niente là fuori è casuale. Qualcosa osserva ogni sopravvissuto e decide quando stringere e quando mollare.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Chi tira i fili",
+     "text": [
+      "Chiamalo **il Direttore**. Non ti vuole morto subito: vuole che tu soffra.",
+      "Funziona a ciclo: **tensione** che cresce, un **picco** di caos e poi **calma**. Impara a riconoscere la calma: è il momento di curarsi, ricaricare e dividere le scorte.",
+      "Se sopravvivi a un picco, il prossimo è già in preparazione."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Lo stress",
+     "text": [
+      "Il Direttore misura il tuo **stress**, da 0 a 100. Sale quando subisci danni, quando un compagno cade vicino a te (+40), quando un compagno muore (+75) e quando abbatti infetti da vicino.",
+      "Scende lentamente quando non subisci danni e non ci sono minacce entro 16 blocchi.",
+      "Mentre lo stress cresce, il Direttore prepara **imboscate di infetti speciali** fuori dalla tua vista, a 20-48 blocchi. Se raggiungi un **picco**, si ferma per un po' e ti concede una tregua.",
+      "La calma porta gli inseguitori silenziosi; la tensione media quelli che afferrano e caricano; lo stress alto quelli che puniscono da lontano. Molto di rado, quando nessuno se lo aspetta, arriva il {{Colosso}}.",
+      "Controlla il tuo stress con __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Le orde",
+     "text": [
+      "Un'**orda** è una marea di infetti che compare intorno a te, su circa **40x40 blocchi**, e viene dritta verso di te.",
+      "Le orde sono scatenate dal tempo, dal rumore, dagli allarmi e soprattutto dalla **bile**. Chi ne è coperto diventa il bersaglio di tutti gli infetti comuni entro 64 blocchi.",
+      "Gli infetti dell'orda corrono, si ammucchiano per arrampicarsi e sfondano le porte di legno quando sono abbastanza.",
+      "Per sopravvivere: trova un **corridoio stretto** o un angolo, mettiti schiena contro schiena con la squadra e alterna spari e **spinte**. Se hai una {{bomba artigianale}}, è il momento."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Restare vivi",
+   "desc": "Il tuo corpo ha due tipi di salute, si rifiuta di morire al primo colpo e ricorda ogni caduta.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Il tuo corpo",
+     "text": [
+      "La tua salute ha due parti. Quella **permanente** (barra piena) torna solo con un {{kit di pronto soccorso}}. Quella **temporanea** (barra tratteggiata) viene da pillole (+50) o adrenalina (+25) e scivola via lentamente: 1 punto ogni 5 secondi.",
+      "I colpi consumano prima la salute temporanea.",
+      "Sotto il 40% **zoppichi** e cammini più piano. Con 1 punto ti trascini a malapena."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Inabile",
+     "text": [
+      "Quando la salute arriva a zero non muori: cadi **inabile** a terra, con una pistola in mano e una riserva di sangue che si esaurisce ogni secondo. Se nessuno ti rialza, muori dissanguato.",
+      "Se non hai una pistola, ne ricevi una di riserva con munizioni infinite. Se l'inventario è pieno, l'oggetto nello slot 9 cade a terra.",
+      "Dopo due cadute sei in **Bianco e Nero**: il mondo perde i colori, senti il tuo cuore e la prossima caduta sarà l'ultima. Solo un {{kit di pronto soccorso}} ti ridà i colori."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Rifornimenti medici",
+     "text": [
+      "**Kit di pronto soccorso:** tieni premuto per 5 secondi. Ripristina l'80% della salute permanente mancante e rimuove il Bianco e Nero. Mira a un compagno per curarlo.",
+      "**Pillole:** istantanee, +50 di salute temporanea.",
+      "**Adrenalina:** istantanea, +25 di salute temporanea. Per 15 secondi corri più veloce, non zoppichi e rianimi e curi il doppio più in fretta.",
+      "Clic destro su un compagno con pillole o adrenalina per dargliele."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Lavoro di squadra",
+   "desc": "Una squadra unita avanza lentamente. Una squadra divisa non avanza.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Nessuno sopravvive da solo",
+     "text": [
+      "**Rianimare:** tieni premuto il tasto destro su un compagno a terra (o il tasto **C**, che funziona anche con un'arma in mano) per 5 secondi, o 2,5 con l'adrenalina. Allontanarsi o essere spinti annulla.",
+      "**Soccorrere:** se un infetto speciale afferra qualcuno, **spingilo** (Mouse 4) o uccidilo. Durante trascinamenti e cavalcate puoi spingere anche la vittima.",
+      "**Attenzione:** se tutti i sopravvissuti sono a terra o bloccati nello stesso momento, la squadra cade. Da solo puoi divincolarti con il tasto spinta dopo un secondo e mezzo."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "La spinta",
+     "text": [
+      "La spinta (Mouse 4) colpisce un cono di 90 gradi davanti a te. Gli infetti barcollano all'indietro per un secondo e mezzo; se urtano quelli dietro, barcollano anche loro.",
+      "Puoi spingere quattro volte di fila; dalla quinta ti stanchi e devi aspettare di più. Quattro secondi di riposo ti fanno recuperare.",
+      "Spingere annulla la ricarica ma non ti obbliga mai a riporre l'arma. Alcuni infetti grossi non si possono spingere."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Rumore e furtività",
+   "desc": "Gli infetti sono quasi ciechi da lontano, ma hanno un udito eccellente. Ogni sparo è una campanella che annuncia la cena.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "Il rumore ti tradisce",
+     "text": [
+      "Uno sparo di **pistola o mitraglietta** si sente a circa **45 blocchi**. Un **fucile**, a circa **55**. **Fucili a pompa, fucili di precisione e armi pesanti** rimbombano fino a **65 blocchi**.",
+      "Tutto ciò che vaga in quel raggio viene a controllare. Se sparano in tanti, gli infetti si dividono, ma il più rumoroso di solito ha la peggio.",
+      "Regola d'oro: **spara solo quando devi**. Ogni proiettile risparmiato è un'orda che non arriva."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Silenziatori e furtività",
+     "text": [
+      "Un **silenziatore** riduce il rumore di qualsiasi arma a soli **12 blocchi**. È la differenza tra ripulire una strada in silenzio e svegliare tutto il quartiere.",
+      "Muoviti accovacciato nelle zone buie, aggira i gruppi invece di attraversarli e non correre se non serve.",
+      "Alcune creature non ti inseguono se non le disturbi. Una di loro piange nel buio. **Non fissarla, non sparare vicino a lei e soprattutto non toccarla.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenale",
+   "desc": "Mazze, lame, bombe e barattoli. Tutto ciò che serve per arrivare al prossimo rifugio.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Armi da mischia",
+     "text": [
+      "Mazza da baseball, mazza da cricket, piede di porco, chitarra elettrica, ascia da pompiere, padella, mazza da golf, katana, machete, manganello, coltello da combattimento, forcone e pala.",
+      "Ognuna abbatte un **infetto comune con un solo colpo**. Gli speciali subiscono danni normali.",
+      "Le armi larghe colpiscono più nemici insieme; il forcone e la mazza da golf arrivano più lontano. L'ascia da pompiere colpisce più forte di tutte."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Bomba artigianale",
+     "text": [
+      "Lanciala: rimbalza, emette bip e lampeggia di rosso per **5 secondi**. Tutti gli infetti comuni entro 32 blocchi corrono verso di lei.",
+      "Poi esplode in un'area di 5x5. Non ferisce i sopravvissuti.",
+      "Gli infetti speciali non si fanno ingannare dal bip."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Barattolo di bile",
+     "text": [
+      "Si rompe in una nube verdastra che dura 15 secondi, richiama un'orda e attira gli infetti vicini.",
+      "Se cade proprio su qualcuno, un infetto speciale o un altro giocatore, quello viene coperto di bile e l'orda andrà solo da lui. Usalo sui grossi."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Mucchi di munizioni",
+     "text": [
+      "Usa un mucchio di munizioni con un'arma in mano per ricaricare la riserva di quel calibro, fino a sei caricatori.",
+      "Ogni mucchio funziona una sola volta e non ricarica armi pesanti come lanciagranate o mitragliatrici."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiario",
+   "desc": "Gli infetti speciali sono mutazioni con un solo scopo: dividere il gruppo. Ognuno si annuncia con un suono quando appare vicino. Impara i loro richiami. La salute è in mezzi cuori.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "Come pensano i comuni",
+     "text": [
+      "Gli infetti comuni non sono furbi, ma sono tanti. Seguono il rumore, inseguono il più vicino e si gettano su chi puzza di bile.",
+      "Non bruciano al sole, non si stancano e non dimenticano. Tu sì. Riposa nella calma."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "Il Predatore",
+     "text": [
+      "Salute 50 - Esperienza 40",
+      "Smilzo, incappucciato, sempre accovacciato. Ringhia prima di balzare con un arco enorme sulla preda e la inchioda a terra, dilaniandola senza sosta. Un salto da molto in alto (15 blocchi o più) peggiora le cose.",
+      "**Contromossa:** ascolta il ringhio, resta col gruppo e spingilo via dal compagno. Spinto a metà salto, cade stordito."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "Lo Strangolatore",
+     "text": [
+      "Salute 50 - Esperienza 40",
+      "Alto, coperto di tumori, con una tosse che tradisce la sua posizione. Resta lontano (15-25 blocchi) e lancia una lingua che afferra e trascina. Nel **primo secondo** del trascinamento puoi ancora sparargli. Morendo rilascia una nube di fumo accecante.",
+      "**Contromossa:** cerca la sua sagoma in alto, spara in fretta e spingi la vittima trascinata."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "Il Gonfio",
+     "text": [
+      "Salute 10 - Esperienza 20",
+      "Lento, enorme e fragile. Si nasconde dietro gli angoli e vomita bile in un cono di 7 blocchi. Morendo scoppia, respinge tutti e schizza bile entro 3,5 blocchi.",
+      "**Contromossa:** uccidilo da lontano. Se ti è addosso, prima spingi e poi spara."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "La Corrosiva",
+     "text": [
+      "Salute 20 - Esperienza 30",
+      "Un collo lunghissimo e una gola che brilla di verde. Sputa acido dalla media distanza e preferisce chi è a terra o sta rianimando. La pozza cresce e all'inizio brucia poco, ma ogni secondo dentro fa più male.",
+      "**Contromossa:** esci subito dalla pozza e non rianimare mai dentro l'acido."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "La Sanguisuga",
+     "text": [
+      "Salute 65 - Esperienza 50",
+      "Piccola, testona, con una risata che non dimenticherai. Salta di lato quando la miri. Se ti raggiunge, ti sale sulle spalle e ti guida verso fuoco, lava, acido o burroni, lontano dalla squadra.",
+      "**Contromossa:** fatti spingere da un compagno o fagliela uccidere. Da solo, divincolati."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "L'Ariete",
+     "text": [
+      "Salute 120 - Esperienza 90",
+      "Un braccio enorme corazzato d'osso e uno atrofizzato. Ruggisce, abbassa la testa e carica in linea retta. Si porta via il primo che prende fino a schiacciarlo contro un muro, scaglia in aria tutti gli altri e poi sbatte la preda a terra più volte.",
+      "**Contromossa:** non si può spingere. Schivate di lato al ruggito e concentrate il fuoco."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "La Lamentatrice",
+     "text": [
+      "Salute 200 - Esperienza 200",
+      "Seduta al buio, piange. Finché nessuno la disturba, non fa nulla. Avvicinarsi a meno di 10 blocchi, fissarla o sparare vicino la fa alzare ringhiando. Se continua, o se viene graffiata, impazzisce e corre al doppio della tua velocità verso chi l'ha svegliata. Un'artigliata basta a buttarti a terra.",
+      "**Contromossa:** aggirala. I coraggiosi dicono che un colpo di fucile a pompa a bruciapelo prima che reagisca la abbatte all'istante."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "Il Colosso",
+     "text": [
+      "Salute da 600 a 1600 a seconda della difficoltà - Esperienza 1000",
+      "Una montagna di carne grigia con crepe che brillano come braci. Il suo arrivo è annunciato da un corno lontano e da un ruggito che fa tremare il suolo. I suoi pugni ti fanno volare; da lontano strappa rocce dal terreno e le lancia, e puoi distruggerle a colpi d'arma prima che arrivino. Se passa troppo tempo senza colpire nessuno si frustra: corre più veloce e abbatte i blocchi deboli sul suo cammino.",
+      "**Contromossa:** sparpagliatevi, evitate gli spazi chiusi, copritelo di bile perché l'orda lo attacchi e sparate tutti insieme."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "Dall'autore",
+   "desc": "Qualche parola per chi è arrivato fin qui.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "Una lettera",
+     "text": [
+      "__Caro sopravvissuto,__",
+      "Se sei arrivato fin qui, grazie. Davvero.",
+      "Questa mod è nata da innumerevoli ore passate con gli amici davanti a un gioco che ci ha segnati per sempre: **Left 4 Dead 2**. Dalle risate nervose, dai salvataggi all'ultimo secondo e da quella calma che durava sempre troppo poco.",
+      "Tutto in queste pagine è stato fatto con tanto affetto, come omaggio a quell'esperienza. Non vuole sostituirla, solo portare un pezzetto del suo spirito in un mondo di blocchi.",
+      "Spero che tu trovi qui ciò che io ho trovato lì: un motivo per non lasciare mai indietro un compagno.",
+      "Abbi cura della tua squadra. Dividi le pillole. E se senti piangere nel buio... spegni la torcia.",
+      "Con affetto,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -32,9 +32,12 @@ public class ThrowableRenderer<T extends ThrowableProjectile> extends EntityRend
 
     private final SimpleModel model;
     private final ResourceLocation texture;
+    private final java.util.function.Supplier<net.minecraft.world.item.Item> item;
 
-    public ThrowableRenderer(EntityRendererProvider.Context ctx, ModelLayerLocation layer, String textureName) {
+    public ThrowableRenderer(EntityRendererProvider.Context ctx, ModelLayerLocation layer, String textureName,
+                             java.util.function.Supplier<net.minecraft.world.item.Item> item) {
         super(ctx);
+        this.item = item;
         this.model = new SimpleModel(ctx.bakeLayer(layer));
         this.texture = new ResourceLocation(TheAIDirector.MOD_ID, "textures/entity/" + textureName + ".png");
         this.shadowRadius = 0.15f;
@@ -76,9 +79,11 @@ public class ThrowableRenderer<T extends ThrowableProjectile> extends EntityRend
             pose.mulPose(Axis.YP.rotationDegrees(spin * 0.7f));
             pose.mulPose(Axis.XP.rotationDegrees(spin));
         }
-        pose.scale(1f / 16f * 1.6f, 1f / 16f * 1.6f, 1f / 16f * 1.6f);
-        VertexConsumer vc = buffers.getBuffer(model.renderType(texture));
-        model.renderToBuffer(pose, vc, light, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
+        // Modelo 3D del ítem hecho en Blockbench (vista "fixed"); el modelo por código queda de respaldo.
+        net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(item.get());
+        net.minecraft.client.Minecraft.getInstance().getItemRenderer().renderStatic(stack,
+                net.minecraft.world.item.ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, pose, buffers,
+                entity.level(), entity.getId());
         pose.popPose();
         super.render(entity, yaw, partialTick, pose, buffers, light);
     }

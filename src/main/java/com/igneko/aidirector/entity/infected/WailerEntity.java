@@ -1,5 +1,9 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import org.joml.Vector3f;
 import com.igneko.aidirector.api.event.AcousticPulseEvent;
 import com.igneko.aidirector.compat.tacz.TaczGuns;
 import com.igneko.aidirector.config.AIDirectorConfig;
@@ -245,4 +249,33 @@ public class WailerEntity extends SpecialInfectedEntity {
             }
         }
     }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_CALM;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        return switch (getState()) {
+            case STATE_CALM -> loop("cry");
+            case STATE_DISTURBED -> loop("disturbed");
+            default -> moving ? loop("rage") : loop("disturbed");
+        };
+    }
+
+    @Override
+    protected void clientEffects() {
+        if (getState() == STATE_CALM && random.nextInt(12) == 0) {
+            // Lágrimas que caen al suelo.
+            level().addParticle(ParticleTypes.FALLING_WATER, getX() + (random.nextDouble() - 0.5) * 0.3, getY() + 1.0,
+                    getZ() + (random.nextDouble() - 0.5) * 0.3, 0, 0, 0);
+        } else if (getState() >= STATE_RAGE && random.nextInt(2) == 0) {
+            level().addParticle(RAGE, getX(), getY() + 1.0, getZ(), 0, 0, 0);
+        }
+    }
+
+    private static final DustParticleOptions RAGE = new DustParticleOptions(new Vector3f(0.75f, 0.05f, 0.05f), 1.2f);
 }

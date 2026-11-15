@@ -26,7 +26,7 @@ public class AlmanacBookItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide()) {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> com.igneko.aidirector.client.AlmanacScreenOpener::open);
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> net.minecraft.client.Minecraft.getInstance().setScreen(new com.igneko.aidirector.client.almanac.AlmanacScreen()));
         }
         player.playSound(SoundEvents.BOOK_PAGE_TURN, 1f, 1f);
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide());

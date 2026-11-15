@@ -63,7 +63,6 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> BEHEMOTH_DEATH = reg("behemoth.death");
     public static final RegistryObject<SoundEvent> BEHEMOTH_SPAWN = reg("behemoth.spawn");
     public static final RegistryObject<SoundEvent> ROCK_SHATTER = reg("rock.shatter");
-    public static final RegistryObject<SoundEvent> CHAINSAW_REV = reg("chainsaw.rev");
     public static final RegistryObject<SoundEvent> FRYING_PAN_CLANG = reg("frying_pan.clang");
     public static final RegistryObject<SoundEvent> MELEE_SWING = reg("melee.swing");
     public static final RegistryObject<SoundEvent> PIPEBOMB_THROW = reg("pipebomb.throw");

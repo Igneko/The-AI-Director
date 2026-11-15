@@ -1,5 +1,9 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import org.joml.Vector3f;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.TheAIDirector;
 import com.igneko.aidirector.entity.projectile.BehemothRockEntity;
@@ -247,4 +251,37 @@ public class BehemothEntity extends SpecialInfectedEntity {
         super.readAdditionalSaveData(tag);
         if (tag.contains("Frustration")) frustration = tag.getFloat("Frustration");
     }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_ROCK;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        if (getState() == STATE_ROCK) return once("rock");
+        if (!moving) return loop("idle");
+        return getDeltaMovement().horizontalDistance() > 0.15 ? loop("run") : loop("walk");
+    }
+
+    @Override
+    protected void clientEffects() {
+        // Brasas que se desprenden de las grietas; polvo y escombros al andar.
+        if (random.nextInt(4) == 0) {
+            level().addParticle(EMBER, getX() + (random.nextDouble() - 0.5) * 1.6, getY() + 1 + random.nextDouble() * 1.6,
+                    getZ() + (random.nextDouble() - 0.5) * 1.6, 0, 0.03, 0);
+        }
+        if (onGround() && getDeltaMovement().horizontalDistance() > 0.05 && tickCount % 6 == 0) {
+            for (int i = 0; i < 6; i++) level().addParticle(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK, getBlockStateOn()),
+                    getX() + (random.nextDouble() - 0.5) * 1.5, getY() + 0.1, getZ() + (random.nextDouble() - 0.5) * 1.5, 0, 0.1, 0);
+        }
+        if (getState() == STATE_ROCK && random.nextInt(2) == 0) {
+            level().addParticle(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK,
+                    net.minecraft.world.level.block.Blocks.COBBLESTONE.defaultBlockState()), getX(), getY() + getBbHeight() + 0.4, getZ(), 0, -0.1, 0);
+        }
+    }
+
+    private static final DustParticleOptions EMBER = new DustParticleOptions(new Vector3f(1.0f, 0.45f, 0.15f), 0.7f);
 }

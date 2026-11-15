@@ -1,5 +1,9 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import org.joml.Vector3f;
 import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.PinType;
 import com.igneko.aidirector.entity.projectile.AcidPuddleEntity;
@@ -235,4 +239,31 @@ public class LeechEntity extends SpecialInfectedEntity implements PinService.Pin
     public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
         return false;
     }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return !isPassenger() && getState() != STATE_LEAP;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        if (isPassenger()) return loop("ride");
+        if (getState() == STATE_LEAP) return loop("leap");
+        return moving ? loop("run") : loop("idle");
+    }
+
+    @Override
+    protected void clientEffects() {
+        if (onGround() && getDeltaMovement().horizontalDistance() > 0.1 && random.nextInt(3) == 0) {
+            level().addParticle(ParticleTypes.POOF, getX(), getY() + 0.05, getZ(), 0, 0.01, 0);
+        }
+        if (isPassenger() && random.nextInt(8) == 0) {
+            Vec3 mouth = getEyePosition();
+            level().addParticle(DROOL, mouth.x, mouth.y - 0.3, mouth.z, 0, -0.05, 0);
+        }
+    }
+
+    private static final DustParticleOptions DROOL = new DustParticleOptions(new Vector3f(0.85f, 0.8f, 0.6f), 0.7f);
 }

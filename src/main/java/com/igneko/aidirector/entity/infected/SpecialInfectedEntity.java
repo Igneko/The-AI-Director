@@ -34,6 +34,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Supplier;
 
@@ -42,7 +49,7 @@ import java.util.function.Supplier;
  * supervivientes), aviso sonoro al aparecer, daño escalable por configuración y liberación de
  * cualquier superviviente atrapado al morir o desaparecer.
  */
-public abstract class SpecialInfectedEntity extends Monster {
+public abstract class SpecialInfectedEntity extends Monster implements GeoEntity {
 
     public static final ResourceKey<DamageType> PIN_DAMAGE = ResourceKey.create(Registries.DAMAGE_TYPE,
             new ResourceLocation(TheAIDirector.MOD_ID, "infected_pin"));
@@ -54,11 +61,15 @@ public abstract class SpecialInfectedEntity extends Monster {
                          @Nullable Supplier<SoundEvent> spawn) {}
 
     private final Sounds sounds;
+    private final String geoName;
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final java.util.Map<String, RawAnimation> animCache = new java.util.HashMap<>();
 
     protected SpecialInfectedEntity(EntityType<? extends Monster> type, Level level, Sounds sounds) {
         super(type, level);
         this.sounds = sounds;
         this.xpReward = 10;
+        this.geoName = net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES.getKey(type).getPath();
     }
 
     protected static AttributeSupplier.Builder baseAttributes(double health, double speed, double damage) {
@@ -145,9 +156,55 @@ public abstract class SpecialInfectedEntity extends Monster {
         return result;
     }
 
+    // ================================================================== animación (GeckoLib)
+
+    /** Animación en bucle {@code animation.<entidad>.<nombre>} del archivo de Blockbench. */
+    protected RawAnimation loop(String name) {
+        return animCache.computeIfAbsent("loop:" + name, k -> RawAnimation.begin().thenLoop("animation." + geoName + "." + name));
+    }
+
+    /** Animación que se reproduce una vez y mantiene la última pose. */
+    protected RawAnimation once(String name) {
+        return animCache.computeIfAbsent("once:" + name, k -> RawAnimation.begin().thenPlayAndHold("animation." + geoName + "." + name));
+    }
+
+    /** Animación principal según el estado y el movimiento. */
+    protected abstract RawAnimation mainAnimation(boolean moving);
+
+    /** ¿Debe la cabeza seguir la mirada (al jugador)? Las poses expresivas pueden desactivarlo. */
+    public boolean shouldTrackHead() {
+        return true;
+    }
+
+    /** ¿Tiene animación "attack" para los golpes cuerpo a cuerpo? */
+    protected boolean hasAttackAnimation() {
+        return true;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "main", 4, state -> state.setAndContinue(mainAnimation(state.isMoving()))));
+        if (hasAttackAnimation()) {
+            controllers.add(new AnimationController<>(this, "attack", 0, state -> {
+                if (swinging) return state.setAndContinue(once("attack"));
+                state.getController().forceAnimationReset();
+                return PlayState.STOP;
+            }));
+        }
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
+    }
+
+    /** Efectos visuales propios de cada criatura (solo cliente). */
+    protected void clientEffects() {}
+
     @Override
     public void tick() {
         super.tick();
+        if (level().isClientSide()) clientEffects();
         if (!level().isClientSide() && tickCount == 2 && sounds.spawn() != null) {
             // Aviso musical al aparecer (se oye a unos 48 bloques) para permitir reaccionar.
             level().playSound(null, getX(), getY(), getZ(), sounds.spawn().get(), SoundSource.HOSTILE, 3.0f, 1.0f);

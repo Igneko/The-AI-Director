@@ -1,5 +1,8 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import org.joml.Vector3f;
 import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.PinType;
 import com.igneko.aidirector.registry.ModSounds;
@@ -213,5 +216,34 @@ public class RammerEntity extends SpecialInfectedEntity implements PinService.Pi
     @Override
     protected boolean canAddPassenger(Entity passenger) {
         return getPassengers().isEmpty() && passenger instanceof Player;
+    }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_CHARGE && getState() != STATE_POUND;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        switch (getState()) {
+            case STATE_WINDUP -> { return loop("windup"); }
+            case STATE_CHARGE -> { return loop("charge"); }
+            case STATE_POUND -> { return loop("pound"); }
+            default -> { return moving ? loop("walk") : loop("idle"); }
+        }
+    }
+
+    @Override
+    protected void clientEffects() {
+        int state = getState();
+        if (state == STATE_CHARGE) {
+            for (int i = 0; i < 3; i++) level().addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                    getX() + (random.nextDouble() - 0.5), getY() + 0.1, getZ() + (random.nextDouble() - 0.5), 0, 0.01, 0);
+        } else if (state == STATE_WINDUP && tickCount % 4 == 0) {
+            Vec3 mouth = getEyePosition().add(getLookAngle().scale(0.5));
+            level().addParticle(ParticleTypes.POOF, mouth.x, mouth.y, mouth.z, getLookAngle().x * 0.1, 0.02, getLookAngle().z * 0.1);
+        }
     }
 }

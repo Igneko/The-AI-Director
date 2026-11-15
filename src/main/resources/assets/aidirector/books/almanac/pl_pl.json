@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Almanach ocalałego",
+ "ui": {
+  "chapters": "Rozdziały",
+  "entries": "Hasła"
+ },
+ "intro": [
+  "Jeśli to czytasz, wciąż żyjesz. Gratulacje: to więcej, niż może powiedzieć większość.",
+  "Trzymaj go w kieszeni. Czytaj w schronach. Nigdy nie czytaj na głos.",
+  "__Kliknij rozdział, aby zacząć.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "Reżyser",
+   "desc": "Nic tam, na zewnątrz, nie dzieje się przypadkiem. Coś obserwuje każdego ocalałego i decyduje, kiedy przycisnąć, a kiedy odpuścić.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Kto pociąga za sznurki",
+     "text": [
+      "Nazwij go **Reżyserem**. Nie chce cię od razu zabić: chce, żebyś się namęczył.",
+      "Działa w cyklu: rosnące **napięcie**, **szczyt** chaosu, potem **spokój**. Naucz się rozpoznawać spokój: to czas na leczenie, przeładowanie i dzielenie się zapasami.",
+      "Jeśli przeżyjesz jeden szczyt, następny już się szykuje."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Stres",
+     "text": [
+      "Reżyser mierzy twój **stres** w skali od 0 do 100. Rośnie, gdy obrywasz, gdy towarzysz pada obok ciebie (+40), gdy towarzysz ginie (+75) i gdy zabijasz zarażonych z bliska.",
+      "Powoli spada, gdy nie obrywasz i w promieniu 16 bloków nie ma zagrożeń.",
+      "Gdy stres rośnie, Reżyser przygotowuje **zasadzki specjalnych zarażonych** poza twoim polem widzenia, 20–48 bloków dalej. Gdy osiągniesz **szczyt**, na chwilę przestaje i daje ci wytchnienie.",
+      "W spokoju przychodzą ciche czyhacze; przy średnim napięciu ci, którzy chwytają i szarżują; przy wysokim stresie ci, którzy karzą z daleka. Bardzo rzadko, gdy nikt się nie spodziewa, nadchodzi {{Kolos}}.",
+      "Sprawdź swój stres poleceniem __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Hordy",
+     "text": [
+      "**Horda** to fala zarażonych, która pojawia się wokół ciebie na obszarze około **40x40 bloków** i biegnie prosto na ciebie.",
+      "Hordy wywołuje czas, hałas, alarmy, a przede wszystkim **żółć**. Kto jest nią oblany, staje się celem wszystkich zwykłych zarażonych w promieniu 64 bloków.",
+      "Zarażeni z hordy biegają, wspinają się po sobie nawzajem i wyważają drewniane drzwi, gdy zbierze się ich dość.",
+      "Jak przetrwać: znajdź **wąski korytarz** albo róg, stań plecami do drużyny i przeplataj strzały z **odepchnięciami**. Jeśli masz {{bombę rurową}}, to właśnie ten moment."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Przetrwanie",
+   "desc": "Twoje ciało ma dwa rodzaje zdrowia, odmawia śmierci za pierwszym razem i pamięta każdy upadek.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Twoje ciało",
+     "text": [
+      "Twoje zdrowie ma dwie części. **Stałe** zdrowie (pełny pasek) wraca tylko dzięki {{apteczce}}. **Tymczasowe** zdrowie (przerywany pasek) dają tabletki (+50) lub adrenalina (+25) i powoli ucieka: 1 punkt co 5 sekund.",
+      "Ciosy najpierw zabierają zdrowie tymczasowe.",
+      "Poniżej 40% **utykasz** i chodzisz wolniej. Z 1 punktem ledwo się wleczesz."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Obezwładniony",
+     "text": [
+      "Gdy zdrowie spadnie do zera, nie umierasz: padasz **obezwładniony** na ziemię, z pistoletem w dłoni i zapasem krwi, który ubywa co sekundę. Jeśli nikt cię nie podniesie, wykrwawisz się.",
+      "Jeśli nie masz pistoletu, dostajesz zapasowy z nieskończoną amunicją. Jeśli ekwipunek jest pełny, przedmiot z 9. slotu paska spada na ziemię.",
+      "Po dwóch upadkach jesteś w **czerni i bieli**: świat traci kolory, słyszysz własne serce, a następny upadek będzie ostatnim. Tylko {{apteczka}} przywraca kolory."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Zaopatrzenie medyczne",
+     "text": [
+      "**Apteczka:** przytrzymaj przez 5 sekund. Przywraca 80% brakującego stałego zdrowia i usuwa czerń i biel. Wyceluj w towarzysza, by go uleczyć.",
+      "**Tabletki przeciwbólowe:** natychmiast, +50 zdrowia tymczasowego.",
+      "**Adrenalina:** natychmiast, +25 zdrowia tymczasowego. Przez 15 sekund biegasz szybciej, nie utykasz, a podnosisz i leczysz dwa razy szybciej.",
+      "Kliknij prawym przyciskiem towarzysza z tabletkami lub adrenaliną, by mu je przekazać."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Praca zespołowa",
+   "desc": "Zgrana drużyna posuwa się powoli. Rozdzielona nie posuwa się wcale.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Nikt nie przetrwa sam",
+     "text": [
+      "**Podnoszenie:** przytrzymaj prawy przycisk na leżącym towarzyszu (lub klawisz **C**, który działa nawet z bronią w ręku) przez 5 sekund, z adrenaliną 2,5. Odejście lub odepchnięcie przerywa.",
+      "**Ratunek:** jeśli specjalny zarażony kogoś złapie, **odepchnij** go (Mouse 4) albo zabij. Przy wleczeniu i dosiadaniu możesz też odepchnąć ofiarę.",
+      "**Uwaga:** jeśli wszyscy ocalali jednocześnie leżą lub są unieruchomieni, drużyna przegrywa. Grając samotnie, po półtorej sekundy możesz się wyrwać klawiszem odepchnięcia."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "Odepchnięcie",
+     "text": [
+      "Odepchnięcie (Mouse 4) uderza w stożku 90 stopni przed tobą. Zarażeni zataczają się do tyłu przez półtorej sekundy; jeśli wpadną na tych za nimi, ci też się zataczają.",
+      "Możesz odepchnąć cztery razy z rzędu; od piątego razu męczysz się i musisz czekać dłużej. Cztery sekundy odpoczynku przywracają siły.",
+      "Odepchnięcie przerywa przeładowanie, ale nigdy nie zmusza do schowania broni. Niektórych dużych zarażonych nie da się odepchnąć."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Hałas i skradanie",
+   "desc": "Zarażeni z daleka są niemal ślepi, ale słuch mają znakomity. Każdy strzał to dzwonek na obiad.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "Hałas cię zdradza",
+     "text": [
+      "Strzał z **pistoletu lub pistoletu maszynowego** słychać z około **45 bloków**. Z **karabinu** — z około **55**. **Strzelby, karabiny snajperskie i broń ciężka** niosą się do **65 bloków**.",
+      "Wszystko, co krąży w tym promieniu, przyjdzie sprawdzić. Gdy strzela kilka osób, zarażeni się rozdzielają, ale najgłośniejszy zwykle obrywa najbardziej.",
+      "Złota zasada: **strzelaj tylko wtedy, gdy musisz**. Każdy oszczędzony pocisk to horda, która nie nadejdzie."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Tłumiki i skradanie",
+     "text": [
+      "**Tłumik** obniża hałas każdej broni do zaledwie **12 bloków**. To różnica między cichym oczyszczeniem ulicy a obudzeniem całej dzielnicy.",
+      "Poruszaj się kucając w ciemnych miejscach, omijaj grupy zamiast przez nie przechodzić i nie biegaj bez potrzeby.",
+      "Niektóre stworzenia nie gonią cię, jeśli ich nie niepokoisz. Jedno z nich płacze w ciemności. **Nie wpatruj się w nią, nie strzelaj w pobliżu i przede wszystkim jej nie dotykaj.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenał",
+   "desc": "Kije, ostrza, bomby i słoiki. Wszystko, czego trzeba, by dotrzeć do następnego schronu.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Broń biała",
+     "text": [
+      "Kij baseballowy, kij do krykieta, łom, gitara elektryczna, siekiera strażacka, patelnia, kij golfowy, katana, maczeta, pałka, nóż bojowy, widły i łopata.",
+      "Każda z nich powala **zwykłego zarażonego jednym ciosem**. Specjalni otrzymują normalne obrażenia.",
+      "Szerokie bronie trafiają kilku wrogów naraz; widły i kij golfowy sięgają dalej. Najmocniej uderza siekiera strażacka."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Bomba rurowa",
+     "text": [
+      "Rzuć ją: odbija się, piszczy i miga na czerwono przez **5 sekund**. Wszyscy zwykli zarażeni w promieniu 32 bloków biegną do niej.",
+      "Potem wybucha na obszarze 5x5. Nie rani ocalałych.",
+      "Specjalnych zarażonych piszczenie nie oszuka."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Słoik z żółcią",
+     "text": [
+      "Rozbija się w zielonkawą chmurę, która utrzymuje się 15 sekund, przywołuje hordę i przyciąga pobliskich zarażonych.",
+      "Jeśli trafi prosto w kogoś — specjalnego zarażonego albo innego gracza — ten zostaje oblany żółcią i horda zajmie się tylko nim. Używaj go na dużych."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Stosy amunicji",
+     "text": [
+      "Użyj stosu amunicji z bronią w ręku, aby uzupełnić zapas danego kalibru do sześciu magazynków.",
+      "Każdy stos działa tylko raz i nie uzupełnia broni ciężkiej, takiej jak granatniki czy karabiny maszynowe."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiariusz",
+   "desc": "Specjalni zarażeni to mutacje o jednym celu: rozdzielić grupę. Każdy zdradza się dźwiękiem, gdy pojawia się w pobliżu. Naucz się ich odgłosów. Zdrowie podano w połówkach serc.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "Jak myślą zwykli",
+     "text": [
+      "Zwykli zarażeni nie są sprytni, ale jest ich dużo. Idą za hałasem, gonią najbliższego i rzucają się na każdego, kto pachnie żółcią.",
+      "Nie płoną w słońcu, nie męczą się i nie zapominają. Ty tak. Odpoczywaj w spokoju."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "Czyhacz",
+     "text": [
+      "Zdrowie 50 - Doświadczenie 40",
+      "Żylasty, w kapturze, zawsze przyczajony. Warczy, zanim skoczy ogromnym łukiem na ofiarę i przygwoździ ją do ziemi, rozszarpując bez przerwy. Skok z dużej wysokości (15 bloków lub więcej) jest jeszcze gorszy.",
+      "**Przeciwdziałanie:** słuchaj warczenia, trzymaj się grupy i zepchnij go z towarzysza. Odepchnięty w locie spada ogłuszony."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "Dusiciel",
+     "text": [
+      "Zdrowie 50 - Doświadczenie 40",
+      "Wysoki, pokryty guzami, z kaszlem, który zdradza jego pozycję. Trzyma się z daleka (15–25 bloków) i wystrzeliwuje język, który chwyta i wlecze. W **pierwszej sekundzie** wleczenia wciąż możesz do niego strzelać. Ginąc, zostawia oślepiającą chmurę dymu.",
+      "**Przeciwdziałanie:** szukaj jego sylwetki na wysokości, strzelaj szybko i odepchnij wleczoną ofiarę."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "Napuchnięty",
+     "text": [
+      "Zdrowie 10 - Doświadczenie 20",
+      "Powolny, ogromny i kruchy. Chowa się za rogami i wymiotuje żółcią w stożku 7 bloków. Ginąc, pęka, odpycha wszystkich i opryskuje żółcią w promieniu 3,5 bloku.",
+      "**Przeciwdziałanie:** zabij go z daleka. Jeśli jest tuż przy tobie, najpierw odepchnij, potem strzelaj."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "Żrąca",
+     "text": [
+      "Zdrowie 20 - Doświadczenie 30",
+      "Bardzo długa szyja i gardło świecące na zielono. Pluje kwasem ze średniej odległości i woli tych, którzy leżą albo kogoś podnoszą. Kałuża rośnie i na początku pali słabo, ale każda sekunda w niej boli bardziej.",
+      "**Przeciwdziałanie:** natychmiast wyjdź z kałuży i nigdy nie podnoś nikogo w kwasie."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "Pijawka",
+     "text": [
+      "Zdrowie 65 - Doświadczenie 50",
+      "Mała, z wielką głową i śmiechem, którego nie zapomnisz. Odskakuje w bok, gdy w nią celujesz. Jeśli cię dopadnie, wspina się na ramiona i prowadzi cię w ogień, lawę, kwas albo przepaść, z dala od drużyny.",
+      "**Przeciwdziałanie:** niech towarzysz cię odepchnie albo ją zabije. Sam — wyrywaj się."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "Taran",
+     "text": [
+      "Zdrowie 120 - Doświadczenie 90",
+      "Jedno ogromne ramię opancerzone kością i drugie uschnięte. Ryczy, pochyla głowę i szarżuje w linii prostej. Pierwszego, kogo złapie, niesie aż do ściany, pozostałych wyrzuca w powietrze, a potem raz po raz tłucze ofiarą o ziemię.",
+      "**Przeciwdziałanie:** nie da się go odepchnąć. Uskakuj w bok na dźwięk ryku i skupcie ogień."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "Płaczka",
+     "text": [
+      "Zdrowie 200 - Doświadczenie 200",
+      "Siedzi w ciemności i płacze. Dopóki nikt jej nie niepokoi, nic nie robi. Zbliżenie się na mniej niż 10 bloków, wpatrywanie się w nią lub strzelanie w pobliżu sprawia, że wstaje z warknięciem. Jeśli to nie ustanie, albo jeśli zostanie choćby draśnięta, wpada w szał i biegnie dwa razy szybciej od ciebie do tego, kto ją obudził. Jeden cios wystarczy, by cię powalić.",
+      "**Przeciwdziałanie:** obejdź ją. Odważni mówią, że strzał ze strzelby z przyłożenia, zanim zareaguje, powala ją od razu."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "Kolos",
+     "text": [
+      "Zdrowie od 600 do 1600 zależnie od poziomu trudności - Doświadczenie 1000",
+      "Góra szarego mięsa z pęknięciami, które żarzą się jak węgle. Jego nadejście zapowiada odległy róg i ryk, od którego drży ziemia. Jego ciosy posyłają cię w powietrze; z daleka wyrywa z ziemi głazy i rzuca nimi, a ty możesz je rozstrzelać, zanim spadną. Jeśli długo nikogo nie trafi, wpada we frustrację: biega szybciej i rozbija słabe bloki na swojej drodze.",
+      "**Przeciwdziałanie:** rozproszcie się, unikajcie zamkniętych przestrzeni, oblejcie go żółcią, by zaatakowała go horda, i strzelajcie wszyscy naraz."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "Od autora",
+   "desc": "Kilka słów dla tych, którzy dotarli aż tutaj.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "List",
+     "text": [
+      "__Drogi ocalały,__",
+      "Jeśli dotarłeś aż tutaj — dziękuję. Naprawdę.",
+      "Ten mod narodził się z niezliczonych godzin spędzonych z przyjaciółmi przy grze, która odcisnęła na nas piętno na zawsze: **Left 4 Dead 2**. Z nerwowego śmiechu, akcji ratunkowych w ostatniej sekundzie i tego spokoju, który zawsze trwał za krótko.",
+      "Wszystko na tych stronach powstało z wielką miłością, jako hołd dla tamtego doświadczenia. Nie próbuje go zastąpić — chce jedynie przenieść cząstkę jego ducha do świata z bloków.",
+      "Mam nadzieję, że znajdziesz tu to, co ja znalazłem tam: powód, by nigdy nie zostawiać towarzysza.",
+      "Dbaj o swoją drużynę. Dziel się tabletkami. A jeśli usłyszysz płacz w ciemności... zgaś latarkę.",
+      "Z miłością,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}

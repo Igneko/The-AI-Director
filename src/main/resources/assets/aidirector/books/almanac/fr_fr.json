@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Almanach du survivant",
+ "ui": {
+  "chapters": "Chapitres",
+  "entries": "Articles"
+ },
+ "intro": [
+  "Si vous lisez ceci, vous êtes encore en vie. Félicitations : c'est plus que ce que la plupart peuvent dire.",
+  "Gardez-le dans votre poche. Lisez-le dans les abris. Ne le lisez jamais à voix haute.",
+  "__Cliquez sur un chapitre pour commencer.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "Le Directeur",
+   "desc": "Rien n'arrive par hasard là-dehors. Quelque chose observe chaque survivant et décide quand serrer la vis et quand relâcher.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Qui tire les ficelles",
+     "text": [
+      "Appelez-le **le Directeur**. Il ne veut pas votre mort tout de suite : il veut que vous souffriez.",
+      "Il fonctionne en boucle : une **tension** qui monte, un **pic** de chaos, puis le **calme**. Apprenez à reconnaître le calme : c'est le moment de se soigner, de recharger et de partager les ressources.",
+      "Si vous survivez à un pic, le suivant se prépare déjà."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Le stress",
+     "text": [
+      "Le Directeur mesure votre **stress**, de 0 à 100. Il monte quand vous subissez des dégâts, quand un coéquipier tombe près de vous (+40), quand un coéquipier meurt (+75) et quand vous abattez des infectés de près.",
+      "Il baisse lentement quand vous ne subissez rien et qu'aucune menace n'est à moins de 16 blocs.",
+      "Pendant que le stress monte, le Directeur prépare des **embuscades d'infectés spéciaux** hors de votre vue, à 20-48 blocs. Si vous atteignez un **pic**, il s'arrête un moment et vous accorde une trêve.",
+      "Le calme amène les rôdeurs silencieux ; la tension moyenne, ceux qui agrippent et chargent ; le stress élevé, ceux qui punissent de loin. Très rarement, quand personne ne s'y attend, arrive le {{Colosse}}.",
+      "Consultez votre stress avec __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Les hordes",
+     "text": [
+      "Une **horde** est une marée d'infectés qui apparaît autour de vous, sur environ **40x40 blocs**, et fonce droit sur vous.",
+      "Les hordes sont déclenchées par le temps, le bruit, les alarmes et surtout par la **bile**. Celui qui en est couvert devient la cible de tous les infectés communs à 64 blocs.",
+      "Les infectés de horde courent, s'empilent pour grimper et défoncent les portes en bois quand ils sont assez nombreux.",
+      "Pour survivre : trouvez un **couloir étroit** ou un coin, dos à dos avec l'équipe, et alternez tirs et **bousculades**. Si vous avez une {{bombe artisanale}}, c'est le moment."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Rester en vie",
+   "desc": "Votre corps garde deux sortes de santé, refuse de mourir du premier coup et se souvient de chaque chute.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Votre corps",
+     "text": [
+      "Votre santé a deux parties. La santé **permanente** (barre pleine) ne revient qu'avec une {{trousse de soins}}. La santé **temporaire** (barre en pointillés) vient des pilules (+50) ou de l'adrénaline (+25) et s'écoule peu à peu : 1 point toutes les 5 secondes.",
+      "Les coups consomment d'abord la santé temporaire.",
+      "Sous 40 % vous **boitez** et marchez plus lentement. Avec 1 point, vous vous traînez à peine."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Neutralisé",
+     "text": [
+      "Quand votre santé tombe à zéro, vous ne mourez pas : vous tombez **neutralisé** au sol, pistolet en main, avec une réserve de sang qui s'épuise chaque seconde. Si personne ne vous relève, vous vous videz de votre sang.",
+      "Sans pistolet, vous en recevez un de secours à munitions infinies. Si votre inventaire est plein, l'objet de l'emplacement 9 tombe au sol.",
+      "Après deux chutes vous êtes en **Noir et Blanc** : le monde perd ses couleurs, vous entendez votre propre cœur et la prochaine chute sera la dernière. Seule une {{trousse de soins}} rend les couleurs."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Fournitures médicales",
+     "text": [
+      "**Trousse de soins :** maintenez 5 secondes. Rend 80 % de la santé permanente manquante et supprime le Noir et Blanc. Visez un coéquipier pour le soigner.",
+      "**Pilules :** instantanées, +50 de santé temporaire.",
+      "**Adrénaline :** instantanée, +25 de santé temporaire. Pendant 15 secondes vous courez plus vite, ne boitez plus et réanimez et soignez deux fois plus vite.",
+      "Clic droit sur un coéquipier avec des pilules ou de l'adrénaline pour les lui donner."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Travail d'équipe",
+   "desc": "Une équipe unie avance lentement. Une équipe divisée n'avance pas.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Personne ne survit seul",
+     "text": [
+      "**Réanimer :** maintenez le clic droit sur un coéquipier à terre (ou la touche **C**, qui marche même arme en main) pendant 5 secondes, ou 2,5 avec de l'adrénaline. S'éloigner ou être bousculé annule.",
+      "**Secourir :** si un infecté spécial attrape quelqu'un, **bousculez-le** (Mouse 4) ou tuez-le. Pendant les traînages et les chevauchées, vous pouvez aussi bousculer la victime.",
+      "**Attention :** si tous les survivants sont à terre ou immobilisés en même temps, l'équipe tombe. En solo, vous pouvez vous débattre avec la touche de bousculade après une seconde et demie."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "La bousculade",
+     "text": [
+      "La bousculade (Mouse 4) frappe dans un cône de 90 degrés devant vous. Les infectés titubent en arrière pendant une seconde et demie ; s'ils heurtent ceux de derrière, ceux-ci titubent aussi.",
+      "Vous pouvez bousculer quatre fois d'affilée ; à partir de la cinquième, vous vous fatiguez et devez attendre davantage. Quatre secondes de repos suffisent pour récupérer.",
+      "Bousculer annule le rechargement mais ne vous oblige jamais à ranger l'arme. Certains gros infectés ne peuvent pas être bousculés."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Bruit et discrétion",
+   "desc": "Les infectés sont presque aveugles de loin, mais leur ouïe est excellente. Chaque tir est une cloche qui annonce le dîner.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "Le bruit vous trahit",
+     "text": [
+      "Un tir de **pistolet ou de mitraillette** s'entend à environ **45 blocs**. Un **fusil**, à environ **55**. **Fusils à pompe, fusils de précision et armes lourdes** résonnent jusqu'à **65 blocs**.",
+      "Tout ce qui erre dans ce rayon vient voir. Quand plusieurs tirent, les infectés se répartissent, mais le plus bruyant prend souvent le plus cher.",
+      "Règle d'or : **ne tirez que si nécessaire**. Chaque balle économisée est une horde qui ne vient pas."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Silencieux et discrétion",
+     "text": [
+      "Un **silencieux** réduit le bruit de n'importe quelle arme à seulement **12 blocs**. C'est la différence entre nettoyer une rue en silence et réveiller tout le quartier.",
+      "Déplacez-vous accroupi dans les zones sombres, contournez les groupes au lieu de les traverser et ne courez pas sans raison.",
+      "Certaines créatures ne vous poursuivent pas si vous ne les dérangez pas. L'une d'elles pleure dans le noir. **Ne la fixez pas, ne tirez pas près d'elle et surtout ne la touchez pas.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenal",
+   "desc": "Battes, lames, bombes et bocaux. Tout ce qu'il faut pour atteindre le prochain abri.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Armes de corps à corps",
+     "text": [
+      "Batte de baseball, batte de cricket, pied-de-biche, guitare électrique, hache de pompier, poêle, club de golf, katana, machette, matraque, couteau de combat, fourche et pelle.",
+      "Chacune abat un **infecté commun d'un seul coup**. Les spéciaux subissent des dégâts normaux.",
+      "Les armes larges touchent plusieurs ennemis à la fois ; la fourche et le club de golf portent plus loin. La hache de pompier frappe le plus fort."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Bombe artisanale",
+     "text": [
+      "Lancez-la : elle rebondit, bipe et clignote en rouge pendant **5 secondes**. Tous les infectés communs à 32 blocs courent vers elle.",
+      "Puis elle explose sur une zone de 5x5. Elle ne blesse pas les survivants.",
+      "Les infectés spéciaux ne se laissent pas duper par le bip."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Bocal de bile",
+     "text": [
+      "Il se brise en un nuage verdâtre qui dure 15 secondes, appelle une horde et attire les infectés proches.",
+      "S'il tombe pile sur quelqu'un, un infecté spécial ou un autre joueur, celui-ci est couvert de bile et la horde ne s'en prendra qu'à lui. Utilisez-le sur les gros."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Tas de munitions",
+     "text": [
+      "Utilisez un tas de munitions arme en main pour remplir la réserve de ce calibre, jusqu'à six chargeurs.",
+      "Chaque tas ne sert qu'une fois et ne recharge pas les armes lourdes comme les lance-grenades ou les mitrailleuses."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiaire",
+   "desc": "Les infectés spéciaux sont des mutations avec un seul but : séparer le groupe. Chacun s'annonce par un son en apparaissant. Apprenez leurs cris. La santé est en demi-cœurs.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "Comment pensent les communs",
+     "text": [
+      "Les infectés communs ne sont pas malins, mais ils sont nombreux. Ils suivent le bruit, poursuivent le plus proche et se jettent sur celui qui sent la bile.",
+      "Ils ne brûlent pas au soleil, ne se fatiguent pas et n'oublient pas. Vous, si. Reposez-vous pendant le calme."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "Le Rôdeur",
+     "text": [
+      "Santé 50 - Expérience 40",
+      "Sec, encapuchonné, toujours accroupi. Il grogne avant de bondir en un arc immense sur sa proie et la cloue au sol en la lacérant sans relâche. Un saut de très haut (15 blocs ou plus) aggrave tout.",
+      "**Parade :** écoutez le grognement, restez groupés et bousculez-le pour libérer votre coéquipier. Bousculé en plein saut, il tombe sonné."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "L'Étrangleur",
+     "text": [
+      "Santé 50 - Expérience 40",
+      "Grand, couvert de tumeurs, avec une toux qui trahit sa position. Il reste loin (15 à 25 blocs) et lance une langue qui attrape et traîne. Pendant la **première seconde** du traînage, vous pouvez encore lui tirer dessus. À sa mort, il libère un nuage de fumée aveuglant.",
+      "**Parade :** cherchez sa silhouette en hauteur, tirez vite et bousculez la victime traînée."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "Le Boursouflé",
+     "text": [
+      "Santé 10 - Expérience 20",
+      "Lent, énorme et fragile. Il se cache derrière les coins et vomit de la bile dans un cône de 7 blocs. À sa mort il éclate, repousse tout le monde et éclabousse de bile à moins de 3,5 blocs.",
+      "**Parade :** tuez-le de loin. S'il est sur vous, bousculez d'abord, tirez ensuite."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "La Corrosive",
+     "text": [
+      "Santé 20 - Expérience 30",
+      "Un cou interminable et une gorge qui brille en vert. Elle crache de l'acide à moyenne distance et vise de préférence ceux qui sont à terre ou en train de réanimer. La flaque grandit et brûle peu au début, mais chaque seconde dedans fait plus mal.",
+      "**Parade :** sortez de la flaque immédiatement et ne réanimez jamais dans l'acide."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "La Sangsue",
+     "text": [
+      "Santé 65 - Expérience 50",
+      "Petite, à grosse tête, avec un rire inoubliable. Elle saute de côté quand vous la visez. Si elle vous atteint, elle grimpe sur vos épaules et vous dirige vers le feu, la lave, l'acide ou les falaises, loin de l'équipe.",
+      "**Parade :** qu'un coéquipier vous bouscule ou la tue. Seul, débattez-vous."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "Le Bélier",
+     "text": [
+      "Santé 120 - Expérience 90",
+      "Un bras énorme couvert d'os et un autre atrophié. Il rugit, baisse la tête et charge en ligne droite. Il emporte le premier qu'il attrape jusqu'à l'écraser contre un mur, projette les autres en l'air, puis frappe sa proie contre le sol.",
+      "**Parade :** il ne peut pas être bousculé. Esquivez sur le côté au rugissement et concentrez le feu."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "La Pleureuse",
+     "text": [
+      "Santé 200 - Expérience 200",
+      "Assise dans le noir, en larmes. Tant que personne ne la dérange, elle ne fait rien. S'approcher à moins de 10 blocs, la fixer ou tirer près d'elle la fait se lever en grognant. Si cela continue, ou si elle est égratignée, elle devient folle et court deux fois plus vite que vous vers celui qui l'a réveillée. Un coup de griffe suffit à vous mettre à terre.",
+      "**Parade :** contournez-la. Les courageux disent qu'une décharge de fusil à pompe à bout portant avant qu'elle ne réagisse la terrasse aussitôt."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "Le Colosse",
+     "text": [
+      "Santé de 600 à 1600 selon la difficulté - Expérience 1000",
+      "Une montagne de chair grise aux fissures qui luisent comme des braises. Son arrivée est annoncée par un cor lointain et un rugissement qui fait trembler le sol. Ses coups de poing vous projettent au loin ; à distance, il arrache des rochers et les lance, et vous pouvez les pulvériser au tir avant l'impact. S'il passe trop de temps sans toucher personne, il s'énerve : il court plus vite et démolit les blocs fragiles sur son passage.",
+      "**Parade :** dispersez-vous, évitez les espaces clos, couvrez-le de bile pour que la horde l'attaque et tirez tous ensemble."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "De l'auteur",
+   "desc": "Quelques mots pour ceux qui sont arrivés jusqu'ici.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "Une lettre",
+     "text": [
+      "__Cher survivant,__",
+      "Si vous êtes arrivé jusqu'ici, merci. Sincèrement.",
+      "Ce mod est né d'innombrables heures passées entre amis devant un jeu qui nous a marqués pour toujours : **Left 4 Dead 2**. Des rires nerveux, des sauvetages à la dernière seconde et de ce calme toujours trop court.",
+      "Tout dans ces pages a été fait avec beaucoup d'affection, en hommage à cette expérience. Il ne cherche pas à la remplacer, seulement à apporter un petit morceau de son esprit dans un monde de blocs.",
+      "J'espère que vous trouverez ici ce que j'y ai trouvé : une raison de ne jamais abandonner un coéquipier.",
+      "Prenez soin de votre équipe. Partagez les pilules. Et si vous entendez pleurer dans le noir... éteignez votre lampe.",
+      "Avec affection,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}

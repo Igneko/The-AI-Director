@@ -4,7 +4,12 @@ import com.igneko.aidirector.core.combat.StaggerHandler;
 import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.PinType;
 import com.igneko.aidirector.registry.ModSounds;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import org.joml.Vector3f;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -163,6 +168,58 @@ public class LurkerEntity extends SpecialInfectedEntity implements PinService.Pi
     public boolean doHurtTarget(Entity target) {
         return getState() == STATE_IDLE && super.doHurtTarget(target);
     }
+
+    // ================================================================== GeckoLib
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_PINNING && getState() != STATE_LEAP;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        switch (getState()) {
+            case STATE_PINNING -> { return loop("pin"); }
+            case STATE_LEAP -> { return loop("leap"); }
+            case STATE_CROUCH -> { return loop("crouch"); }
+            default -> { }
+        }
+        if (!moving) return loop("idle");
+        return getDeltaMovement().horizontalDistance() > 0.13 ? loop("run") : loop("walk");
+    }
+
+    @Override
+    protected boolean hasAttackAnimation() {
+        return false;
+    }
+
+    // ================================================================== efectos visuales (cliente)
+
+    @Override
+    protected void clientEffects() {
+        int state = getState();
+        if (state == STATE_CROUCH) {
+            if (random.nextInt(3) == 0) {
+                level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, getBlockStateOn()),
+                        getX() + (random.nextDouble() - 0.5) * 0.8, getY() + 0.05, getZ() + (random.nextDouble() - 0.5) * 0.8, 0, 0.05, 0);
+            }
+            if (tickCount % 12 == 0) {
+                Vec3 mouth = getEyePosition().add(getLookAngle().scale(0.45));
+                level().addParticle(ParticleTypes.POOF, mouth.x, mouth.y - 0.15, mouth.z, 0, 0.01, 0);
+            }
+        } else if (state == STATE_LEAP) {
+            level().addParticle(TRAIL, getX(), getY() + 0.6, getZ(), 0, 0, 0);
+        } else if (state == STATE_PINNING && tickCount % 5 == 0) {
+            Vec3 at = position().add(getLookAngle().multiply(0.6, 0, 0.6));
+            for (int i = 0; i < 4; i++) {
+                level().addParticle(GORE, at.x + (random.nextDouble() - 0.5) * 0.5, at.y + 0.3 + random.nextDouble() * 0.4,
+                        at.z + (random.nextDouble() - 0.5) * 0.5, (random.nextDouble() - 0.5) * 0.2, 0.15, (random.nextDouble() - 0.5) * 0.2);
+            }
+        }
+    }
+
+    private static final DustParticleOptions TRAIL = new DustParticleOptions(new Vector3f(0.55f, 0.42f, 0.18f), 1.2f);
+    private static final DustParticleOptions GORE = new DustParticleOptions(new Vector3f(0.45f, 0.04f, 0.03f), 1.0f);
 
     @Override
     public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {

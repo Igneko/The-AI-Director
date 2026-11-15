@@ -75,6 +75,10 @@ repositories {
     flatDir {
         dir 'libs'
     }
+    // GeckoLib: modelos y animaciones de Blockbench
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    // Player Animator (KosmX): animaciones del modelo del jugador
+    maven { url 'https://maven.kosmx.dev/' }
 }
 
 dependencies {
@@ -83,6 +87,11 @@ dependencies {
     // Desofuscación de mods locales en la carpeta "libs"
     implementation fg.deobf("blank:enhanced-hordes:1.1.0")
     implementation fg.deobf("blank:tacz:1.1.8-hotfix2")
+
+    // Animaciones hechas en Blockbench
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.20.1:4.8.4")
+    // Opcional en tiempo de ejecución para los jugadores (si no está, se usan las poses por código)
+    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
 
     // Tests unitarios del dominio (Java puro, sin arrancar Minecraft)
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'

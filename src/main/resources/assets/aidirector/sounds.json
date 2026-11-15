@@ -600,23 +600,6 @@
       }
     ]
   },
-  "chainsaw.rev": {
-    "subtitle": "subtitles.aidirector.chainsaw.rev",
-    "sounds": [
-      {
-        "name": "block.grindstone.use",
-        "type": "event",
-        "pitch": 0.55,
-        "volume": 1.4
-      },
-      {
-        "name": "entity.bee.loop_aggressive",
-        "type": "event",
-        "pitch": 0.5,
-        "volume": 1.2
-      }
-    ]
-  },
   "frying_pan.clang": {
     "subtitle": "subtitles.aidirector.frying_pan.clang",
     "sounds": [

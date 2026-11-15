@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Almanaque do Sobrevivente",
+ "ui": {
+  "chapters": "Capítulos",
+  "entries": "Tópicos"
+ },
+ "intro": [
+  "Se você está lendo isto, ainda está vivo. Parabéns: é mais do que a maioria pode dizer.",
+  "Guarde no bolso. Leia nos abrigos. Nunca leia em voz alta.",
+  "__Clique em um capítulo para começar.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "O Diretor",
+   "desc": "Nada lá fora é por acaso. Algo observa cada sobrevivente e decide quando apertar e quando soltar.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Quem puxa as cordas",
+     "text": [
+      "Chame de **o Diretor**. Ele não quer você morto de imediato: quer que você sofra.",
+      "Funciona em ciclo: **tensão** que cresce, um **pico** de caos e depois **calma**. Aprenda a reconhecer a calma: é a hora de se curar, recarregar e dividir suprimentos.",
+      "Se você sobreviver a um pico, o próximo já está sendo preparado."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Estresse",
+     "text": [
+      "O Diretor mede seu **estresse**, de 0 a 100. Ele sobe quando você leva dano, quando um aliado cai perto de você (+40), quando um aliado morre (+75) e quando você abate infectados de perto.",
+      "Ele cai aos poucos quando você não leva dano e não há ameaças a 16 blocos.",
+      "Enquanto o estresse cresce, o Diretor prepara **emboscadas de infectados especiais** fora da sua vista, a 20-48 blocos. Ao chegar a um **pico**, ele para por um tempo e te dá uma trégua.",
+      "Na calma chegam os caçadores silenciosos; com tensão média, os que agarram e investem; com estresse alto, os que castigam de longe. Muito raramente, quando ninguém espera, chega o {{Colosso}}.",
+      "Veja seu estresse com __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Hordas",
+     "text": [
+      "Uma **horda** é uma maré de infectados que surge ao seu redor, em cerca de **40x40 blocos**, e vem direto até você.",
+      "Hordas são causadas pelo tempo, pelo ruído, por alarmes e, acima de tudo, pela **bile**. Quem fica coberto de bile vira o alvo de todos os infectados comuns a 64 blocos.",
+      "Os infectados da horda correm, se amontoam para escalar e derrubam portas de madeira quando se juntam em número.",
+      "Para sobreviver: encontre um **corredor estreito** ou um canto, fique de costas com a equipe e alterne tiros com **empurrões**. Se tiver uma {{bomba caseira}}, a hora é agora."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Manter-se vivo",
+   "desc": "Seu corpo guarda dois tipos de vida, se recusa a morrer na primeira tentativa e lembra de cada queda.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Seu corpo",
+     "text": [
+      "Sua vida tem duas partes. A **permanente** (barra sólida) só volta com um {{kit de primeiros socorros}}. A **temporária** (barra pontilhada) vem de pílulas (+50) ou adrenalina (+25) e escapa aos poucos: 1 ponto a cada 5 segundos.",
+      "Os golpes consomem a vida temporária primeiro.",
+      "Abaixo de 40% você **manca** e anda mais devagar. Com 1 ponto mal consegue se arrastar."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Incapacitado",
+     "text": [
+      "Quando sua vida chega a zero você não morre: cai **incapacitado** no chão, com uma pistola na mão e uma reserva de sangue que se esgota a cada segundo. Se ninguém te levantar, você sangra até morrer.",
+      "Se não tiver pistola, recebe uma reserva com munição infinita. Se o inventário estiver cheio, o que estiver no slot 9 cai no chão.",
+      "Depois de duas quedas você fica em **Preto e Branco**: o mundo perde a cor, você ouve o próprio coração e a próxima queda será a última. Só um {{kit de primeiros socorros}} devolve as cores."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Suprimentos médicos",
+     "text": [
+      "**Kit de primeiros socorros:** segure por 5 segundos. Recupera 80% da vida permanente perdida e remove o Preto e Branco. Mire em um aliado para curá-lo.",
+      "**Pílulas:** instantâneas, +50 de vida temporária.",
+      "**Adrenalina:** instantânea, +25 de vida temporária. Por 15 segundos você corre mais, não manca e reanima e cura duas vezes mais rápido.",
+      "Clique com o botão direito em um aliado com pílulas ou adrenalina para entregá-las."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Trabalho em equipe",
+   "desc": "Uma equipe unida avança devagar. Uma equipe separada não avança.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Ninguém sobrevive sozinho",
+     "text": [
+      "**Reanimar:** segure o botão direito sobre um aliado caído (ou a tecla **C**, que funciona mesmo com uma arma na mão) por 5 segundos, ou 2,5 com adrenalina. Afastar-se ou ser empurrado cancela.",
+      "**Resgatar:** se um infectado especial agarrar alguém, **empurre-o** (Mouse 4) ou mate-o. Em arrastos e montarias você também pode empurrar a vítima.",
+      "**Cuidado:** se todos os sobreviventes estiverem caídos ou presos ao mesmo tempo, a equipe cai. Jogando sozinho, você pode se soltar com a tecla de empurrão após um segundo e meio."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "O empurrão",
+     "text": [
+      "O empurrão (Mouse 4) atinge um cone de 90 graus à sua frente. Os infectados cambaleiam para trás por um segundo e meio; se baterem nos de trás, esses também cambaleiam.",
+      "Você pode empurrar quatro vezes seguidas; a partir do quinto empurrão você se cansa e precisa esperar mais. Descansar quatro segundos recupera o fôlego.",
+      "Empurrar cancela a recarga, mas nunca obriga a guardar a arma. Alguns infectados grandes não podem ser empurrados."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Ruído e furtividade",
+   "desc": "Os infectados são quase cegos de longe, mas têm uma audição excelente. Cada tiro é um sino anunciando o jantar.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "O ruído te entrega",
+     "text": [
+      "Um tiro de **pistola ou submetralhadora** é ouvido a uns **45 blocos**. Um **fuzil**, a uns **55**. **Escopetas, rifles de precisão e armas pesadas** ecoam até **65 blocos**.",
+      "Tudo que estiver vagando nesse raio vem investigar. Quando vários atiram, os infectados se dividem, mas o mais barulhento costuma levar a pior.",
+      "Regra de ouro: **atire só quando precisar**. Cada bala poupada é uma horda que não vem."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Silenciadores e furtividade",
+     "text": [
+      "Um **silenciador** reduz o ruído de qualquer arma para apenas **12 blocos**. É a diferença entre limpar uma rua em silêncio e acordar o bairro inteiro.",
+      "Ande agachado pelas áreas escuras, contorne os grupos em vez de atravessá-los e não corra sem necessidade.",
+      "Algumas criaturas não te perseguem se você não as incomodar. Uma delas chora no escuro. **Não a encare, não atire perto dela e, acima de tudo, não toque nela.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenal",
+   "desc": "Tacos, lâminas, bombas e frascos. Tudo o que você precisa para chegar ao próximo abrigo.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Armas brancas",
+     "text": [
+      "Taco de beisebol, taco de críquete, pé de cabra, guitarra elétrica, machado de bombeiro, frigideira, taco de golfe, katana, facão, cassetete, faca de combate, forcado e pá.",
+      "Qualquer uma derruba um **infectado comum com um único golpe**. Os especiais recebem dano normal.",
+      "As armas largas atingem vários inimigos de uma vez; o forcado e o taco de golfe alcançam mais longe. O machado de bombeiro é o que bate mais forte."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Bomba caseira",
+     "text": [
+      "Jogue-a: ela quica, apita e pisca em vermelho por **5 segundos**. Todos os infectados comuns a 32 blocos correm até ela.",
+      "Depois explode numa área de 5x5. Não fere os sobreviventes.",
+      "Os infectados especiais não caem no truque do apito."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Frasco de bile",
+     "text": [
+      "Ele se quebra numa nuvem esverdeada que dura 15 segundos, chama uma horda e atrai os infectados próximos.",
+      "Se cair bem em cima de alguém, um infectado especial ou outro jogador, ele fica coberto de bile e a horda vai só atrás dele. Use nos grandões."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Pilhas de munição",
+     "text": [
+      "Use uma pilha de munição segurando uma arma para repor a reserva daquele calibre, até seis carregadores.",
+      "Cada pilha funciona só uma vez e não recarrega armas pesadas como lança-granadas ou metralhadoras."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiário",
+   "desc": "Os infectados especiais são mutações com um único propósito: separar o grupo. Cada um avisa com um som ao aparecer por perto. Aprenda os avisos. A vida está em meios corações.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "Como os comuns pensam",
+     "text": [
+      "Os infectados comuns não são espertos, mas são muitos. Seguem o ruído, perseguem quem estiver mais perto e se jogam em quem cheira a bile.",
+      "Não queimam ao sol, não se cansam e não esquecem. Você sim. Descanse na calma."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "O Espreitador",
+     "text": [
+      "Vida 50 - Experiência 40",
+      "Magro, encapuzado, sempre agachado. Rosna antes de saltar num arco enorme sobre a presa e a prende no chão, rasgando sem parar. Saltar de muito alto (15 blocos ou mais) piora tudo.",
+      "**Contra ele:** ouça o rosnado, fique com o grupo e empurre-o de cima do aliado. Empurrado no meio do salto, ele cai atordoado."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "O Estrangulador",
+     "text": [
+      "Vida 50 - Experiência 40",
+      "Alto, coberto de tumores e com uma tosse que entrega sua posição. Fica longe (15 a 25 blocos) e lança uma língua que agarra e arrasta. No **primeiro segundo** do arrasto você ainda pode atirar nele. Ao morrer solta uma nuvem de fumaça que cega.",
+      "**Contra ele:** procure a silhueta no alto, atire rápido e empurre a vítima arrastada."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "O Inchado",
+     "text": [
+      "Vida 10 - Experiência 20",
+      "Lento, enorme e frágil. Esconde-se atrás das esquinas e vomita bile num cone de 7 blocos. Ao morrer explode, empurra todos e espirra bile a menos de 3,5 blocos.",
+      "**Contra ele:** mate-o de longe. Se ele estiver em cima de você, empurre primeiro e atire depois."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "A Corrosiva",
+     "text": [
+      "Vida 20 - Experiência 30",
+      "Pescoço longuíssimo e garganta que brilha em verde. Cospe ácido de média distância e prefere quem está no chão ou reanimando alguém. A poça cresce e no começo queima pouco, mas cada segundo dentro dói mais.",
+      "**Contra ela:** saia da poça na hora e nunca reanime dentro do ácido."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "O Parasita",
+     "text": [
+      "Vida 65 - Experiência 50",
+      "Pequeno, cabeçudo e com uma risada que você não vai esquecer. Pula para o lado quando você mira nele. Se te alcançar, sobe nos seus ombros e te leva para o fogo, a lava, o ácido ou penhascos, longe da equipe.",
+      "**Contra ele:** peça a um aliado para te empurrar ou matá-lo. Sozinho, lute para se soltar."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "O Aríete",
+     "text": [
+      "Vida 120 - Experiência 90",
+      "Um braço enorme coberto de osso e outro atrofiado. Ruge, abaixa a cabeça e investe em linha reta. Leva o primeiro que pega até esmagá-lo contra uma parede, joga os outros para o alto e depois bate a presa contra o chão.",
+      "**Contra ele:** não pode ser empurrado. Desvie para o lado ao ouvir o rugido e concentrem o fogo."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "A Carpideira",
+     "text": [
+      "Vida 200 - Experiência 200",
+      "Sentada no escuro, chorando. Enquanto ninguém a incomodar, não faz nada. Chegar a menos de 10 blocos, encará-la ou atirar perto a faz se levantar rosnando. Se continuar, ou se ela levar um arranhão, enlouquece e corre ao dobro da sua velocidade até quem a acordou. Um golpe basta para te derrubar.",
+      "**Contra ela:** dê a volta. Os corajosos dizem que um tiro de escopeta à queima-roupa antes que ela reaja a derruba na hora."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "O Colosso",
+     "text": [
+      "Vida de 600 a 1600 conforme a dificuldade - Experiência 1000",
+      "Uma montanha de carne cinzenta com rachaduras que brilham como brasas. Sua chegada é anunciada por uma corneta distante e um rugido que faz o chão tremer. Seus socos te lançam longe; de longe ele arranca rochas do chão e as atira, e você pode destruí-las a tiros antes que cheguem. Se passar muito tempo sem acertar ninguém, se frustra: corre mais e derruba os blocos fracos no caminho.",
+      "**Contra ele:** espalhem-se, evitem lugares fechados, cubram-no de bile para a horda atacá-lo e atirem todos juntos."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "Do autor",
+   "desc": "Algumas palavras para quem chegou até aqui.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "Uma carta",
+     "text": [
+      "__Querido sobrevivente,__",
+      "Se você chegou até aqui, obrigado. De verdade.",
+      "Este mod nasceu de incontáveis horas com amigos diante de um jogo que nos marcou para sempre: **Left 4 Dead 2**. Das risadas nervosas, dos resgates no último segundo e daquela calma que sempre durava pouco.",
+      "Tudo nestas páginas foi feito com muito carinho, como homenagem a essa experiência. Não pretende substituí-la, apenas trazer um pedacinho do seu espírito para um mundo de blocos.",
+      "Espero que você encontre aqui o que eu encontrei lá: um motivo para nunca deixar um aliado para trás.",
+      "Cuide da sua equipe. Divida as pílulas. E se ouvir choro no escuro... apague a lanterna.",
+      "Com carinho,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}

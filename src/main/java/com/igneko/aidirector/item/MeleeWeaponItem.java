@@ -2,11 +2,9 @@ package com.igneko.aidirector.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.igneko.aidirector.api.event.AcousticPulseEvent;
 import com.igneko.aidirector.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +18,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +32,7 @@ import java.util.UUID;
 public class MeleeWeaponItem extends Item {
 
     /** Estadísticas de cada arma (daño total en puntos vanilla; velocidad relativa a 4 golpes/s). */
-    public record Stats(float damage, float speed, float reach, int durability, boolean sweep, boolean loud) {}
+    public record Stats(float damage, float speed, float reach, int durability, boolean sweep) {}
 
     private static final UUID REACH_ID = UUID.fromString("e4c1b9a2-7f3d-4c6e-9a1b-2d3c4e5f6a7b");
 
@@ -72,11 +69,7 @@ public class MeleeWeaponItem extends Item {
         stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         Level level = attacker.level();
         if (!level.isClientSide()) {
-            if (stats.loud()) {
-                level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), ModSounds.CHAINSAW_REV.get(), SoundSource.PLAYERS, 1.4f, 1f);
-                MinecraftForge.EVENT_BUS.post(new AcousticPulseEvent((ServerLevel) level, attacker.position(), 30,
-                        AcousticPulseEvent.Source.GUNSHOT, attacker));
-            } else if (this == com.igneko.aidirector.registry.ModWeapons.FRYING_PAN.get()) {
+            if (this == com.igneko.aidirector.registry.ModWeapons.FRYING_PAN.get()) {
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), ModSounds.FRYING_PAN_CLANG.get(), SoundSource.PLAYERS, 1f, 1f);
             }
         }
@@ -102,6 +95,5 @@ public class MeleeWeaponItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.translatable(getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         if (stats.sweep()) tooltip.add(Component.translatable("tooltip.aidirector.melee.sweep").withStyle(ChatFormatting.DARK_GREEN));
-        if (stats.loud()) tooltip.add(Component.translatable("tooltip.aidirector.melee.loud").withStyle(ChatFormatting.RED));
     }
 }

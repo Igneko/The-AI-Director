@@ -1,5 +1,9 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import org.joml.Vector3f;
 import com.igneko.aidirector.entity.projectile.AcidBallEntity;
 import com.igneko.aidirector.entity.projectile.AcidPuddleEntity;
 import com.igneko.aidirector.core.survivor.ReviveManager;
@@ -120,5 +124,28 @@ public class CorroderEntity extends SpecialInfectedEntity {
             level().addFreshEntity(puddle);
         }
         super.die(source);
+    }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_SPIT;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        if (getState() == STATE_SPIT) return once("spit");
+        return moving ? loop("walk") : loop("idle");
+    }
+
+    @Override
+    protected void clientEffects() {
+        // Gotea ácido luminoso de la mandíbula y humea de vez en cuando.
+        if (random.nextInt(3) == 0) {
+            Vec3 jaw = getEyePosition().add(getLookAngle().scale(0.45));
+            level().addParticle(AcidBallEntity.ACID, jaw.x, jaw.y - 0.35, jaw.z, 0, -0.08, 0);
+        }
+        if (random.nextInt(25) == 0) level().addParticle(ParticleTypes.SMOKE, getX(), getY() + 0.05, getZ(), 0, 0.02, 0);
     }
 }

@@ -33,6 +33,20 @@ Overhaul táctico cooperativo estilo Left 4 Dead 2: AI Director adaptativo, salu
     side="BOTH"
 
 [[dependencies.aidirector]]
+    modId="geckolib"
+    mandatory=true
+    versionRange="[4.8,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.aidirector]]
+    modId="playeranimator"
+    mandatory=false
+    versionRange="[1.0.2-rc1,)"
+    ordering="AFTER"
+    side="CLIENT"
+
+[[dependencies.aidirector]]
     modId="enhanced_hordes"
     mandatory=true
     versionRange="[1.1.0,)"

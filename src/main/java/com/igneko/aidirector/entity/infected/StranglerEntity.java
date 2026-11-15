@@ -1,5 +1,8 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
+import net.minecraft.core.particles.DustParticleOptions;
+import org.joml.Vector3f;
 import com.igneko.aidirector.core.survivor.PinService;
 import com.igneko.aidirector.core.survivor.PinType;
 import com.igneko.aidirector.registry.ModSounds;
@@ -170,4 +173,26 @@ public class StranglerEntity extends SpecialInfectedEntity implements PinService
     public boolean doHurtTarget(Entity target) {
         return getTongueTarget() == null && super.doHurtTarget(target);
     }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        if (getTongueTarget() != null) return loop("tongue");
+        return moving ? loop("walk") : loop("idle");
+    }
+
+    @Override
+    protected void clientEffects() {
+        Vec3 mouth = getEyePosition().add(getLookAngle().scale(0.4));
+        if (tickCount % 70 == 0) {
+            for (int i = 0; i < 5; i++) level().addParticle(ParticleTypes.SMOKE, mouth.x, mouth.y - 0.2, mouth.z,
+                    getLookAngle().x * 0.05, 0.02, getLookAngle().z * 0.05);
+        }
+        if (getTongueTarget() != null && random.nextInt(2) == 0) {
+            level().addParticle(SALIVA, mouth.x, mouth.y - 0.25, mouth.z, 0, -0.02, 0);
+        }
+    }
+
+    private static final DustParticleOptions SALIVA = new DustParticleOptions(new Vector3f(0.77f, 0.42f, 0.48f), 0.8f);
 }

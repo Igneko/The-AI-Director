@@ -1,5 +1,6 @@
 package com.igneko.aidirector.entity.infected;
 
+import software.bernie.geckolib.core.animation.RawAnimation;
 import com.igneko.aidirector.core.director.BileService;
 import com.igneko.aidirector.registry.ModSounds;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -139,4 +140,33 @@ public class BloaterEntity extends SpecialInfectedEntity {
     public float getVoicePitch() {
         return 0.8f + random.nextFloat() * 0.1f;
     }
+
+    // ================================================================== animación y efectos
+
+    @Override
+    public boolean shouldTrackHead() {
+        return getState() != STATE_VOMIT;
+    }
+
+    @Override
+    protected RawAnimation mainAnimation(boolean moving) {
+        if (getState() == STATE_VOMIT) return loop("vomit");
+        return moving ? loop("walk") : loop("idle");
+    }
+
+    @Override
+    protected void clientEffects() {
+        // Babea bilis y lo rodea un enjambre de moscas.
+        if (random.nextInt(6) == 0) {
+            Vec3 mouth = getEyePosition().add(getLookAngle().scale(0.5));
+            level().addParticle(DRIP, mouth.x, mouth.y - 0.35, mouth.z, 0, -0.05, 0);
+        }
+        if (random.nextInt(3) == 0) {
+            double a = (tickCount * 0.3 + random.nextDouble()) % (Math.PI * 2);
+            level().addParticle(FLY, getX() + Math.cos(a) * 0.9, getY() + 1.2 + random.nextDouble() * 0.6, getZ() + Math.sin(a) * 0.9, 0, 0, 0);
+        }
+    }
+
+    private static final DustParticleOptions DRIP = new DustParticleOptions(new Vector3f(0.5f, 0.64f, 0.14f), 1.0f);
+    private static final DustParticleOptions FLY = new DustParticleOptions(new Vector3f(0.05f, 0.05f, 0.05f), 0.4f);
 }

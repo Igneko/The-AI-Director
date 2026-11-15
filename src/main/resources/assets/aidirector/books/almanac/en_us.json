@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Survivor's Almanac",
+ "ui": {
+  "chapters": "Chapters",
+  "entries": "Entries"
+ },
+ "intro": [
+  "If you are reading this, you are still alive. Congratulations: that is more than most can say.",
+  "Keep it in your pocket. Read it in safe rooms. Never read it out loud.",
+  "__Click a chapter to begin.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "The Director",
+   "desc": "Nothing out there is random. Something watches every survivor and decides when to push and when to let go.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Who pulls the strings",
+     "text": [
+      "Call it **the Director**. It does not want you dead right away: it wants you to struggle.",
+      "It works in a loop: **tension** that builds, a **peak** of chaos, then **calm**. Learn to recognise the calm: it is the moment to heal, reload and share supplies.",
+      "If you survive one peak, the next one is already being prepared."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Stress",
+     "text": [
+      "The Director measures your **stress**, from 0 to 100. It rises when you take damage, when a teammate is downed near you (+40), when a teammate dies (+75) and when you kill infected at close range.",
+      "It slowly drops when you take no damage and there are no threats within 16 blocks.",
+      "While stress builds, the Director prepares **special infected ambushes** out of your sight, 20 to 48 blocks away. If you reach a **peak**, it stops for a while and grants you a truce.",
+      "Calm brings silent stalkers; medium tension brings grabbers and chargers; high stress brings attackers that punish from afar. Very rarely, when nobody expects it, comes the {{Behemoth}}.",
+      "Check your stress with __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Hordes",
+     "text": [
+      "A **horde** is a tide of infected that appears around you, across roughly **40x40 blocks**, and comes straight for you.",
+      "Hordes are triggered by time, by noise, by alarms and, above all, by **bile**. Whoever is covered in bile becomes the target of every common infected within 64 blocks.",
+      "Horde infected run, pile on top of each other to climb, and break wooden doors when enough of them gather.",
+      "To survive: find a **narrow corridor** or a corner, stand back to back with your team and alternate shots with **shoves**. If you have a {{pipe bomb}}, now is the time."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Staying Alive",
+   "desc": "Your body keeps two kinds of health, refuses to die on the first try and remembers every fall.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Your body",
+     "text": [
+      "Your health has two parts. **Permanent** health (solid bar) only comes back with a {{first aid kit}}. **Temporary** health (dotted bar) comes from pills (+50) or adrenaline (+25) and slowly drains: 1 point every 5 seconds.",
+      "Hits eat temporary health first.",
+      "Below 40% you **limp** and walk slower. With 1 point left you can barely drag yourself."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Incapacitated",
+     "text": [
+      "When your health reaches zero you do not die: you fall **incapacitated** to the ground, holding a pistol, with a pool of blood that drains every second. If nobody helps you up, you bleed out.",
+      "If you have no pistol, you get a backup one with infinite ammo. If your inventory is full, whatever is in hotbar slot 9 drops to the floor.",
+      "After two falls you are in **Black and White**: the world loses its colour, you hear your own heartbeat and the next fall will be your last. Only a {{first aid kit}} brings the colour back."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Medical supplies",
+     "text": [
+      "**First aid kit:** hold to use for 5 seconds. Restores 80% of the missing permanent health and clears Black and White. Aim at a teammate to heal them instead.",
+      "**Pain pills:** instant, +50 temporary health.",
+      "**Adrenaline:** instant, +25 temporary health. For 15 seconds you run faster, never limp, and revive and heal twice as fast.",
+      "Right-click a teammate with pills or adrenaline to hand them over."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Teamwork",
+   "desc": "A united team moves slowly. A split team does not move at all.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Nobody survives alone",
+     "text": [
+      "**Reviving:** hold right-click on a downed teammate (or the **C** key, which works even with a gun in hand) for 5 seconds, or 2.5 with adrenaline. Walking away or being shoved cancels it.",
+      "**Rescuing:** if a special infected grabs someone, **shove** it (Mouse 4) or kill it. During drags and rides you can also shove the victim.",
+      "**Careful:** if every survivor is downed or pinned at the same time, the team falls. Playing alone, you can struggle free with the shove key after a second and a half."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "The shove",
+     "text": [
+      "The shove (Mouse 4) hits a 90 degree cone in front of you. Infected stagger backwards for a second and a half; if they bump into the ones behind, those stagger too.",
+      "You can shove four times quickly; from the fifth shove on you get tired and must wait longer. Resting four seconds resets your stamina.",
+      "Shoving cancels your reload but never makes you put the gun away. Some big infected cannot be shoved at all."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Noise and Stealth",
+   "desc": "The infected are nearly blind at a distance, but their hearing is superb. Every shot is a dinner bell.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "Noise gives you away",
+     "text": [
+      "A **pistol or SMG** shot is heard about **45 blocks** away. A **rifle**, about **55**. **Shotguns, snipers and heavy weapons** echo up to **65 blocks**.",
+      "Anything wandering inside that radius comes to investigate. When several people shoot, the infected split between them, but the loudest one usually gets the worst of it.",
+      "Golden rule: **shoot only when you must**. Every bullet you save is a horde that does not come."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Silencers and stealth",
+     "text": [
+      "A **suppressor** on the muzzle cuts the noise of any weapon down to only **12 blocks**. It is the difference between clearing a street quietly and waking the whole block.",
+      "Move crouched through dark areas, go around groups instead of through them and do not run unless you have to.",
+      "Some creatures will not chase you unless you bother them. One of them cries in the dark. **Do not stare at her, do not shoot near her and, above all, do not touch her.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenal",
+   "desc": "Bats, blades, bombs and bottles. Everything you need to make it to the next safe room.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Melee weapons",
+     "text": [
+      "Baseball bat, cricket bat, crowbar, electric guitar, fire axe, frying pan, golf club, katana, machete, nightstick, combat knife, pitchfork and shovel.",
+      "Any of them drops a **common infected in a single hit**. Special infected take normal damage.",
+      "Wide weapons hit several enemies at once; the pitchfork and the golf club reach further. The fire axe hits hardest."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Pipe bomb",
+     "text": [
+      "Throw it and it bounces, beeps and blinks red for **5 seconds**. Every common infected within 32 blocks runs towards it.",
+      "Then it explodes over a 5x5 area. It does not hurt survivors.",
+      "Special infected are not fooled by the beeping."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Bile jar",
+     "text": [
+      "It shatters into a greenish cloud that lasts 15 seconds, calls a horde and draws in nearby infected.",
+      "If it lands right on someone, a special infected or another player, they are covered in bile and the horde goes for them alone. Use it on the big ones."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Ammo piles",
+     "text": [
+      "Use an ammo pile while holding a gun to refill the reserve for that calibre, up to six magazines.",
+      "Each pile works only once and cannot refill heavy weapons such as grenade launchers or machine guns."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiary",
+   "desc": "Special infected are mutations with one purpose: to split the group. Each one announces itself with a sound when it appears nearby. Learn their calls. Health is in half hearts.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "How the commons think",
+     "text": [
+      "Common infected are not clever, but there are many of them. They follow noise, chase whoever is closest and swarm whoever smells of bile.",
+      "They do not burn in the sun, they do not get tired and they do not forget. You do. Rest during the calm."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "The Lurker",
+     "text": [
+      "Health 50 - Experience 40",
+      "Wiry, hooded, always crouching. It growls before leaping in a huge arc onto its prey and pins it to the ground, tearing at it non-stop. Leaping from very high (15 blocks or more) makes it worse.",
+      "**Counter:** listen for the growl, stay with the group and shove it off your teammate. Shoved mid-leap, it falls stunned."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "The Strangler",
+     "text": [
+      "Health 50 - Experience 40",
+      "Tall, covered in tumours, with a cough that gives away its position. It stays far (15 to 25 blocks) and shoots a tongue that grabs and drags. During the **first second** of the drag you can still shoot it. When it dies it releases a blinding smoke cloud.",
+      "**Counter:** look for its silhouette up high, shoot fast and shove the dragged victim."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "The Bloater",
+     "text": [
+      "Health 10 - Experience 20",
+      "Slow, huge and fragile. It hides behind corners and vomits bile in a 7 block cone. When it dies it bursts, pushing everyone back and splashing bile within 3.5 blocks.",
+      "**Counter:** kill it from afar. If it is on top of you, shove first and shoot after."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "The Corroder",
+     "text": [
+      "Health 20 - Experience 30",
+      "A very long neck and a throat that glows green. It spits acid from mid range and prefers whoever is on the ground or reviving someone. The puddle grows and burns a little at first, but every second you stay inside hurts more.",
+      "**Counter:** leave the puddle at once and never revive inside the acid."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "The Leech",
+     "text": [
+      "Health 65 - Experience 50",
+      "Small, big-headed, with a laugh you will never forget. It hops sideways when you aim at it. If it reaches you, it climbs onto your shoulders and steers you towards fire, lava, acid or cliffs, away from your team.",
+      "**Counter:** have a teammate shove you or kill it. Alone, struggle."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "The Rammer",
+     "text": [
+      "Health 120 - Experience 90",
+      "One huge bone-plated arm and one withered arm. It roars, lowers its head and charges in a straight line. It carries off the first person it catches until it slams them into a wall, throwing everyone else into the air, then pounds its prey into the ground.",
+      "**Counter:** it cannot be shoved. Dodge sideways at the roar and focus fire."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "The Wailer",
+     "text": [
+      "Health 200 - Experience 200",
+      "Sitting in the dark, crying. As long as nobody bothers her, she does nothing. Getting within 10 blocks, staring at her or shooting nearby makes her stand up growling. If it continues, or if she is scratched, she goes mad and runs at twice your speed towards whoever woke her. One swipe is enough to drop you.",
+      "**Counter:** go around her. The brave say a point-blank shotgun blast before she reacts brings her down at once."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "The Behemoth",
+     "text": [
+      "Health 600 to 1600 depending on difficulty - Experience 1000",
+      "A mountain of grey flesh with cracks that glow like embers. Its arrival is announced by a distant horn and a roar that shakes the ground. Its punches send you flying; from afar it rips rocks out of the ground and throws them, and you can shoot them apart before they land. If it goes too long without hitting anyone it gets frustrated: it runs faster and smashes the weak blocks in its way.",
+      "**Counter:** spread out, avoid closed spaces, cover it in bile so the horde attacks it and shoot all at once."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "From the Author",
+   "desc": "A few words for whoever made it this far.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "A letter",
+     "text": [
+      "__Dear survivor,__",
+      "If you made it this far, thank you. Truly.",
+      "This mod was born from countless hours shared with friends in front of a game that marked us forever: **Left 4 Dead 2**. From the nervous laughter, the last-second rescues and that calm that was always too short.",
+      "Everything in these pages was made with a lot of love, as a tribute to that experience. It does not try to replace it, only to bring a small piece of its spirit into a world of blocks.",
+      "I hope you find here what I found there: a reason to never leave a teammate behind.",
+      "Look after your team. Share the pills. And if you hear crying in the dark... turn off your flashlight.",
+      "With love,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}

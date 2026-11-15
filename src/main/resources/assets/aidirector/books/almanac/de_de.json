@@ -1,0 +1,317 @@
+{
+ "title": "AI Director",
+ "subtitle": "Almanach des Überlebenden",
+ "ui": {
+  "chapters": "Kapitel",
+  "entries": "Einträge"
+ },
+ "intro": [
+  "Wenn du das liest, lebst du noch. Glückwunsch: Das ist mehr, als die meisten sagen können.",
+  "Trag es in der Tasche. Lies es in den Schutzräumen. Lies es niemals laut vor.",
+  "__Klicke auf ein Kapitel, um zu beginnen.__"
+ ],
+ "categories": [
+  {
+   "id": "director",
+   "icon": "minecraft:clock",
+   "title": "Der Direktor",
+   "desc": "Nichts da draußen ist Zufall. Etwas beobachtet jeden Überlebenden und entscheidet, wann es Druck macht und wann es lockerlässt.",
+   "entries": [
+    {
+     "id": "strings",
+     "icon": "minecraft:clock",
+     "title": "Wer die Fäden zieht",
+     "text": [
+      "Nenn ihn **den Direktor**. Er will dich nicht sofort tot sehen: Er will, dass du leidest.",
+      "Er arbeitet in einem Kreislauf: **Spannung**, die wächst, ein **Höhepunkt** des Chaos, dann **Ruhe**. Lerne die Ruhe zu erkennen: Dann heilst du dich, lädst nach und teilst Vorräte.",
+      "Überlebst du einen Höhepunkt, wird der nächste schon vorbereitet."
+     ]
+    },
+    {
+     "id": "stress",
+     "icon": "minecraft:redstone",
+     "title": "Stress",
+     "text": [
+      "Der Direktor misst deinen **Stress** von 0 bis 100. Er steigt, wenn du Schaden nimmst, wenn ein Mitspieler neben dir zu Boden geht (+40), wenn ein Mitspieler stirbt (+75) und wenn du Infizierte aus nächster Nähe tötest.",
+      "Er sinkt langsam, wenn du keinen Schaden nimmst und keine Bedrohung im Umkreis von 16 Blöcken ist.",
+      "Während der Stress steigt, plant der Direktor **Hinterhalte von Spezial-Infizierten** außer Sicht, 20 bis 48 Blöcke entfernt. Erreichst du einen **Höhepunkt**, hält er eine Weile inne und gewährt dir eine Atempause.",
+      "Ruhe bringt lautlose Lauerer; mittlere Spannung die Packer und Rammer; hoher Stress jene, die aus der Ferne strafen. Ganz selten, wenn niemand damit rechnet, kommt der {{Koloss}}.",
+      "Prüfe deinen Stress mit __/aidirector info__."
+     ]
+    },
+    {
+     "id": "hordes",
+     "icon": "minecraft:zombie_head",
+     "title": "Horden",
+     "text": [
+      "Eine **Horde** ist eine Flut von Infizierten, die rund um dich auf etwa **40x40 Blöcken** erscheint und direkt auf dich zuläuft.",
+      "Horden werden durch Zeit, Lärm, Alarme und vor allem durch **Galle** ausgelöst. Wer mit Galle bedeckt ist, wird zum Ziel aller gewöhnlichen Infizierten im Umkreis von 64 Blöcken.",
+      "Horden-Infizierte rennen, stapeln sich zum Klettern und brechen Holztüren auf, wenn genug von ihnen zusammenkommen.",
+      "Zum Überleben: Such einen **engen Gang** oder eine Ecke, stell dich Rücken an Rücken mit dem Team und wechsle zwischen Schüssen und **Stößen**. Hast du eine {{Rohrbombe}}, ist jetzt der Moment."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "survival",
+   "icon": "aidirector:first_aid_kit",
+   "title": "Am Leben bleiben",
+   "desc": "Dein Körper hat zwei Arten von Gesundheit, weigert sich, beim ersten Mal zu sterben, und merkt sich jeden Sturz.",
+   "entries": [
+    {
+     "id": "body",
+     "icon": "aidirector:first_aid_kit",
+     "title": "Dein Körper",
+     "text": [
+      "Deine Gesundheit hat zwei Teile. **Dauerhafte** Gesundheit (volle Leiste) kommt nur mit einem {{Erste-Hilfe-Kasten}} zurück. **Temporäre** Gesundheit (gepunktete Leiste) kommt von Pillen (+50) oder Adrenalin (+25) und schwindet langsam: 1 Punkt alle 5 Sekunden.",
+      "Treffer zehren zuerst an der temporären Gesundheit.",
+      "Unter 40 % **hinkst** du und gehst langsamer. Mit 1 Punkt schleppst du dich kaum noch."
+     ]
+    },
+    {
+     "id": "incap",
+     "icon": "minecraft:bone",
+     "title": "Kampfunfähig",
+     "text": [
+      "Fällt deine Gesundheit auf null, stirbst du nicht: Du gehst **kampfunfähig** zu Boden, mit einer Pistole in der Hand und einem Blutvorrat, der jede Sekunde schwindet. Hilft dir niemand auf, verblutest du.",
+      "Hast du keine Pistole, bekommst du eine Ersatzpistole mit unendlicher Munition. Ist dein Inventar voll, fällt der Gegenstand aus Slot 9 auf den Boden.",
+      "Nach zwei Stürzen bist du in **Schwarz-Weiß**: Die Welt verliert ihre Farben, du hörst dein eigenes Herz und der nächste Sturz ist der letzte. Nur ein {{Erste-Hilfe-Kasten}} bringt die Farben zurück."
+     ]
+    },
+    {
+     "id": "supplies",
+     "icon": "aidirector:pain_pills",
+     "title": "Medizinische Vorräte",
+     "text": [
+      "**Erste-Hilfe-Kasten:** 5 Sekunden gedrückt halten. Stellt 80 % der fehlenden dauerhaften Gesundheit wieder her und entfernt Schwarz-Weiß. Ziele auf einen Mitspieler, um ihn zu heilen.",
+      "**Schmerzmittel:** sofort, +50 temporäre Gesundheit.",
+      "**Adrenalin:** sofort, +25 temporäre Gesundheit. 15 Sekunden lang rennst du schneller, hinkst nicht und belebst und heilst doppelt so schnell.",
+      "Rechtsklicke einen Mitspieler mit Pillen oder Adrenalin, um sie ihm zu geben."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "icon": "aidirector:adrenaline",
+   "title": "Teamarbeit",
+   "desc": "Ein geeintes Team kommt langsam voran. Ein getrenntes Team gar nicht.",
+   "entries": [
+    {
+     "id": "help",
+     "icon": "aidirector:adrenaline",
+     "title": "Niemand überlebt allein",
+     "text": [
+      "**Wiederbeleben:** Halte Rechtsklick auf einen am Boden liegenden Mitspieler (oder die Taste **C**, die auch mit Waffe in der Hand funktioniert) 5 Sekunden lang, mit Adrenalin 2,5. Weggehen oder gestoßen werden bricht ab.",
+      "**Retten:** Packt ein Spezial-Infizierter jemanden, **stoß ihn** (Mouse 4) oder töte ihn. Beim Ziehen und Reiten kannst du auch das Opfer stoßen.",
+      "**Vorsicht:** Liegen alle Überlebenden gleichzeitig am Boden oder sind festgehalten, fällt das Team. Allein kannst du dich nach anderthalb Sekunden mit der Stoßtaste befreien."
+     ]
+    },
+    {
+     "id": "shove",
+     "icon": "minecraft:piston",
+     "title": "Der Stoß",
+     "text": [
+      "Der Stoß (Mouse 4) trifft einen 90-Grad-Kegel vor dir. Infizierte taumeln anderthalb Sekunden zurück; stoßen sie gegen die dahinter, taumeln auch diese.",
+      "Du kannst viermal schnell stoßen; ab dem fünften wirst du müde und musst länger warten. Vier Sekunden Pause stellen die Ausdauer wieder her.",
+      "Ein Stoß bricht das Nachladen ab, zwingt dich aber nie, die Waffe wegzustecken. Manche großen Infizierten lassen sich gar nicht stoßen."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stealth",
+   "icon": "minecraft:note_block",
+   "title": "Lärm und Tarnung",
+   "desc": "Infizierte sehen auf Distanz fast nichts, aber ihr Gehör ist hervorragend. Jeder Schuss ist eine Essensglocke.",
+   "entries": [
+    {
+     "id": "noise",
+     "icon": "minecraft:note_block",
+     "title": "Lärm verrät dich",
+     "text": [
+      "Ein Schuss aus **Pistole oder MP** ist etwa **45 Blöcke** weit zu hören. Ein **Gewehr** etwa **55**. **Schrotflinten, Scharfschützengewehre und schwere Waffen** hallen bis zu **65 Blöcke**.",
+      "Alles, was in diesem Umkreis umherstreift, kommt nachsehen. Schießen mehrere, verteilen sich die Infizierten, aber der Lauteste bekommt meist das meiste ab.",
+      "Goldene Regel: **Schieß nur, wenn du musst**. Jede gesparte Kugel ist eine Horde, die nicht kommt."
+     ]
+    },
+    {
+     "id": "silencers",
+     "icon": "minecraft:black_wool",
+     "title": "Schalldämpfer und Tarnung",
+     "text": [
+      "Ein **Schalldämpfer** senkt den Lärm jeder Waffe auf nur **12 Blöcke**. Das ist der Unterschied zwischen einer leise geräumten Straße und einem geweckten Viertel.",
+      "Bewege dich geduckt durch dunkle Bereiche, umgehe Gruppen statt durch sie hindurch und renne nur, wenn es sein muss.",
+      "Manche Kreaturen jagen dich nicht, wenn du sie nicht störst. Eine von ihnen weint im Dunkeln. **Starr sie nicht an, schieß nicht in ihrer Nähe und berühre sie vor allem nicht.**"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "arsenal",
+   "icon": "aidirector:fire_axe",
+   "title": "Arsenal",
+   "desc": "Schläger, Klingen, Bomben und Gläser. Alles, was du brauchst, um den nächsten Schutzraum zu erreichen.",
+   "entries": [
+    {
+     "id": "melee",
+     "icon": "aidirector:fire_axe",
+     "title": "Nahkampfwaffen",
+     "text": [
+      "Baseballschläger, Kricketschläger, Brecheisen, E-Gitarre, Feuerwehraxt, Bratpfanne, Golfschläger, Katana, Machete, Schlagstock, Kampfmesser, Mistgabel und Schaufel.",
+      "Jede davon fällt einen **gewöhnlichen Infizierten mit einem Schlag**. Spezial-Infizierte nehmen normalen Schaden.",
+      "Breite Waffen treffen mehrere Gegner auf einmal; Mistgabel und Golfschläger reichen weiter. Die Feuerwehraxt schlägt am härtesten zu."
+     ]
+    },
+    {
+     "id": "pipe",
+     "icon": "aidirector:pipe_bomb",
+     "title": "Rohrbombe",
+     "text": [
+      "Wirf sie: Sie springt, piept und blinkt **5 Sekunden** lang rot. Alle gewöhnlichen Infizierten im Umkreis von 32 Blöcken rennen zu ihr.",
+      "Dann explodiert sie auf einer Fläche von 5x5. Überlebende verletzt sie nicht.",
+      "Spezial-Infizierte fallen auf das Piepen nicht herein."
+     ]
+    },
+    {
+     "id": "bile",
+     "icon": "aidirector:bile_jar",
+     "title": "Galleglas",
+     "text": [
+      "Es zerbricht zu einer grünlichen Wolke, die 15 Sekunden hält, eine Horde ruft und nahe Infizierte anlockt.",
+      "Trifft es jemanden direkt, einen Spezial-Infizierten oder einen anderen Spieler, ist dieser mit Galle bedeckt und die Horde geht nur auf ihn los. Nutze es gegen die Großen."
+     ]
+    },
+    {
+     "id": "ammo",
+     "icon": "aidirector:ammo_pile",
+     "title": "Munitionsstapel",
+     "text": [
+      "Benutze einen Munitionsstapel mit einer Waffe in der Hand, um den Vorrat dieses Kalibers auf bis zu sechs Magazine aufzufüllen.",
+      "Jeder Stapel funktioniert nur einmal und füllt keine schweren Waffen wie Granatwerfer oder Maschinengewehre auf."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bestiary",
+   "icon": "aidirector:behemoth_spawn_egg",
+   "title": "Bestiarium",
+   "desc": "Spezial-Infizierte sind Mutationen mit nur einem Ziel: die Gruppe zu trennen. Jeder kündigt sich mit einem Geräusch an, wenn er in der Nähe auftaucht. Lerne ihre Rufe. Gesundheit in halben Herzen.",
+   "entries": [
+    {
+     "id": "commons",
+     "icon": "minecraft:rotten_flesh",
+     "title": "Wie die Gewöhnlichen denken",
+     "text": [
+      "Gewöhnliche Infizierte sind nicht schlau, aber zahlreich. Sie folgen dem Lärm, jagen den Nächsten und stürzen sich auf jeden, der nach Galle riecht.",
+      "Sie verbrennen nicht in der Sonne, werden nicht müde und vergessen nicht. Du schon. Ruh dich in der Stille aus."
+     ]
+    },
+    {
+     "id": "lurker",
+     "icon": "aidirector:lurker_spawn_egg",
+     "title": "Der Lauerer",
+     "text": [
+      "Gesundheit 50 - Erfahrung 40",
+      "Sehnig, mit Kapuze, immer geduckt. Er knurrt, bevor er in einem riesigen Bogen auf seine Beute springt und sie zu Boden drückt, um sie unablässig zu zerfetzen. Ein Sprung aus großer Höhe (15 Blöcke oder mehr) macht es schlimmer.",
+      "**Gegenmittel:** Achte auf das Knurren, bleib bei der Gruppe und stoß ihn von deinem Mitspieler. Mitten im Sprung gestoßen, fällt er betäubt zu Boden."
+     ]
+    },
+    {
+     "id": "strangler",
+     "icon": "aidirector:strangler_spawn_egg",
+     "title": "Der Würger",
+     "text": [
+      "Gesundheit 50 - Erfahrung 40",
+      "Groß, voller Tumore, mit einem Husten, der seine Position verrät. Er bleibt auf Distanz (15 bis 25 Blöcke) und schießt eine Zunge, die packt und zieht. In der **ersten Sekunde** des Ziehens kannst du noch auf ihn schießen. Stirbt er, hinterlässt er eine blendende Rauchwolke.",
+      "**Gegenmittel:** Such seine Silhouette auf erhöhten Stellen, schieß schnell und stoß das gezogene Opfer."
+     ]
+    },
+    {
+     "id": "bloater",
+     "icon": "aidirector:bloater_spawn_egg",
+     "title": "Der Aufgedunsene",
+     "text": [
+      "Gesundheit 10 - Erfahrung 20",
+      "Langsam, riesig und zerbrechlich. Er versteckt sich hinter Ecken und erbricht Galle in einem 7-Block-Kegel. Stirbt er, platzt er, stößt alle zurück und bespritzt jeden im Umkreis von 3,5 Blöcken mit Galle.",
+      "**Gegenmittel:** Töte ihn aus der Ferne. Ist er direkt bei dir, erst stoßen, dann schießen."
+     ]
+    },
+    {
+     "id": "corroder",
+     "icon": "aidirector:corroder_spawn_egg",
+     "title": "Die Ätzende",
+     "text": [
+      "Gesundheit 20 - Erfahrung 30",
+      "Ein sehr langer Hals und eine grün leuchtende Kehle. Sie spuckt Säure aus mittlerer Entfernung und bevorzugt alle, die am Boden liegen oder jemanden wiederbeleben. Die Pfütze wächst und brennt anfangs wenig, aber jede Sekunde darin schmerzt mehr.",
+      "**Gegenmittel:** Verlass die Pfütze sofort und belebe niemals in der Säure wieder."
+     ]
+    },
+    {
+     "id": "leech",
+     "icon": "aidirector:leech_spawn_egg",
+     "title": "Der Blutegel",
+     "text": [
+      "Gesundheit 65 - Erfahrung 50",
+      "Klein, großköpfig, mit einem Lachen, das du nie vergisst. Er hüpft zur Seite, wenn du auf ihn zielst. Erwischt er dich, klettert er auf deine Schultern und lenkt dich zu Feuer, Lava, Säure oder Abgründen, weg von deinem Team.",
+      "**Gegenmittel:** Lass dich von einem Mitspieler stoßen oder ihn töten. Allein: wehr dich."
+     ]
+    },
+    {
+     "id": "rammer",
+     "icon": "aidirector:rammer_spawn_egg",
+     "title": "Der Rammbock",
+     "text": [
+      "Gesundheit 120 - Erfahrung 90",
+      "Ein riesiger, mit Knochen gepanzerter Arm und ein verkümmerter. Er brüllt, senkt den Kopf und stürmt geradeaus. Den Ersten, den er erwischt, trägt er bis zu einer Wand, wirft alle anderen in die Luft und schmettert dann seine Beute immer wieder auf den Boden.",
+      "**Gegenmittel:** Er lässt sich nicht stoßen. Weiche beim Brüllen seitlich aus und konzentriert das Feuer."
+     ]
+    },
+    {
+     "id": "wailer",
+     "icon": "aidirector:wailer_spawn_egg",
+     "title": "Die Klagende",
+     "text": [
+      "Gesundheit 200 - Erfahrung 200",
+      "Sie sitzt im Dunkeln und weint. Solange niemand sie stört, tut sie nichts. Näher als 10 Blöcke kommen, sie anstarren oder in ihrer Nähe schießen lässt sie knurrend aufstehen. Geht es weiter, oder wird sie gekratzt, rastet sie aus und rennt doppelt so schnell wie du auf den zu, der sie geweckt hat. Ein Hieb genügt, um dich niederzustrecken.",
+      "**Gegenmittel:** Geh um sie herum. Die Mutigen sagen, ein Schrotschuss aus nächster Nähe, bevor sie reagiert, streckt sie sofort nieder."
+     ]
+    },
+    {
+     "id": "behemoth",
+     "icon": "aidirector:behemoth_spawn_egg",
+     "title": "Der Koloss",
+     "text": [
+      "Gesundheit 600 bis 1600 je nach Schwierigkeit - Erfahrung 1000",
+      "Ein Berg aus grauem Fleisch mit Rissen, die wie Glut leuchten. Seine Ankunft kündigen ein fernes Horn und ein Brüllen an, das den Boden erzittern lässt. Seine Fausthiebe schleudern dich davon; aus der Ferne reißt er Felsen aus dem Boden und wirft sie, und du kannst sie zerschießen, bevor sie einschlagen. Trifft er lange niemanden, wird er frustriert: Er rennt schneller und zertrümmert schwache Blöcke auf seinem Weg.",
+      "**Gegenmittel:** Verteilt euch, meidet geschlossene Räume, bedeckt ihn mit Galle, damit die Horde ihn angreift, und schießt alle gleichzeitig."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "author",
+   "icon": "minecraft:poppy",
+   "title": "Vom Autor",
+   "desc": "Ein paar Worte für alle, die es bis hierher geschafft haben.",
+   "entries": [
+    {
+     "id": "letter",
+     "icon": "minecraft:poppy",
+     "title": "Ein Brief",
+     "text": [
+      "__Lieber Überlebender,__",
+      "Wenn du es bis hierher geschafft hast: danke. Wirklich.",
+      "Diese Mod entstand aus unzähligen Stunden mit Freunden vor einem Spiel, das uns für immer geprägt hat: **Left 4 Dead 2**. Aus dem nervösen Lachen, den Rettungen in letzter Sekunde und dieser Ruhe, die immer zu kurz war.",
+      "Alles auf diesen Seiten wurde mit viel Liebe gemacht, als Hommage an diese Erfahrung. Es will sie nicht ersetzen, sondern nur ein kleines Stück ihres Geistes in eine Welt aus Blöcken bringen.",
+      "Ich hoffe, du findest hier, was ich dort gefunden habe: einen Grund, niemals einen Mitspieler zurückzulassen.",
+      "Pass auf dein Team auf. Teile die Pillen. Und wenn du im Dunkeln jemanden weinen hörst... mach die Taschenlampe aus.",
+      "Mit Liebe,",
+      "**Igneko**"
+     ]
+    }
+   ]
+  }
+ ]
+}
