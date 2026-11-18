@@ -2,6 +2,7 @@ package com.igneko.aidirector.compat.enhancedhordes;
 
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.TheAIDirector;
+import com.igneko.aidirector.world.saferoom.SafeZoneManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -73,26 +74,51 @@ public final class EnhancedHordesCompat {
             if (dx * dx + dz * dz < minDistSq) continue;
 
             BlockPos pos = findGround(level, x, center.getY(), z, cfg.verticalSearch());
-            if (pos == null) continue;
-
-            EntityType<? extends Mob> type = chooseType(level, pos, random);
-            if (!level.noCollision(type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) continue;
-
-            Mob mob = type.create(level);
-            if (mob == null) continue;
-            mob.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, random.nextFloat() * 360f, 0f);
-            ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null, null);
-            prepareHordeMember(mob, cfg);
-            if (!level.addFreshEntity(mob)) continue;
-
-            Player victim = target != null ? target : level.getNearestPlayer(mob, 64);
-            if (victim != null && !victim.isCreative() && !victim.isSpectator()) {
-                mob.setTarget(victim);
-                mob.getNavigation().moveTo(victim, 1.2);
-            }
-            spawned++;
+            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null) continue;
+            if (spawnMember(level, pos, random, cfg, target)) spawned++;
         }
         return spawned;
+    }
+
+    /**
+     * Oleada en anillo: {@code count} infectados a entre {@code minRadius} y {@code maxRadius} bloques de
+     * {@code center} (eventos Crescendo y grupos de comunes del Director). Nunca dentro de un refugio.
+     */
+    public static int spawnRing(ServerLevel level, BlockPos center, int count, int minRadius, int maxRadius,
+                                @Nullable ServerPlayer target) {
+        AIDirectorConfig.HordeSettings cfg = AIDirectorConfig.horde();
+        RandomSource random = level.getRandom();
+        int spawned = 0;
+        int attempts = count * 12;
+        while (spawned < count && attempts-- > 0) {
+            double angle = random.nextDouble() * Math.PI * 2;
+            double dist = minRadius + random.nextDouble() * Math.max(1, maxRadius - minRadius);
+            int x = (int) Math.floor(center.getX() + 0.5 + Math.cos(angle) * dist);
+            int z = (int) Math.floor(center.getZ() + 0.5 + Math.sin(angle) * dist);
+            if (!level.hasChunkAt(new BlockPos(x, center.getY(), z))) continue;
+            BlockPos pos = findGround(level, x, center.getY(), z, cfg.verticalSearch());
+            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null) continue;
+            if (spawnMember(level, pos, random, cfg, target)) spawned++;
+        }
+        return spawned;
+    }
+
+    private static boolean spawnMember(ServerLevel level, BlockPos pos, RandomSource random, AIDirectorConfig.HordeSettings cfg,
+                                       @Nullable ServerPlayer target) {
+        EntityType<? extends Mob> type = chooseType(level, pos, random);
+        if (!level.noCollision(type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) return false;
+        Mob mob = type.create(level);
+        if (mob == null) return false;
+        mob.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, random.nextFloat() * 360f, 0f);
+        ForgeEventFactory.onFinalizeSpawn(mob, level, level.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null, null);
+        prepareHordeMember(mob, cfg);
+        if (!level.addFreshEntity(mob)) return false;
+        Player victim = target != null ? target : level.getNearestPlayer(mob, 64);
+        if (victim != null && !victim.isCreative() && !victim.isSpectator()) {
+            mob.setTarget(victim);
+            mob.getNavigation().moveTo(victim, 1.2);
+        }
+        return true;
     }
 
     /** Busca, en vertical cerca de {@code baseY}, una celda de 2 bloques libres sobre suelo firme y seco. */

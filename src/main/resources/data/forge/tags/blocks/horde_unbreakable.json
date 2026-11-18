@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "aidirector:safe_room_door",
+    "aidirector:safe_room_radio",
+    "aidirector:supply_crate",
+    "aidirector:crescendo_alarm",
+    "aidirector:ammo_pile"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "aidirector:safe_room_bunker",
+    "aidirector:safe_room_hangar",
+    "aidirector:safe_room_camp"
+  ]
+}

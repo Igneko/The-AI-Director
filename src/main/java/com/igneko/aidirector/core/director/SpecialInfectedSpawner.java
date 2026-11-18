@@ -9,6 +9,7 @@ import com.igneko.aidirector.entity.infected.RammerEntity;
 import com.igneko.aidirector.entity.infected.SpecialInfectedEntity;
 import com.igneko.aidirector.entity.infected.StranglerEntity;
 import com.igneko.aidirector.registry.ModEntities;
+import com.igneko.aidirector.world.saferoom.SafeZoneManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -49,10 +50,8 @@ import java.util.function.Supplier;
 public final class SpecialInfectedSpawner {
 
     private static final int CHECK_INTERVAL = 40; // 2 s
-    private static final float PEAK = 0.85f;
 
     private final Map<UUID, Long> lastSpawn = new HashMap<>();
-    private final Map<UUID, Long> relaxUntil = new HashMap<>();
     private long lastBehemoth = -1_000_000L;
 
     public SpecialInfectedSpawner() {}
@@ -70,17 +69,14 @@ public final class SpecialInfectedSpawner {
         List<ServerPlayer> survivors = new ArrayList<>();
         for (ServerPlayer p : level.players()) if (SpecialInfectedEntity.isSurvivor(p)) survivors.add(p);
         if (survivors.isEmpty()) return;
+        // La máquina de estados del Director decide cuándo se embosca (BUILD_UP y Crescendo).
+        if (!DirectorManager.phase(level).allowsSpecials()) return;
 
         RandomSource random = level.getRandom();
         long now = level.getGameTime();
         for (ServerPlayer player : survivors) {
             float intensity = IntensityTracker.get(player);
-            if (intensity >= PEAK) {
-                // Pico: mantener la presión pero sin nuevos especiales; después, calma.
-                relaxUntil.put(player.getUUID(), now + cfg.relaxSeconds() * 20L);
-                continue;
-            }
-            if (now < relaxUntil.getOrDefault(player.getUUID(), 0L)) continue;
+            if (SafeZoneManager.isInZone(player)) continue;
             if (now - lastSpawn.getOrDefault(player.getUUID(), -100000L) < cfg.minSecondsBetween() * 20L) continue;
 
             List<SpecialInfectedEntity> nearby = level.getEntitiesOfClass(SpecialInfectedEntity.class,
@@ -162,7 +158,7 @@ public final class SpecialInfectedSpawner {
             int z = (int) Math.floor(focus.getZ() + Math.sin(angle) * dist);
             if (!level.hasChunkAt(new BlockPos(x, focus.getBlockY(), z))) continue;
             BlockPos pos = EnhancedHordesCompat.findGround(level, x, focus.getBlockY(), z, 16);
-            if (pos == null || seenByAnyone(level, survivors, pos)) continue;
+            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null || seenByAnyone(level, survivors, pos)) continue;
             if (option.needsDark() && level.getMaxLocalRawBrightness(pos) > 7) continue;
             EntityType<? extends SpecialInfectedEntity> type = option.type().get();
             if (!level.noCollision(type.getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) continue;

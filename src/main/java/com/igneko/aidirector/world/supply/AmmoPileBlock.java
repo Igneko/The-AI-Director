@@ -10,6 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -22,9 +24,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class AmmoPileBlock extends Block {
 
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 9, 15);
+    /** Montón inagotable de los refugios (como en L4D2): nunca se consume. */
+    public static final BooleanProperty INFINITE = BooleanProperty.create("infinite");
 
     public AmmoPileBlock(Properties properties) {
         super(properties);
+        registerDefaultState(stateDefinition.any().setValue(INFINITE, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(INFINITE);
     }
 
     @Override
@@ -40,7 +50,7 @@ public class AmmoPileBlock extends Block {
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
         if (!level.isClientSide() && player instanceof ServerPlayer sp
                 && AmmoRefillService.refill(sp) == AmmoRefillService.Result.REFILLED
-                && AIDirectorConfig.tacz().ammoPileSingleUse()) {
+                && AIDirectorConfig.tacz().ammoPileSingleUse() && !state.getValue(INFINITE)) {
             // Montón de un solo uso: se consume (con partículas y sonido de rotura, sin soltar el bloque).
             level.destroyBlock(pos, false, player);
         }

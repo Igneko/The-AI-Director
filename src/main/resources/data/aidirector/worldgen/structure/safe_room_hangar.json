@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:safe_room",
+  "variant": "hangar",
+  "biomes": "#aidirector:has_structure/safe_room_hangar",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

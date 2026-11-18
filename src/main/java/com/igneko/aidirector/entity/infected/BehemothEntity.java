@@ -54,6 +54,7 @@ public class BehemothEntity extends SpecialInfectedEntity {
     public static final TagKey<Block> UNBREAKABLE = TagKey.create(Registries.BLOCK,
             new ResourceLocation(TheAIDirector.MOD_ID, "behemoth_unbreakable"));
     private static final UUID FRENZY_ID = UUID.fromString("5c2b8e41-7d3a-4f19-a6e0-93b1c4d5e6f7");
+    private static final UUID BURNING_ID = UUID.fromString("9e4a1c7b-2f6d-4b83-a5c0-71d8e3f9b264");
 
     private static final int ROCK_COOLDOWN = 300;
     private static final int ROCK_WINDUP = 30;
@@ -110,7 +111,6 @@ public class BehemothEntity extends SpecialInfectedEntity {
         super.tick();
         if (!level().isClientSide() && tickCount == 3) {
             level().playSound(null, getX(), getY(), getZ(), ModSounds.BEHEMOTH_ROAR.get(), SoundSource.HOSTILE, 4.0f, 1f);
-            // TODO Fase 3: el AI Director congela las hordas normales mientras viva el Coloso.
         }
     }
 
@@ -129,6 +129,7 @@ public class BehemothEntity extends SpecialInfectedEntity {
             level().playSound(null, getX(), getY(), getZ(), ModSounds.BEHEMOTH_ROAR.get(), SoundSource.HOSTILE, 3.0f, 0.9f);
         }
         updateFrenzy();
+        updateBurning();
 
         if (getState() == STATE_ROCK) {
             tickRock();
@@ -159,6 +160,27 @@ public class BehemothEntity extends SpecialInfectedEntity {
             speed.addTransientModifier(new AttributeModifier(FRENZY_ID, "aidirector:frenzy", 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
         } else if (!isFrenzied() && has) {
             speed.removeModifier(FRENZY_ID);
+        }
+    }
+
+    /**
+     * Ardiendo (molotov): pierde un 1 % de su vida máxima por segundo y se vuelve un 15 % más rápido,
+     * como el jefe de L4D2 en llamas.
+     */
+    private void updateBurning() {
+        var speed = getAttribute(Attributes.MOVEMENT_SPEED);
+        boolean burning = isOnFire() && !isInWaterOrRain();
+        if (speed != null) {
+            boolean has = speed.getModifier(BURNING_ID) != null;
+            if (burning && !has) {
+                speed.addTransientModifier(new AttributeModifier(BURNING_ID, "aidirector:burning", 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
+            } else if (!burning && has) {
+                speed.removeModifier(BURNING_ID);
+            }
+        }
+        if (burning && tickCount % 20 == 0) {
+            invulnerableTime = 0;
+            hurt(damageSources().onFire(), getMaxHealth() * 0.01f);
         }
     }
 
@@ -201,6 +223,8 @@ public class BehemothEntity extends SpecialInfectedEntity {
                 BlockState state = level().getBlockState(p);
                 float hardness = state.getDestroySpeed(level(), p);
                 if (state.isAir() || hardness < 0 || hardness > maxHardness || state.is(UNBREAKABLE)) continue;
+                // Los refugios son indestructibles incluso para el Coloso.
+                if (com.igneko.aidirector.world.saferoom.SafeZoneManager.guardAt(level(), p) != null) continue;
                 level().destroyBlock(p, true, this);
             }
         }

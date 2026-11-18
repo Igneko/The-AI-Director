@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:safe_room",
+  "variant": "bunker",
+  "biomes": "#aidirector:has_structure/safe_room_bunker",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

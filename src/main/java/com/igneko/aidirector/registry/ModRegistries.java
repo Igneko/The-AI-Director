@@ -45,7 +45,14 @@ public final class ModRegistries {
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(2.0f, 6.0f)
                     .sound(SoundType.WOOD).noOcclusion()));
     public static final RegistryObject<Item> AMMO_PILE_ITEM = ITEMS.register("ammo_pile",
-            () -> new BlockItem(AMMO_PILE.get(), new Item.Properties()));
+            () -> new BlockItem(AMMO_PILE.get(), new Item.Properties()) {
+                @Override
+                public Component getName(ItemStack stack) {
+                    net.minecraft.nbt.CompoundTag tag = stack.getTagElement("BlockStateTag");
+                    return tag != null && "true".equals(tag.getString("infinite"))
+                            ? Component.translatable("block.aidirector.ammo_pile.infinite") : super.getName(stack);
+                }
+            });
 
     // Suministros médicos (una unidad por ranura, como en L4D2)
     public static final RegistryObject<Item> FIRST_AID_KIT = ITEMS.register("first_aid_kit",
@@ -56,6 +63,9 @@ public final class ModRegistries {
     public static final RegistryObject<Item> ADRENALINE = ITEMS.register("adrenaline",
             () -> new TempHealthItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), MedicalService::applyAdrenaline,
                     () -> SoundEvents.CROSSBOW_LOADING_END, 1.5f, "tooltip.aidirector.adrenaline"));
+
+    public static final RegistryObject<Item> DEFIBRILLATOR = ITEMS.register("defibrillator",
+            () -> new com.igneko.aidirector.item.DefibrillatorItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> ALMANAC = ITEMS.register("almanac",
             () -> new com.igneko.aidirector.item.AlmanacBookItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
@@ -68,6 +78,7 @@ public final class ModRegistries {
                 out.accept(FIRST_AID_KIT.get());
                 out.accept(PAIN_PILLS.get());
                 out.accept(ADRENALINE.get());
+                out.accept(DEFIBRILLATOR.get());
                 out.accept(AMMO_PILE_ITEM.get());
             })
             .build());
@@ -75,6 +86,15 @@ public final class ModRegistries {
     /** Entidades que ignoran el empujón (Charger, Tank, Witch en la Fase 5). */
     public static final TagKey<EntityType<?>> SHOVE_IMMUNE = TagKey.create(Registries.ENTITY_TYPE,
             new ResourceLocation(TheAIDirector.MOD_ID, "shove_immune"));
+
+    /** Montón de munición inagotable (el de los refugios). */
+    public static ItemStack infiniteAmmoPile() {
+        ItemStack stack = new ItemStack(AMMO_PILE_ITEM.get());
+        net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+        tag.putString("infinite", "true");
+        stack.getOrCreateTag().put("BlockStateTag", tag);
+        return stack;
+    }
 
     private ModRegistries() {}
 

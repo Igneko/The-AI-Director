@@ -6,6 +6,11 @@
     "minecraft:crying_obsidian",
     "minecraft:reinforced_deepslate",
     "minecraft:end_portal_frame",
-    "minecraft:barrier"
+    "minecraft:barrier",
+    "aidirector:safe_room_door",
+    "aidirector:safe_room_radio",
+    "aidirector:supply_crate",
+    "aidirector:crescendo_alarm",
+    "aidirector:ammo_pile"
   ]
 }

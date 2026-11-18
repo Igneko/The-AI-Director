@@ -111,7 +111,7 @@ public final class SurvivorService {
             case KILLED -> {
                 ReviveManager.cancelAllInvolving(player);
                 PinService.release(player);
-                // TODO Fase 3: notificar al AI Director (+0.75 de intensidad a aliados).
+                // La intensidad de los aliados (+0,75) la suma IntensityTracker al morir de verdad.
             }
             default -> {}
         }

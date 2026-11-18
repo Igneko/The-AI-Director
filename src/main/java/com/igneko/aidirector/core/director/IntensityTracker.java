@@ -42,6 +42,11 @@ public final class IntensityTracker {
         return INTENSITY.getOrDefault(player.getUUID(), 0f);
     }
 
+    /** Calma total (al asegurar un refugio). */
+    public static void reset(ServerPlayer player) {
+        INTENSITY.remove(player.getUUID());
+    }
+
     public static void add(ServerPlayer player, float amount) {
         INTENSITY.merge(player.getUUID(), amount, (a, b) -> Math.min(1f, Math.max(0f, a + b)));
     }

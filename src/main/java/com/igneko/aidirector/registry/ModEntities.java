@@ -65,6 +65,16 @@ public final class ModEntities {
             () -> EntityType.Builder.<com.igneko.aidirector.entity.projectile.BileJarEntity>of(com.igneko.aidirector.entity.projectile.BileJarEntity::new, MobCategory.MISC)
                     .sized(0.3f, 0.3f).clientTrackingRange(8).updateInterval(2).build("bile_jar"));
 
+    public static final RegistryObject<EntityType<com.igneko.aidirector.entity.projectile.MolotovEntity>> MOLOTOV = ENTITIES.register("molotov",
+            () -> EntityType.Builder.<com.igneko.aidirector.entity.projectile.MolotovEntity>of(com.igneko.aidirector.entity.projectile.MolotovEntity::new, MobCategory.MISC)
+                    .sized(0.3f, 0.3f).clientTrackingRange(8).updateInterval(2).build("molotov"));
+    public static final RegistryObject<EntityType<com.igneko.aidirector.entity.projectile.FirePatchEntity>> FIRE_PATCH = ENTITIES.register("fire_patch",
+            () -> EntityType.Builder.<com.igneko.aidirector.entity.projectile.FirePatchEntity>of(com.igneko.aidirector.entity.projectile.FirePatchEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 0.1f).fireImmune().clientTrackingRange(8).updateInterval(10).build("fire_patch"));
+    public static final RegistryObject<EntityType<com.igneko.aidirector.entity.SurvivorBodyEntity>> SURVIVOR_BODY = ENTITIES.register("survivor_body",
+            () -> EntityType.Builder.<com.igneko.aidirector.entity.SurvivorBodyEntity>of(com.igneko.aidirector.entity.SurvivorBodyEntity::new, MobCategory.MISC)
+                    .sized(1.0f, 0.4f).fireImmune().clientTrackingRange(10).updateInterval(20).build("survivor_body"));
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("special_infected", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.aidirector.special_infected"))
             .icon(() -> new ItemStack(EGGS.get(EGGS.size() - 1).get()))

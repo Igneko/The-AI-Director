@@ -36,4 +36,12 @@ final class ClientPacketHandlers {
     static void handleShoveCooldown(ShoveCooldownPacket msg) {
         ClientCombatState.onShove(msg.cooldownTicks(), msg.fatigued());
     }
+
+    static void handleSquad(SquadSyncPacket msg) {
+        com.igneko.aidirector.client.ClientSquadState.update(msg.entries());
+    }
+
+    static void handleDirectorStatus(DirectorStatusPacket msg) {
+        com.igneko.aidirector.client.ClientSquadState.updateStatus(msg);
+    }
 }

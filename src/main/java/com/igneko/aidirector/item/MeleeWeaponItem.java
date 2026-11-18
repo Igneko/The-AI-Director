@@ -27,7 +27,7 @@ import java.util.UUID;
 
 /**
  * Arma cuerpo a cuerpo. Daño, cadencia, alcance extra y durabilidad propios; las anchas barren a
- * varios enemigos. Un golpe derriba siempre a un infectado común (ver {@code MeleeHandler}).
+ * varios enemigos. Hacen su daño normal a cualquier mob, infectados incluidos.
  */
 public class MeleeWeaponItem extends Item {
 

@@ -1,6 +1,7 @@
 package com.igneko.aidirector.config;
 
 import com.igneko.aidirector.core.combat.ShoveFatigue;
+import com.igneko.aidirector.core.director.DirectorFsm;
 import com.igneko.aidirector.core.survivor.SurvivorRules;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -89,6 +90,67 @@ public final class AIDirectorConfig {
     private static final ForgeConfigSpec.DoubleValue BEHEMOTH_CHANCE;
     private static final ForgeConfigSpec.IntValue BEHEMOTH_COOLDOWN;
 
+    // Director (máquina de estados del ritmo)
+    private static final ForgeConfigSpec.BooleanValue DIR_ENABLED;
+    private static final ForgeConfigSpec.DoubleValue DIR_PEAK;
+    private static final ForgeConfigSpec.IntValue DIR_BUILDUP_MAX;
+    private static final ForgeConfigSpec.IntValue DIR_SUSTAIN_MIN;
+    private static final ForgeConfigSpec.IntValue DIR_SUSTAIN_MAX;
+    private static final ForgeConfigSpec.IntValue DIR_FADE_THREATS;
+    private static final ForgeConfigSpec.IntValue DIR_FADE_MAX;
+    private static final ForgeConfigSpec.IntValue DIR_RELAX_MIN;
+    private static final ForgeConfigSpec.IntValue DIR_RELAX_MAX;
+    private static final ForgeConfigSpec.DoubleValue DIR_RELAX_TRAVEL;
+    private static final ForgeConfigSpec.BooleanValue DIR_TRICKLE;
+    private static final ForgeConfigSpec.IntValue DIR_TRICKLE_SECONDS;
+    private static final ForgeConfigSpec.IntValue DIR_TRICKLE_MAX;
+    private static final ForgeConfigSpec.DoubleValue DIR_RELAX_SUPPRESSION;
+
+    public record DirectorSettings(boolean enabled, DirectorFsm.Rules fsm, boolean commonsTrickle,
+                                   int trickleIntervalSeconds, int trickleMaxSize, double relaxSpawnSuppression) {}
+
+    // Objetos tácticos
+    private static final ForgeConfigSpec.IntValue MOLOTOV_SECONDS;
+    private static final ForgeConfigSpec.DoubleValue MOLOTOV_RADIUS;
+    private static final ForgeConfigSpec.DoubleValue MOLOTOV_DAMAGE;
+    private static final ForgeConfigSpec.DoubleValue MOLOTOV_FRIENDLY;
+    private static final ForgeConfigSpec.BooleanValue MOLOTOV_IGNITES;
+    private static final ForgeConfigSpec.DoubleValue DEFIB_SECONDS;
+    private static final ForgeConfigSpec.DoubleValue DEFIB_HEALTH;
+    private static final ForgeConfigSpec.IntValue BODY_MINUTES;
+
+    public record ItemSettings(int molotovSeconds, float molotovRadius, float molotovDamage, float molotovFriendlyDamage,
+                               boolean molotovIgnitesBlocks, int defibTicks, float defibHealth, int bodyMinutes) {}
+
+    // Refugios y eventos Crescendo
+    private static final ForgeConfigSpec.BooleanValue SR_PROTECT;
+    private static final ForgeConfigSpec.BooleanValue SR_REPAIR;
+    private static final ForgeConfigSpec.BooleanValue SR_RESET_BW;
+    private static final ForgeConfigSpec.BooleanValue SR_REVIVE_DOWNED;
+    private static final ForgeConfigSpec.DoubleValue SR_MIN_HEALTH;
+    private static final ForgeConfigSpec.BooleanValue SR_SET_SPAWN;
+    private static final ForgeConfigSpec.BooleanValue SR_RESCUE_DEAD;
+    private static final ForgeConfigSpec.IntValue SR_COOLDOWN;
+    private static final ForgeConfigSpec.IntValue SR_TEAM_RADIUS;
+    private static final ForgeConfigSpec.IntValue CRESCENDO_SECONDS;
+    private static final ForgeConfigSpec.IntValue CRESCENDO_WAVE_SECONDS;
+    private static final ForgeConfigSpec.IntValue CRESCENDO_WAVE_SIZE;
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ARMORY_TIER1;
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ARMORY_TIER2;
+
+    public record SafeRoomSettings(boolean protectBlocks, boolean selfRepair, boolean resetBlackAndWhite,
+                                   boolean reviveDowned, float minHealth, boolean setSpawn, boolean rescueDead,
+                                   int cooldownMinutes, int teamRadius, int crescendoSeconds, int crescendoWaveSeconds,
+                                   int crescendoWaveSize, List<String> tier1Guns, List<String> tier2Guns) {}
+
+    // Escuadrón
+    private static final ForgeConfigSpec.IntValue SQUAD_RANGE;
+    private static final ForgeConfigSpec.BooleanValue SQUAD_TEAM_ONLY;
+    private static final ForgeConfigSpec.BooleanValue SQUAD_OUTLINES;
+    private static final ForgeConfigSpec.BooleanValue SQUAD_MARKERS;
+
+    public record SquadSettings(int range, boolean sameTeamOnly, boolean outlines, boolean markers) {}
+
     public record SpawnSettings(boolean enabled, double baseChance, int maxNearby, int minSecondsBetween,
                                 int relaxSeconds, double behemothChance, int behemothCooldownMinutes) {}
 
@@ -114,6 +176,12 @@ public final class AIDirectorConfig {
 
     private static volatile SpawnSettings spawning = new SpawnSettings(true, 0.05, 3, 25, 35, 0.03, 15);
     private static volatile InfectedSettings infected = new InfectedSettings(1.0, 1.0, 800.0, true, 2, 15);
+    private static volatile DirectorSettings director = new DirectorSettings(true, DirectorFsm.Rules.DEFAULTS, true, 25, 8, 0.75);
+    private static volatile ItemSettings items = new ItemSettings(15, 3.2f, 8f, 0.6f, false, 60, 50f, 10);
+    private static volatile SafeRoomSettings safeRoom = new SafeRoomSettings(true, true, true, true, 0f, true, true, 10, 160,
+            60, 12, 10, List.of("tacz:uzi", "tacz:ump45", "tacz:hk_mp5a5", "tacz:m870", "tacz:db_short"),
+            List.of("tacz:ak47", "tacz:m4a1", "tacz:scar_l", "tacz:spas_12", "tacz:m1014", "tacz:aug"));
+    private static volatile SquadSettings squad = new SquadSettings(256, true, true, true);
     private static volatile HordeSettings horde = new HordeSettings(30, 40, 8.0, 12, 0.3, true);
 
     static {
@@ -233,6 +301,94 @@ public final class AIDirectorConfig {
                 .defineInRange("behemothCooldownMinutes", 15, 0, 1440);
         b.pop();
 
+        b.comment("AI Director: máquina de estados del ritmo (BUILD_UP -> SUSTAIN_PEAK -> PEAK_FADE -> RELAX)").push("director");
+        DirectorFsm.Rules fr = DirectorFsm.Rules.DEFAULTS;
+        DIR_ENABLED = b.comment("Si es false, el Director no fuerza hordas ni grupos de comunes (los especiales siguen su propia regla)")
+                .define("enabled", true);
+        DIR_PEAK = b.comment("Intensidad del equipo que marca el pico de estrés")
+                .defineInRange("peakIntensity", (double) fr.peak(), 0.1, 1.0);
+        DIR_BUILDUP_MAX = b.comment("Segundos de construcción sin alcanzar el pico antes de forzar una horda")
+                .defineInRange("buildUpMaxSeconds", fr.buildUpMaxSeconds(), 10, 3600);
+        DIR_SUSTAIN_MIN = b.defineInRange("sustainPeakMinSeconds", fr.sustainMinSeconds(), 1, 120);
+        DIR_SUSTAIN_MAX = b.defineInRange("sustainPeakMaxSeconds", fr.sustainMaxSeconds(), 1, 120);
+        DIR_FADE_THREATS = b.comment("Amenazas activas cerca del equipo que se consideran 'casi 0' para pasar a la calma")
+                .defineInRange("peakFadeThreats", fr.fadeThreats(), 0, 64);
+        DIR_FADE_MAX = b.comment("Tope de seguridad del desvanecimiento del pico")
+                .defineInRange("peakFadeMaxSeconds", fr.fadeMaxSeconds(), 5, 3600);
+        DIR_RELAX_MIN = b.defineInRange("relaxMinSeconds", fr.relaxMinSeconds(), 0, 3600);
+        DIR_RELAX_MAX = b.defineInRange("relaxMaxSeconds", fr.relaxMaxSeconds(), 0, 3600);
+        DIR_RELAX_TRAVEL = b.comment("Bloques que debe avanzar el equipo para terminar la calma antes de tiempo")
+                .defineInRange("relaxTravelBlocks", fr.relaxTravelBlocks(), 0.0, 10000.0);
+        DIR_TRICKLE = b.comment("Durante la construcción aparecen pequeños grupos de comunes fuera de la vista")
+                .define("commonsTrickle", true);
+        DIR_TRICKLE_SECONDS = b.defineInRange("commonsTrickleIntervalSeconds", 25, 5, 3600);
+        DIR_TRICKLE_MAX = b.comment("Tamaño máximo de esos grupos (crece con el tiempo de construcción)")
+                .defineInRange("commonsTrickleMaxSize", 8, 1, 64);
+        DIR_RELAX_SUPPRESSION = b.comment("Fracción de apariciones naturales de monstruos que se cancelan durante la calma cerca del equipo")
+                .defineInRange("relaxSpawnSuppression", 0.75, 0.0, 1.0);
+        b.pop();
+
+        b.comment("Objetos tácticos: cóctel molotov y desfibrilador").push("items");
+        MOLOTOV_SECONDS = b.comment("Duración de la zona de fuego del molotov")
+                .defineInRange("molotovSeconds", 15, 1, 120);
+        MOLOTOV_RADIUS = b.defineInRange("molotovRadius", 3.2, 0.5, 12.0);
+        MOLOTOV_DAMAGE = b.comment("Daño (vanilla) por medio segundo a los infectados dentro del fuego")
+                .defineInRange("molotovDamage", 8.0, 0.0, 200.0);
+        MOLOTOV_FRIENDLY = b.comment("Daño (vanilla) por medio segundo a los supervivientes dentro del fuego (fuego amigo)")
+                .defineInRange("molotovFriendlyDamage", 0.6, 0.0, 20.0);
+        MOLOTOV_IGNITES = b.comment("Si es true, el molotov también prende fuego a los bloques (puede quemar construcciones)")
+                .define("molotovIgnitesBlocks", false);
+        DEFIB_SECONDS = b.comment("Segundos de uso canalizado del desfibrilador")
+                .defineInRange("defibrillatorSeconds", 3.0, 0.1, 30.0);
+        DEFIB_HEALTH = b.comment("Salud permanente (escala L4D2) con la que vuelve el reanimado")
+                .defineInRange("defibrillatorHealth", 50.0, 1.0, 100.0);
+        BODY_MINUTES = b.comment("Minutos que permanece el cuerpo de un superviviente muerto esperando un desfibrilador")
+                .defineInRange("bodyMinutes", 10, 1, 1440);
+        b.pop();
+
+        b.comment("Refugios (Safe Rooms) y eventos Crescendo").push("saferoom");
+        SR_PROTECT = b.comment("Los mobs (hordas incluidas) y las explosiones no pueden romper la estructura de un refugio; los jugadores sí pueden reformarla")
+                .define("protectBlocks", true);
+        SR_REPAIR = b.comment("El refugio se repara solo si algo (p. ej. la horda) arranca un bloque")
+                .define("selfRepair", true);
+        SR_RESET_BW = b.comment("Al asegurar el refugio se borra el estado Blanco y Negro (contador de caídas a 0)")
+                .define("resetBlackAndWhite", true);
+        SR_REVIVE_DOWNED = b.comment("Al asegurar el refugio se levanta a los incapacitados que estén dentro")
+                .define("reviveDowned", true);
+        SR_MIN_HEALTH = b.comment("Salud permanente mínima garantizada al asegurar el refugio (0 = desactivado)")
+                .defineInRange("minHealth", 0.0, 0.0, 100.0);
+        SR_SET_SPAWN = b.comment("El refugio asegurado se convierte en el punto de reaparición (checkpoint)")
+                .define("setSpawnPoint", true);
+        SR_RESCUE_DEAD = b.comment("Los supervivientes muertos que aún no hayan reaparecido vuelven dentro del refugio")
+                .define("rescueDead", true);
+        SR_COOLDOWN = b.comment("Minutos antes de poder volver a asegurar el mismo refugio")
+                .defineInRange("checkpointCooldownMinutes", 10, 0, 1440);
+        SR_TEAM_RADIUS = b.comment("Radio en el que deben estar los supervivientes vivos para contar como 'el equipo'")
+                .defineInRange("teamRadius", 160, 8, 4096);
+        CRESCENDO_SECONDS = b.comment("Duración por defecto de una alarma Crescendo")
+                .defineInRange("crescendoSeconds", 60, 5, 3600);
+        CRESCENDO_WAVE_SECONDS = b.comment("Segundos entre oleadas durante un Crescendo")
+                .defineInRange("crescendoWaveSeconds", 12, 2, 600);
+        CRESCENDO_WAVE_SIZE = b.defineInRange("crescendoWaveSize", 10, 1, 200);
+        ARMORY_TIER1 = b.comment("Armas TaCZ de las cajas de armería normales")
+                .defineListAllowEmpty("armoryTier1Guns", List.of("tacz:uzi", "tacz:ump45", "tacz:hk_mp5a5", "tacz:m870", "tacz:db_short"),
+                        o -> o instanceof String);
+        ARMORY_TIER2 = b.comment("Armas TaCZ de las cajas de armería cerradas (recompensa de un Crescendo)")
+                .defineListAllowEmpty("armoryTier2Guns", List.of("tacz:ak47", "tacz:m4a1", "tacz:scar_l", "tacz:spas_12", "tacz:m1014", "tacz:aug"),
+                        o -> o instanceof String);
+        b.pop();
+
+        b.comment("Panel de escuadrón, siluetas y marcadores").push("squad");
+        SQUAD_RANGE = b.comment("Distancia máxima a la que aparecen los compañeros en el panel")
+                .defineInRange("range", 256, 8, 30000000);
+        SQUAD_TEAM_ONLY = b.comment("Con equipos de marcador (/team), mostrar solo a los del mismo equipo")
+                .define("sameTeamOnly", true);
+        SQUAD_OUTLINES = b.comment("Siluetas de color de los compañeros a través de las paredes")
+                .define("outlines", true);
+        SQUAD_MARKERS = b.comment("Marcadores visibles a través de las paredes sobre compañeros caídos, atrapados o muertos")
+                .define("markers", true);
+        b.pop();
+
         SPEC = b.build();
     }
 
@@ -246,6 +402,10 @@ public final class AIDirectorConfig {
     public static HordeSettings horde() { return horde; }
     public static InfectedSettings infected() { return infected; }
     public static SpawnSettings spawning() { return spawning; }
+    public static DirectorSettings director() { return director; }
+    public static ItemSettings items() { return items; }
+    public static SafeRoomSettings safeRoom() { return safeRoom; }
+    public static SquadSettings squad() { return squad; }
 
     private static Set<String> set(ForgeConfigSpec.ConfigValue<List<? extends String>> value) {
         return Set.copyOf(value.get().stream().map(String::toLowerCase).toList());
@@ -299,5 +459,20 @@ public final class AIDirectorConfig {
                 TEAM_WIPE.get(), TEAM_WIPE_MIN.get(), BILE_HORDE_SIZE.get());
         horde = new HordeSettings(HORDE_SIZE.get(), HORDE_AREA.get(), HORDE_MIN_DISTANCE.get(),
                 HORDE_VERTICAL_SEARCH.get(), HORDE_SPEED_BONUS.get(), HORDE_FIRE_IMMUNE.get());
+        int sustainMin = DIR_SUSTAIN_MIN.get();
+        int relaxMin = DIR_RELAX_MIN.get();
+        director = new DirectorSettings(DIR_ENABLED.get(), new DirectorFsm.Rules(DIR_PEAK.get().floatValue(), DIR_BUILDUP_MAX.get(),
+                sustainMin, Math.max(sustainMin, DIR_SUSTAIN_MAX.get()), DIR_FADE_THREATS.get(), DIR_FADE_MAX.get(),
+                relaxMin, Math.max(relaxMin, DIR_RELAX_MAX.get()), DIR_RELAX_TRAVEL.get()),
+                DIR_TRICKLE.get(), DIR_TRICKLE_SECONDS.get(), DIR_TRICKLE_MAX.get(), DIR_RELAX_SUPPRESSION.get());
+        items = new ItemSettings(MOLOTOV_SECONDS.get(), MOLOTOV_RADIUS.get().floatValue(), MOLOTOV_DAMAGE.get().floatValue(),
+                MOLOTOV_FRIENDLY.get().floatValue(), MOLOTOV_IGNITES.get(), ticks(DEFIB_SECONDS),
+                DEFIB_HEALTH.get().floatValue(), BODY_MINUTES.get());
+        safeRoom = new SafeRoomSettings(SR_PROTECT.get(), SR_REPAIR.get(), SR_RESET_BW.get(), SR_REVIVE_DOWNED.get(),
+                SR_MIN_HEALTH.get().floatValue(), SR_SET_SPAWN.get(), SR_RESCUE_DEAD.get(), SR_COOLDOWN.get(),
+                SR_TEAM_RADIUS.get(), CRESCENDO_SECONDS.get(), CRESCENDO_WAVE_SECONDS.get(), CRESCENDO_WAVE_SIZE.get(),
+                ARMORY_TIER1.get().stream().map(String::trim).toList(),
+                ARMORY_TIER2.get().stream().map(String::trim).toList());
+        squad = new SquadSettings(SQUAD_RANGE.get(), SQUAD_TEAM_ONLY.get(), SQUAD_OUTLINES.get(), SQUAD_MARKERS.get());
     }
 }

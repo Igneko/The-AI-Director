@@ -40,6 +40,16 @@
      ]
     },
     {
+     "id": "rhythm",
+     "icon": "minecraft:compass",
+     "title": "Rytm",
+     "text": [
+      "Reżyser oddycha w czterech fazach. **Narastanie**: małe grupy zwykłych zarażonych i zasadzki specjalnych. Jeśli przez dwie minuty nie ma szczytu, wysyła {{hordę}}.",
+      "**Szczyt**: gdy stres drużyny dojdzie do 85%, utrzymuje presję kilka sekund, a potem **opada**: nic nowego się nie pojawi, dopóki nie wykończycie reszty.",
+      "**Wytchnienie**: 30-45 sekund spokoju (albo do przejścia 60 bloków). Leczcie się, przeładujcie, dzielcie się. Potem wszystko od nowa."
+     ]
+    },
+    {
      "id": "hordes",
      "icon": "minecraft:zombie_head",
      "title": "Hordy",
@@ -88,6 +98,16 @@
       "**Adrenalina:** natychmiast, +25 zdrowia tymczasowego. Przez 15 sekund biegasz szybciej, nie utykasz, a podnosisz i leczysz dwa razy szybciej.",
       "Kliknij prawym przyciskiem towarzysza z tabletkami lub adrenaliną, by mu je przekazać."
      ]
+    },
+    {
+     "id": "defib",
+     "icon": "aidirector:defibrillator",
+     "title": "Defibrylator",
+     "text": [
+      "Gdy ocalały naprawdę zginie, jego **ciało** zostaje na ziemi przez jakiś czas.",
+      "Przytrzymaj użycie {{defibrylatora}} na nim przez **3 sekundy**, a wróci w tym samym miejscu z 50 trwałego zdrowia i czystym kontem (bez czerni i bieli).",
+      "Jego przedmioty zostają tam, gdzie upadł. Pozbieraj je dla niego, to minimum."
+     ]
     }
    ]
   },
@@ -105,6 +125,16 @@
       "**Podnoszenie:** przytrzymaj prawy przycisk na leżącym towarzyszu (lub klawisz **C**, który działa nawet z bronią w ręku) przez 5 sekund, z adrenaliną 2,5. Odejście lub odepchnięcie przerywa.",
       "**Ratunek:** jeśli specjalny zarażony kogoś złapie, **odepchnij** go (Mouse 4) albo zabij. Przy wleczeniu i dosiadaniu możesz też odepchnąć ofiarę.",
       "**Uwaga:** jeśli wszyscy ocalali jednocześnie leżą lub są unieruchomieni, drużyna przegrywa. Grając samotnie, po półtorej sekundy możesz się wyrwać klawiszem odepchnięcia."
+     ]
+    },
+    {
+     "id": "squad",
+     "icon": "minecraft:player_head",
+     "title": "Twój oddział",
+     "text": [
+      "W lewym dolnym rogu widzisz każdego towarzysza: twarz, zdrowie (trwałe pełne, tymczasowe kropkowane) i co niesie: apteczkę lub defibrylator, tabletki lub adrenalinę oraz coś do rzucania.",
+      "Towarzysze poza zasięgiem wzroku świecą przez ściany: **zielony** w porządku, **żółty/pomarańczowy** ranny, **migający czerwony** powalony lub unieruchomiony. Żółć oślepia cię na to wszystko.",
+      "Nad powalonym, unieruchomionym lub martwym towarzyszem pojawia się znacznik z imieniem i odległością. Ruszaj."
      ]
     },
     {
@@ -159,7 +189,7 @@
      "title": "Broń biała",
      "text": [
       "Kij baseballowy, kij do krykieta, łom, gitara elektryczna, siekiera strażacka, patelnia, kij golfowy, katana, maczeta, pałka, nóż bojowy, widły i łopata.",
-      "Każda z nich powala **zwykłego zarażonego jednym ciosem**. Specjalni otrzymują normalne obrażenia.",
+      "Zadają **zwykłe obrażenia**, zarażonym tak samo jak każdemu innemu potworowi: horda wciąż wymaga dystansu i wyczucia.",
       "Szerokie bronie trafiają kilku wrogów naraz; widły i kij golfowy sięgają dalej. Najmocniej uderza siekiera strażacka."
      ]
     },
@@ -171,6 +201,16 @@
       "Rzuć ją: odbija się, piszczy i miga na czerwono przez **5 sekund**. Wszyscy zwykli zarażeni w promieniu 32 bloków biegną do niej.",
       "Potem wybucha na obszarze 5x5. Nie rani ocalałych.",
       "Specjalnych zarażonych piszczenie nie oszuka."
+     ]
+    },
+    {
+     "id": "molotov",
+     "icon": "aidirector:molotov",
+     "title": "Mołotow",
+     "text": [
+      "Rozbija się przy uderzeniu i zostawia kałużę ognia na **15 sekund**. Zwykli, którzy w nią wejdą, już nie wyjdą.",
+      "Kolos się zapala: ciągle traci zdrowie, ale biega trochę szybciej. Zaplanuj ucieczkę.",
+      "Nie stój we własnym ogniu. Woda gasi go, zanim się rozpali."
      ]
     },
     {
@@ -189,6 +229,55 @@
      "text": [
       "Użyj stosu amunicji z bronią w ręku, aby uzupełnić zapas danego kalibru do sześciu magazynków.",
       "Każdy stos działa tylko raz i nie uzupełnia broni ciężkiej, takiej jak granatniki czy karabiny maszynowe."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "saferooms",
+   "icon": "aidirector:safe_room_door",
+   "title": "Schrony",
+   "desc": "Czerwone drzwi, cztery ściany, których nic nie zniszczy, i kilka minut spokoju.",
+   "entries": [
+    {
+     "id": "sealing",
+     "icon": "aidirector:safe_room_door",
+     "title": "Zabezpieczanie schronu",
+     "text": [
+      "W schronie nic się nie pojawia, nic nie wybucha i nic nie niszczy ścian. Jeśli horda wyrwie blok, schron **naprawi się sam**.",
+      "Wprowadźcie **całą żywą drużynę** i zamknijcie {{czerwone drzwi}}. Po kilku sekundach: punkt kontrolny zapisany, czerń i biel skasowana, powaleni wstają, a zmarli **wracają**.",
+      "Reżyser zamiera, dopóki wszyscy jesteście w środku, a wy dostajecie podsumowanie odcinka: zabicia, celność, ogień sojuszniczy i reanimacje."
+     ]
+    },
+    {
+     "id": "shelters",
+     "icon": "aidirector:safe_room_radio",
+     "title": "Trzy schrony",
+     "text": [
+      "**Bunkier**: ukryty w kopcu w lasach i na wzgórzach. Rów w zygzak, pancerne drzwi, schody pod kątem 45°, śluza odkażająca i posterunek.",
+      "**Hangar**: zardzewiałe sklepienie na otwartej równinie, wielka brama zaspawana kontenerami. Antresola strzelecka, warsztat, magazyn i suwnica.",
+      "**Obóz wojskowy**: rów z palami, mur z chodnikiem i cztery wieże strażnicze po 15 bloków. Stanowisko dowodzenia, namioty, lazaret i ogródek.",
+      "{{Radio}} w środku powie ci, jak stoi schron: czy drzwi są zamknięte i kogo jeszcze brakuje."
+     ]
+    },
+    {
+     "id": "crates",
+     "icon": "aidirector:supply_crate",
+     "title": "Skrzynie z zaopatrzeniem",
+     "text": [
+      "Reżyser wypełnia każdą skrzynię **przy otwarciu**, zależnie od stanu drużyny: poniżej połowy zdrowia apteczki (albo defibrylator, jeśli ktoś zginął); powyżej tabletki, adrenalinę i rzeczy do rzucania.",
+      "Każdy ocalały dostaje **jedną część** ze skrzyni. Skrzynie zbrojowni mają broń z amunicją; **zamknięte** lepszą broń i otwierają się po zdarzeniu paniki.",
+      "Stosy amunicji w schronach nigdy się nie kończą."
+     ]
+    },
+    {
+     "id": "crescendo",
+     "icon": "aidirector:crescendo_alarm",
+     "title": "Zdarzenia paniki",
+     "text": [
+      "Niektóre schrony skrywają {{alarm}}: generator awaryjny albo sygnał ratunkowy. Włączenie go ignoruje każdy spokój: **fala za falą** zarażonych, dopóki nie ucichnie.",
+      "Niektóre alarmy się zacinają i milkną dopiero po upływie czasu. Inne można wyłączyć ręcznie.",
+      "Przetrwajcie, a **zamknięte skrzynie** w pobliżu się otworzą. Warto? Wasza decyzja."
      ]
     }
    ]

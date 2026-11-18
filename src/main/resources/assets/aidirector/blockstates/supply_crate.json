@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,kind=medical,locked=false": {
+      "model": "aidirector:block/supply_crate_medical"
+    },
+    "facing=north,kind=medical,locked=true": {
+      "model": "aidirector:block/supply_crate_medical_locked"
+    },
+    "facing=north,kind=armory,locked=false": {
+      "model": "aidirector:block/supply_crate_armory"
+    },
+    "facing=north,kind=armory,locked=true": {
+      "model": "aidirector:block/supply_crate_armory_locked"
+    },
+    "facing=north,kind=throwables,locked=false": {
+      "model": "aidirector:block/supply_crate_throwables"
+    },
+    "facing=north,kind=throwables,locked=true": {
+      "model": "aidirector:block/supply_crate_throwables_locked"
+    },
+    "facing=east,kind=medical,locked=false": {
+      "model": "aidirector:block/supply_crate_medical",
+      "y": 90
+    },
+    "facing=east,kind=medical,locked=true": {
+      "model": "aidirector:block/supply_crate_medical_locked",
+      "y": 90
+    },
+    "facing=east,kind=armory,locked=false": {
+      "model": "aidirector:block/supply_crate_armory",
+      "y": 90
+    },
+    "facing=east,kind=armory,locked=true": {
+      "model": "aidirector:block/supply_crate_armory_locked",
+      "y": 90
+    },
+    "facing=east,kind=throwables,locked=false": {
+      "model": "aidirector:block/supply_crate_throwables",
+      "y": 90
+    },
+    "facing=east,kind=throwables,locked=true": {
+      "model": "aidirector:block/supply_crate_throwables_locked",
+      "y": 90
+    },
+    "facing=south,kind=medical,locked=false": {
+      "model": "aidirector:block/supply_crate_medical",
+      "y": 180
+    },
+    "facing=south,kind=medical,locked=true": {
+      "model": "aidirector:block/supply_crate_medical_locked",
+      "y": 180
+    },
+    "facing=south,kind=armory,locked=false": {
+      "model": "aidirector:block/supply_crate_armory",
+      "y": 180
+    },
+    "facing=south,kind=armory,locked=true": {
+      "model": "aidirector:block/supply_crate_armory_locked",
+      "y": 180
+    },
+    "facing=south,kind=throwables,locked=false": {
+      "model": "aidirector:block/supply_crate_throwables",
+      "y": 180
+    },
+    "facing=south,kind=throwables,locked=true": {
+      "model": "aidirector:block/supply_crate_throwables_locked",
+      "y": 180
+    },
+    "facing=west,kind=medical,locked=false": {
+      "model": "aidirector:block/supply_crate_medical",
+      "y": 270
+    },
+    "facing=west,kind=medical,locked=true": {
+      "model": "aidirector:block/supply_crate_medical_locked",
+      "y": 270
+    },
+    "facing=west,kind=armory,locked=false": {
+      "model": "aidirector:block/supply_crate_armory",
+      "y": 270
+    },
+    "facing=west,kind=armory,locked=true": {
+      "model": "aidirector:block/supply_crate_armory_locked",
+      "y": 270
+    },
+    "facing=west,kind=throwables,locked=false": {
+      "model": "aidirector:block/supply_crate_throwables",
+      "y": 270
+    },
+    "facing=west,kind=throwables,locked=true": {
+      "model": "aidirector:block/supply_crate_throwables_locked",
+      "y": 270
+    }
+  }
+}

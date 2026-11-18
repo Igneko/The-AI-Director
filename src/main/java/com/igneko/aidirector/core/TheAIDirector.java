@@ -14,8 +14,6 @@ import com.igneko.aidirector.entity.infected.WailerEntity;
 import com.igneko.aidirector.config.AIDirectorConfig;
 import com.igneko.aidirector.core.survivor.SurvivorEventHandler;
 import com.igneko.aidirector.core.survivor.SurvivorHealthData;
-import com.igneko.aidirector.events.PlayerDamageListener;
-import com.igneko.aidirector.events.PlayerTickHandler;
 import com.igneko.aidirector.network.ModNetwork;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
@@ -41,22 +39,29 @@ public class TheAIDirector {
         ModSounds.register(modBus);
         ModEntities.register(modBus);
         ModWeapons.register(modBus);
+        com.igneko.aidirector.registry.ModBlocks.register(modBus);
+        com.igneko.aidirector.registry.ModStructures.register(modBus);
 
         // Bus global de Forge (eventos de juego).
         MinecraftForge.EVENT_BUS.register(new CommandRegistry());
         MinecraftForge.EVENT_BUS.register(new SurvivorEventHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerTickHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerDamageListener());
         MinecraftForge.EVENT_BUS.register(new StaggerHandler());
         MinecraftForge.EVENT_BUS.register(new NoiseAttractionHandler());
         MinecraftForge.EVENT_BUS.register(new TaczEventBridge());
         MinecraftForge.EVENT_BUS.register(new IncapWeaponHandler());
         MinecraftForge.EVENT_BUS.register(new PinService());
         MinecraftForge.EVENT_BUS.register(new BileService());
-        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.combat.MeleeHandler());
         MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.IntensityTracker());
         MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.SpecialInfectedSpawner());
         MinecraftForge.EVENT_BUS.register(new WailerEntity.NoiseListener());
+        // Fase 3-6: Director (FSM), refugios, Crescendo, escuadrón, desfibrilador y estadísticas de tramo.
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.DirectorManager());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.CrescendoManager());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.director.SegmentStats());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.world.saferoom.SafeZoneManager());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.world.saferoom.StructureGuard());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.survivor.SquadService());
+        MinecraftForge.EVENT_BUS.register(new com.igneko.aidirector.core.survivor.DefibService());
     }
 
     private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {

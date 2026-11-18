@@ -40,6 +40,16 @@
      ]
     },
     {
+     "id": "rhythm",
+     "icon": "minecraft:compass",
+     "title": "The rhythm",
+     "text": [
+      "The Director breathes in four phases. **Build-up**: small groups of commons and ambushes by special infected. If two minutes pass without a peak, it sends a {{horde}}.",
+      "**Peak**: when the team's stress reaches 85% it holds the pressure for a few seconds and then **fades**: nothing new appears until you finish what is left.",
+      "**Relax**: 30-45 seconds of calm (or until you advance 60 blocks). Heal, reload, share. Then it starts again."
+     ]
+    },
+    {
      "id": "hordes",
      "icon": "minecraft:zombie_head",
      "title": "Hordes",
@@ -88,6 +98,16 @@
       "**Adrenaline:** instant, +25 temporary health. For 15 seconds you run faster, never limp, and revive and heal twice as fast.",
       "Right-click a teammate with pills or adrenaline to hand them over."
      ]
+    },
+    {
+     "id": "defib",
+     "icon": "aidirector:defibrillator",
+     "title": "Defibrillator",
+     "text": [
+      "When a survivor really dies, their **body** stays on the ground for a while.",
+      "Hold use with a {{defibrillator}} on it for **3 seconds** and they come back on that very spot with 50 permanent health and a clean record (no black and white).",
+      "Their items stay where they fell. Pick them up for them, it is the least you can do."
+     ]
     }
    ]
   },
@@ -105,6 +125,16 @@
       "**Reviving:** hold right-click on a downed teammate (or the **C** key, which works even with a gun in hand) for 5 seconds, or 2.5 with adrenaline. Walking away or being shoved cancels it.",
       "**Rescuing:** if a special infected grabs someone, **shove** it (Mouse 4) or kill it. During drags and rides you can also shove the victim.",
       "**Careful:** if every survivor is downed or pinned at the same time, the team falls. Playing alone, you can struggle free with the shove key after a second and a half."
+     ]
+    },
+    {
+     "id": "squad",
+     "icon": "minecraft:player_head",
+     "title": "Your squad",
+     "text": [
+      "Bottom left you see every teammate: face, health (solid permanent, dotted temporary) and what they carry: kit or defibrillator, pills or adrenaline, and a throwable.",
+      "Teammates you cannot see glow through walls: **green** fine, **yellow/orange** hurt, **flashing red** down or pinned. Bile blinds you to all of it.",
+      "Over a downed, pinned or dead teammate a marker shows their name and distance. Go."
      ]
     },
     {
@@ -159,7 +189,7 @@
      "title": "Melee weapons",
      "text": [
       "Baseball bat, cricket bat, crowbar, electric guitar, fire axe, frying pan, golf club, katana, machete, nightstick, combat knife, pitchfork and shovel.",
-      "Any of them drops a **common infected in a single hit**. Special infected take normal damage.",
+      "They deal **normal damage**, the same against the infected as against any other mob: a horde still calls for spacing and timing.",
       "Wide weapons hit several enemies at once; the pitchfork and the golf club reach further. The fire axe hits hardest."
      ]
     },
@@ -171,6 +201,16 @@
       "Throw it and it bounces, beeps and blinks red for **5 seconds**. Every common infected within 32 blocks runs towards it.",
       "Then it explodes over a 5x5 area. It does not hurt survivors.",
       "Special infected are not fooled by the beeping."
+     ]
+    },
+    {
+     "id": "molotov",
+     "icon": "aidirector:molotov",
+     "title": "Molotov",
+     "text": [
+      "It breaks on impact and leaves a pool of fire for **15 seconds**. Commons that walk into it do not walk out.",
+      "The Behemoth catches fire: it keeps losing health but runs a little faster. Plan your escape.",
+      "Do not stand in your own fire. Water puts it out before it starts."
      ]
     },
     {
@@ -189,6 +229,55 @@
      "text": [
       "Use an ammo pile while holding a gun to refill the reserve for that calibre, up to six magazines.",
       "Each pile works only once and cannot refill heavy weapons such as grenade launchers or machine guns."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "saferooms",
+   "icon": "aidirector:safe_room_door",
+   "title": "Safe Rooms",
+   "desc": "A red door, four walls that nothing can break, and a few minutes of peace.",
+   "entries": [
+    {
+     "id": "sealing",
+     "icon": "aidirector:safe_room_door",
+     "title": "Securing a shelter",
+     "text": [
+      "Inside a shelter nothing spawns, nothing explodes and nothing breaks the walls. If the horde tears a block off, the shelter **repairs itself**.",
+      "Get **the whole living team** inside and close the {{red doors}}. After a few seconds: checkpoint saved, black and white cleared, the downed get up and the dead **come back**.",
+      "The Director freezes while you are all inside, and you get a summary of the stretch: kills, accuracy, friendly fire and revives."
+     ]
+    },
+    {
+     "id": "shelters",
+     "icon": "aidirector:safe_room_radio",
+     "title": "Three shelters",
+     "text": [
+      "**Bunker**: hidden in a mound in forests and hills. A zigzag trench, an armored door, a 45° staircase, a decontamination airlock and a guard post.",
+      "**Hangar**: a corroded vault on open plains with its huge gate welded shut by containers. Mezzanine to shoot from, workshop, storage and a crane.",
+      "**Military camp**: a trench with stakes, a wall with a walkway and four 15-block watchtowers. Command post, tents, infirmary and garden.",
+      "The {{radio}} inside tells you how the shelter stands: closed doors and who is still missing."
+     ]
+    },
+    {
+     "id": "crates",
+     "icon": "aidirector:supply_crate",
+     "title": "Supply crates",
+     "text": [
+      "The Director fills each crate **when you open it**, according to how the team is doing: below half health, first aid kits (or a defibrillator if someone is dead); above, pills, adrenaline and throwables.",
+      "Each survivor gets **one share** per crate. Armory crates hold a gun with ammo; the **locked** ones hold better guns and open after a panic event.",
+      "Shelter ammo piles never run out."
+     ]
+    },
+    {
+     "id": "crescendo",
+     "icon": "aidirector:crescendo_alarm",
+     "title": "Panic events",
+     "text": [
+      "Some shelters hide an {{alarm}}: an emergency generator or a distress signal. Switching it on ignores any calm: **wave after wave** of infected until it stops.",
+      "Some alarms are jammed and only stop when their time runs out. Others can be switched off by hand.",
+      "Survive it and the **locked crates** nearby open. Worth it? Your call."
      ]
     }
    ]

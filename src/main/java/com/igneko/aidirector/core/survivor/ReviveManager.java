@@ -77,7 +77,7 @@ public final class ReviveManager {
                 it.remove();
                 SurvivorService.applyEffects(target, targetData);
                 reviver.displayClientMessage(Component.translatable("message.aidirector.revive.done", target.getDisplayName()), true);
-                // TODO Fase 3: estadísticas de tramo (reanimaciones) para el refugio.
+                com.igneko.aidirector.core.director.SegmentStats.onRevive(reviver);
             }
             // El progreso se envía cada 2 ticks para que la barra sea fluida sin saturar la red.
             if (targetData.consumeDirty() || reviver.level().getGameTime() % 2 == 0) {

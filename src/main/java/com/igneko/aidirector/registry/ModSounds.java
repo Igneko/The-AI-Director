@@ -16,6 +16,20 @@ public final class ModSounds {
 
     private static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, TheAIDirector.MOD_ID);
 
+    public static final RegistryObject<SoundEvent> MOLOTOV_THROW = reg("molotov.throw");
+    public static final RegistryObject<SoundEvent> MOLOTOV_SHATTER = reg("molotov.shatter");
+    public static final RegistryObject<SoundEvent> MOLOTOV_IGNITE = reg("molotov.ignite");
+    public static final RegistryObject<SoundEvent> FIRE_CRACKLE = reg("fire.crackle");
+    public static final RegistryObject<SoundEvent> DEFIB_CHARGE = reg("defib.charge");
+    public static final RegistryObject<SoundEvent> DEFIB_SHOCK = reg("defib.shock");
+    public static final RegistryObject<SoundEvent> SAFEROOM_SECURED = reg("saferoom.secured");
+    public static final RegistryObject<SoundEvent> SAFEROOM_REPAIR = reg("saferoom.repair");
+    public static final RegistryObject<SoundEvent> RADIO_STATIC = reg("radio.static");
+    public static final RegistryObject<SoundEvent> CRATE_OPEN = reg("crate.open");
+    public static final RegistryObject<SoundEvent> CRATE_UNLOCK = reg("crate.unlock");
+    public static final RegistryObject<SoundEvent> ALARM_SIREN = reg("alarm.siren");
+    public static final RegistryObject<SoundEvent> ALARM_STOP = reg("alarm.stop");
+    public static final RegistryObject<SoundEvent> HORDE_INCOMING = reg("horde.incoming");
     public static final RegistryObject<SoundEvent> LURKER_AMBIENT = reg("lurker.ambient");
     public static final RegistryObject<SoundEvent> LURKER_POUNCE = reg("lurker.pounce");
     public static final RegistryObject<SoundEvent> LURKER_HURT = reg("lurker.hurt");

@@ -2,6 +2,13 @@ package com.igneko.aidirector.core;
 
 import com.igneko.aidirector.compat.enhancedhordes.EnhancedHordesCompat;
 import com.igneko.aidirector.config.AIDirectorConfig;
+import com.igneko.aidirector.core.director.CrescendoManager;
+import com.igneko.aidirector.core.director.DirectorFsm;
+import com.igneko.aidirector.core.director.DirectorManager;
+import com.igneko.aidirector.core.director.IntensityTracker;
+import com.igneko.aidirector.world.saferoom.SafeZoneManager;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import net.minecraft.commands.SharedSuggestionProvider;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.igneko.aidirector.core.survivor.MedicalService;
 import com.igneko.aidirector.core.survivor.SurvivorCapability;
@@ -31,41 +38,63 @@ public class CommandRegistry {
         dispatcher.register(Commands.literal("aidirector")
             .requires(source -> source.hasPermission(2)) // Requiere permisos de OP/Admin
             
-            // Subcomando: /aidirector info
+            // /aidirector info: fase del Director, intensidad y refugio
             .then(Commands.literal("info").executes(context -> {
                 CommandSourceStack source = context.getSource();
                 ServerPlayer player = source.getPlayerOrException();
-                
-                long secondsLeft = StressManager.getSecondsLeft(player);
-                long minutes = secondsLeft / 60;
-                long seconds = secondsLeft % 60;
-
-                float stress = com.igneko.aidirector.core.director.IntensityTracker.get(player);
-                source.sendSuccess(() -> Component.literal(
-                    "§e[AI Director] §fTiempo estimado para horda: §c" + minutes + "m " + seconds + "s"
-                    + " §f| Estrés: §c" + Math.round(stress * 100) + "%"
-                ), false);
-                
+                DirectorFsm fsm = DirectorManager.fsm(player.serverLevel());
+                float stress = IntensityTracker.get(player);
+                int crescendo = CrescendoManager.secondsLeft(player);
+                source.sendSuccess(() -> Component.literal(String.format(
+                    "§e[AI Director] §fFase: §c%s §7(%ds%s) §f| Estrés: §c%d%% §f| Refugio: §a%s%s",
+                    fsm.phase(), fsm.seconds(), fsm.target() > 0 ? "/" + fsm.target() + "s" : "",
+                    Math.round(stress * 100), SafeZoneManager.statusFor(player),
+                    crescendo >= 0 ? " §f| §6Crescendo " + crescendo + "s" : "")), false);
                 return 1;
             }))
-            
-            // Subcomando: /aidirector force
-            // Genera la horda al instante (funciona también en creativo). Opcional: número de infectados.
+
+            // /aidirector force [n]: horda inmediata alrededor del jugador (también en creativo)
             .then(Commands.literal("force")
                 .executes(context -> forceHorde(context.getSource(), AIDirectorConfig.horde().size()))
                 .then(Commands.argument("count", IntegerArgumentType.integer(1, 300))
                     .executes(context -> forceHorde(context.getSource(), IntegerArgumentType.getInteger(context, "count")))))
-            
-            // Subcomando: /aidirector reset
+
+            // /aidirector reset: vuelve a BUILD_UP y borra el estrés del jugador
             .then(Commands.literal("reset").executes(context -> {
-                CommandSourceStack source = context.getSource();
-                ServerPlayer player = source.getPlayerOrException();
-                
-                StressManager.resetTimer(player);
-                source.sendSuccess(() -> Component.literal("§e[AI Director] §fReloj reseteado a 20 minutos."), false);
-                
+                ServerPlayer player = context.getSource().getPlayerOrException();
+                DirectorManager.fsm(player.serverLevel()).force(DirectorFsm.Phase.BUILD_UP, 0);
+                IntensityTracker.reset(player);
+                context.getSource().sendSuccess(() -> Component.literal("§e[AI Director] §fDirector reiniciado en BUILD_UP."), false);
                 return 1;
             }))
+
+            // /aidirector phase <fase>: fuerza una fase de la máquina de estados (depuración)
+            .then(Commands.literal("phase")
+                .then(Commands.argument("phase", StringArgumentType.word())
+                    .suggests((ctx, b) -> SharedSuggestionProvider.suggest(
+                        java.util.Arrays.stream(DirectorFsm.Phase.values()).map(Enum::name), b))
+                    .executes(context -> {
+                        ServerPlayer player = context.getSource().getPlayerOrException();
+                        DirectorFsm.Phase phase;
+                        try {
+                            phase = DirectorFsm.Phase.valueOf(StringArgumentType.getString(context, "phase").toUpperCase(java.util.Locale.ROOT));
+                        } catch (IllegalArgumentException e) {
+                            context.getSource().sendFailure(Component.literal("Fase desconocida"));
+                            return 0;
+                        }
+                        int target = phase == DirectorFsm.Phase.RELAX ? 40 : phase == DirectorFsm.Phase.SUSTAIN_PEAK ? 4 : 0;
+                        DirectorManager.fsm(player.serverLevel()).force(phase, target);
+                        context.getSource().sendSuccess(() -> Component.literal("§e[AI Director] §fFase forzada: §c" + phase), false);
+                        return 1;
+                    })))
+
+            // /aidirector crescendo stop: termina el evento de pánico en curso
+            .then(Commands.literal("crescendo")
+                .then(Commands.literal("stop").executes(context -> {
+                    CrescendoManager.stop(context.getSource().getLevel(), true);
+                    context.getSource().sendSuccess(() -> Component.literal("§e[AI Director] §fEvento de pánico terminado."), false);
+                    return 1;
+                })))
 
             // Subcomandos de depuración del sistema de salud: /aidirector survivor <acción> [jugador]
             .then(Commands.literal("survivor")
@@ -96,7 +125,6 @@ public class CommandRegistry {
     private static int forceHorde(CommandSourceStack source, int count) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         int spawned = EnhancedHordesCompat.triggerPanicEvent(player.serverLevel(), player.blockPosition(), count, player);
-        StressManager.resetTimer(player);
         int area = AIDirectorConfig.horde().areaSize();
         source.sendSuccess(() -> Component.literal(String.format(
             "§e[AI Director] §fHorda forzada: §c%d§f/%d infectados en un área de %dx%d bloques.",

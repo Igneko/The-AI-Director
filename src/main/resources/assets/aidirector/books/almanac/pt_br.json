@@ -40,6 +40,16 @@
      ]
     },
     {
+     "id": "rhythm",
+     "icon": "minecraft:compass",
+     "title": "O ritmo",
+     "text": [
+      "O Diretor respira em quatro fases. **Construção**: pequenos grupos de comuns e emboscadas de especiais. Se passarem dois minutos sem pico, ele manda uma {{horda}}.",
+      "**Pico**: quando o estresse do time chega a 85% ele mantém a pressão por alguns segundos e depois **diminui**: nada novo aparece até vocês acabarem com o que sobrou.",
+      "**Calmaria**: 30-45 segundos de alívio (ou até avançarem 60 blocos). Curem-se, recarreguem, dividam. Depois tudo recomeça."
+     ]
+    },
+    {
      "id": "hordes",
      "icon": "minecraft:zombie_head",
      "title": "Hordas",
@@ -88,6 +98,16 @@
       "**Adrenalina:** instantânea, +25 de vida temporária. Por 15 segundos você corre mais, não manca e reanima e cura duas vezes mais rápido.",
       "Clique com o botão direito em um aliado com pílulas ou adrenalina para entregá-las."
      ]
+    },
+    {
+     "id": "defib",
+     "icon": "aidirector:defibrillator",
+     "title": "Desfibrilador",
+     "text": [
+      "Quando um sobrevivente morre de verdade, o **corpo** fica no chão por um tempo.",
+      "Segure usar com um {{desfibrilador}} sobre ele por **3 segundos** e ele volta ali mesmo com 50 de vida permanente e a ficha limpa (sem preto e branco).",
+      "Os itens ficam onde ele caiu. Pegue para ele, é o mínimo."
+     ]
     }
    ]
   },
@@ -105,6 +125,16 @@
       "**Reanimar:** segure o botão direito sobre um aliado caído (ou a tecla **C**, que funciona mesmo com uma arma na mão) por 5 segundos, ou 2,5 com adrenalina. Afastar-se ou ser empurrado cancela.",
       "**Resgatar:** se um infectado especial agarrar alguém, **empurre-o** (Mouse 4) ou mate-o. Em arrastos e montarias você também pode empurrar a vítima.",
       "**Cuidado:** se todos os sobreviventes estiverem caídos ou presos ao mesmo tempo, a equipe cai. Jogando sozinho, você pode se soltar com a tecla de empurrão após um segundo e meio."
+     ]
+    },
+    {
+     "id": "squad",
+     "icon": "minecraft:player_head",
+     "title": "Seu esquadrão",
+     "text": [
+      "No canto inferior esquerdo você vê cada companheiro: rosto, vida (permanente sólida, temporária pontilhada) e o que carrega: kit ou desfibrilador, pílulas ou adrenalina e um arremessável.",
+      "Companheiros que você não vê brilham através das paredes: **verde** bem, **amarelo/laranja** ferido, **vermelho piscando** caído ou preso. A bile te cega para tudo isso.",
+      "Sobre um companheiro caído, preso ou morto aparece um marcador com nome e distância. Vá."
      ]
     },
     {
@@ -159,7 +189,7 @@
      "title": "Armas brancas",
      "text": [
       "Taco de beisebol, taco de críquete, pé de cabra, guitarra elétrica, machado de bombeiro, frigideira, taco de golfe, katana, facão, cassetete, faca de combate, forcado e pá.",
-      "Qualquer uma derruba um **infectado comum com um único golpe**. Os especiais recebem dano normal.",
+      "Causam **dano normal**, nos infectados como em qualquer outra criatura: uma horda ainda exige distância e ritmo.",
       "As armas largas atingem vários inimigos de uma vez; o forcado e o taco de golfe alcançam mais longe. O machado de bombeiro é o que bate mais forte."
      ]
     },
@@ -171,6 +201,16 @@
       "Jogue-a: ela quica, apita e pisca em vermelho por **5 segundos**. Todos os infectados comuns a 32 blocos correm até ela.",
       "Depois explode numa área de 5x5. Não fere os sobreviventes.",
       "Os infectados especiais não caem no truque do apito."
+     ]
+    },
+    {
+     "id": "molotov",
+     "icon": "aidirector:molotov",
+     "title": "Molotov",
+     "text": [
+      "Quebra no impacto e deixa uma poça de fogo por **15 segundos**. Comuns que entram não saem.",
+      "O Colosso pega fogo: perde vida sem parar, mas corre um pouco mais. Planeje a fuga.",
+      "Não fique no seu próprio fogo. A água apaga antes de pegar."
      ]
     },
     {
@@ -189,6 +229,55 @@
      "text": [
       "Use uma pilha de munição segurando uma arma para repor a reserva daquele calibre, até seis carregadores.",
       "Cada pilha funciona só uma vez e não recarrega armas pesadas como lança-granadas ou metralhadoras."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "saferooms",
+   "icon": "aidirector:safe_room_door",
+   "title": "Abrigos",
+   "desc": "Uma porta vermelha, quatro paredes que nada quebra e alguns minutos de paz.",
+   "entries": [
+    {
+     "id": "sealing",
+     "icon": "aidirector:safe_room_door",
+     "title": "Proteger um abrigo",
+     "text": [
+      "Dentro de um abrigo nada nasce, nada explode e nada quebra as paredes. Se a horda arrancar um bloco, o abrigo **se conserta sozinho**.",
+      "Levem **todo o time vivo** para dentro e fechem as {{portas vermelhas}}. Em segundos: ponto de controle salvo, preto e branco apagado, os caídos levantam e os mortos **voltam**.",
+      "O Diretor congela enquanto todos estiverem dentro, e vocês recebem o resumo do trecho: abates, precisão, fogo amigo e reanimações."
+     ]
+    },
+    {
+     "id": "shelters",
+     "icon": "aidirector:safe_room_radio",
+     "title": "Três abrigos",
+     "text": [
+      "**Bunker**: escondido num monte em florestas e colinas. Trincheira em zigue-zague, porta blindada, escada a 45°, câmara de descontaminação e posto de guarda.",
+      "**Hangar**: uma abóbada enferrujada em planícies abertas com o grande portão soldado com contêineres. Mezanino de tiro, oficina, depósito e guindaste.",
+      "**Acampamento militar**: trincheira com estacas, muralha com passarela e quatro torres de vigia de 15 blocos. Posto de comando, barracas, enfermaria e horta.",
+      "O {{rádio}} lá dentro diz como está o abrigo: portas fechadas e quem ainda falta chegar."
+     ]
+    },
+    {
+     "id": "crates",
+     "icon": "aidirector:supply_crate",
+     "title": "Caixas de suprimentos",
+     "text": [
+      "O Diretor enche cada caixa **ao abri-la**, conforme o estado do time: abaixo de meia vida, kits de primeiros socorros (ou um desfibrilador se alguém morreu); acima, pílulas, adrenalina e arremessáveis.",
+      "Cada sobrevivente recebe **uma parte** por caixa. As de arsenal trazem uma arma com munição; as **trancadas** trazem armas melhores e abrem após um evento de pânico.",
+      "As pilhas de munição dos abrigos nunca acabam."
+     ]
+    },
+    {
+     "id": "crescendo",
+     "icon": "aidirector:crescendo_alarm",
+     "title": "Eventos de pânico",
+     "text": [
+      "Alguns abrigos escondem um {{alarme}}: um gerador de emergência ou um sinal de socorro. Ligá-lo ignora qualquer calmaria: **onda após onda** de infectados até parar.",
+      "Alguns alarmes travam e só param quando o tempo acaba. Outros podem ser desligados à mão.",
+      "Sobrevivam e as **caixas trancadas** por perto se abrem. Vale a pena? Vocês decidem."
      ]
     }
    ]

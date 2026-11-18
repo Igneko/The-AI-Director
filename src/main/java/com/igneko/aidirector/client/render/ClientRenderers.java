@@ -21,6 +21,23 @@ public final class ClientRenderers {
         return new ModelLayerLocation(new ResourceLocation(TheAIDirector.MOD_ID, name), "main");
     }
 
+    /** El icono de la caja de suministros depende del tipo guardado en el objeto (BlockStateTag). */
+    @SubscribeEvent
+    public static void onClientSetup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.renderer.item.ItemProperties.register(
+                com.igneko.aidirector.registry.ModBlocks.SUPPLY_CRATE_ITEM.get(),
+                new ResourceLocation(TheAIDirector.MOD_ID, "crate"), (stack, level, entity, seed) -> {
+                    net.minecraft.nbt.CompoundTag tag = stack.getTagElement("BlockStateTag");
+                    if (tag == null) return 0f;
+                    int kind = switch (tag.getString("kind")) {
+                        case "armory" -> 1;
+                        case "throwables" -> 2;
+                        default -> 0;
+                    };
+                    return (kind + ("true".equals(tag.getString("locked")) ? 0.5f : 0f)) / 4f;
+                }));
+    }
+
     @SubscribeEvent
     public static void onLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ThrowableRenderer.PIPE_BOMB, ThrowableRenderer::pipeBombLayer);
@@ -42,5 +59,8 @@ public final class ClientRenderers {
         event.registerEntityRenderer(ModEntities.BEHEMOTH_ROCK.get(), RockRenderer::new);
         event.registerEntityRenderer(ModEntities.PIPE_BOMB.get(), c -> new ThrowableRenderer<>(c, ThrowableRenderer.PIPE_BOMB, "pipe_bomb", com.igneko.aidirector.registry.ModWeapons.PIPE_BOMB));
         event.registerEntityRenderer(ModEntities.BILE_JAR.get(), c -> new ThrowableRenderer<>(c, ThrowableRenderer.BILE_JAR, "bile_jar", com.igneko.aidirector.registry.ModWeapons.BILE_JAR));
+        event.registerEntityRenderer(ModEntities.MOLOTOV.get(), c -> new ThrowableRenderer<>(c, ThrowableRenderer.BILE_JAR, "bile_jar", com.igneko.aidirector.registry.ModWeapons.MOLOTOV));
+        event.registerEntityRenderer(ModEntities.FIRE_PATCH.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.SURVIVOR_BODY.get(), SurvivorBodyRenderer::new);
     }
 }

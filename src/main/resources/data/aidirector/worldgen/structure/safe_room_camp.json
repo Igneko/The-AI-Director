@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:safe_room",
+  "variant": "camp",
+  "biomes": "#aidirector:has_structure/safe_room_camp",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

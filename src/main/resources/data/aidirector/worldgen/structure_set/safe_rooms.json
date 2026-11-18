@@ -1,0 +1,23 @@
+{
+  "structures": [
+    {
+      "structure": "aidirector:safe_room_bunker",
+      "weight": 3
+    },
+    {
+      "structure": "aidirector:safe_room_hangar",
+      "weight": 2
+    },
+    {
+      "structure": "aidirector:safe_room_camp",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 64,
+    "separation": 32,
+    "spread_type": "triangular",
+    "salt": 74126831
+  }
+}

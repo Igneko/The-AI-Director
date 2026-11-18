@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "aidirector:safe_room_door",
+    "aidirector:crescendo_alarm"
+  ]
+}

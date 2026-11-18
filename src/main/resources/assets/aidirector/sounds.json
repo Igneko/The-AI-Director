@@ -682,5 +682,225 @@
         "volume": 1.2
       }
     ]
+  },
+  "molotov.throw": {
+    "subtitle": "subtitles.aidirector.molotov.throw",
+    "sounds": [
+      {
+        "name": "entity.splash_potion.throw",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 1.0
+      },
+      {
+        "name": "item.firecharge.use",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 0.4
+      }
+    ]
+  },
+  "molotov.shatter": {
+    "subtitle": "subtitles.aidirector.molotov.shatter",
+    "sounds": [
+      {
+        "name": "block.glass.break",
+        "type": "event",
+        "pitch": 0.9,
+        "volume": 1.2
+      }
+    ]
+  },
+  "molotov.ignite": {
+    "subtitle": "subtitles.aidirector.molotov.ignite",
+    "sounds": [
+      {
+        "name": "item.firecharge.use",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.2
+      },
+      {
+        "name": "entity.blaze.shoot",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 0.8
+      }
+    ]
+  },
+  "fire.crackle": {
+    "subtitle": "subtitles.aidirector.fire.crackle",
+    "sounds": [
+      {
+        "name": "block.fire.ambient",
+        "type": "event",
+        "pitch": 0.9,
+        "volume": 1.4
+      },
+      {
+        "name": "block.campfire.crackle",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 1.2
+      }
+    ]
+  },
+  "defib.charge": {
+    "subtitle": "subtitles.aidirector.defib.charge",
+    "sounds": [
+      {
+        "name": "block.beacon.power_select",
+        "type": "event",
+        "pitch": 1.8,
+        "volume": 0.8
+      },
+      {
+        "name": "block.respawn_anchor.charge",
+        "type": "event",
+        "pitch": 1.6,
+        "volume": 0.7
+      }
+    ]
+  },
+  "defib.shock": {
+    "subtitle": "subtitles.aidirector.defib.shock",
+    "sounds": [
+      {
+        "name": "block.respawn_anchor.deplete",
+        "type": "event",
+        "pitch": 1.5,
+        "volume": 1.0
+      },
+      {
+        "name": "entity.lightning_bolt.impact",
+        "type": "event",
+        "pitch": 2.0,
+        "volume": 0.35
+      }
+    ]
+  },
+  "saferoom.secured": {
+    "subtitle": "subtitles.aidirector.saferoom.secured",
+    "sounds": [
+      {
+        "name": "ui.toast.challenge_complete",
+        "type": "event",
+        "pitch": 1.0,
+        "volume": 0.6
+      },
+      {
+        "name": "block.iron_door.close",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.0
+      }
+    ]
+  },
+  "saferoom.repair": {
+    "subtitle": "subtitles.aidirector.saferoom.repair",
+    "sounds": [
+      {
+        "name": "block.anvil.use",
+        "type": "event",
+        "pitch": 1.6,
+        "volume": 0.35
+      }
+    ]
+  },
+  "radio.static": {
+    "subtitle": "subtitles.aidirector.radio.static",
+    "sounds": [
+      {
+        "name": "block.beehive.work",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 0.9
+      },
+      {
+        "name": "block.note_block.bit",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 0.4
+      }
+    ]
+  },
+  "crate.open": {
+    "subtitle": "subtitles.aidirector.crate.open",
+    "sounds": [
+      {
+        "name": "block.barrel.open",
+        "type": "event",
+        "pitch": 0.9,
+        "volume": 1.0
+      },
+      {
+        "name": "block.chest.open",
+        "type": "event",
+        "pitch": 1.1,
+        "volume": 0.6
+      }
+    ]
+  },
+  "crate.unlock": {
+    "subtitle": "subtitles.aidirector.crate.unlock",
+    "sounds": [
+      {
+        "name": "block.iron_trapdoor.open",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 1.0
+      },
+      {
+        "name": "entity.player.levelup",
+        "type": "event",
+        "pitch": 1.3,
+        "volume": 0.4
+      }
+    ]
+  },
+  "alarm.siren": {
+    "subtitle": "subtitles.aidirector.alarm.siren",
+    "sounds": [
+      {
+        "name": "block.note_block.bell",
+        "type": "event",
+        "pitch": 0.6,
+        "volume": 1.0
+      },
+      {
+        "name": "event.raid.horn",
+        "type": "event",
+        "pitch": 1.4,
+        "volume": 0.5
+      }
+    ]
+  },
+  "alarm.stop": {
+    "subtitle": "subtitles.aidirector.alarm.stop",
+    "sounds": [
+      {
+        "name": "block.beacon.deactivate",
+        "type": "event",
+        "pitch": 0.8,
+        "volume": 1.0
+      }
+    ]
+  },
+  "horde.incoming": {
+    "subtitle": "subtitles.aidirector.horde.incoming",
+    "sounds": [
+      {
+        "name": "event.raid.horn",
+        "type": "event",
+        "pitch": 0.7,
+        "volume": 0.8
+      },
+      {
+        "name": "entity.zombie.ambient",
+        "type": "event",
+        "pitch": 0.5,
+        "volume": 1.0
+      }
+    ]
   }
 }

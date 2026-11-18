@@ -9,7 +9,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 /** Canal de red único del mod. Todo paquete S2C es informativo; el servidor es la autoridad. */
 public final class ModNetwork {
 
-    private static final String PROTOCOL = "3";
+    private static final String PROTOCOL = "4";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(TheAIDirector.MOD_ID, "main"),
@@ -34,6 +34,16 @@ public final class ModNetwork {
                 .encoder(ShoveRequestPacket::encode)
                 .decoder(ShoveRequestPacket::decode)
                 .consumerMainThread(ShoveRequestPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(SquadSyncPacket.class, nextId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SquadSyncPacket::encode)
+                .decoder(SquadSyncPacket::decode)
+                .consumerMainThread(SquadSyncPacket::handle)
+                .add();
+        CHANNEL.messageBuilder(DirectorStatusPacket.class, nextId++, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(DirectorStatusPacket::encode)
+                .decoder(DirectorStatusPacket::decode)
+                .consumerMainThread(DirectorStatusPacket::handle)
                 .add();
         CHANNEL.messageBuilder(UseHoldPacket.class, nextId++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(UseHoldPacket::encode)

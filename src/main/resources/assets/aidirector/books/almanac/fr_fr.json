@@ -40,6 +40,16 @@
      ]
     },
     {
+     "id": "rhythm",
+     "icon": "minecraft:compass",
+     "title": "Le rythme",
+     "text": [
+      "Le Directeur respire en quatre phases. **Montée** : petits groupes de communs et embuscades d'infectés spéciaux. Sans pic pendant deux minutes, il envoie une {{horde}}.",
+      "**Pic** : quand le stress de l'équipe atteint 85 %, il maintient la pression quelques secondes puis **retombe** : plus rien n'apparaît tant que vous n'avez pas fini le travail.",
+      "**Répit** : 30 à 45 secondes de calme (ou jusqu'à 60 blocs d'avancée). Soignez-vous, rechargez, partagez. Puis tout recommence."
+     ]
+    },
+    {
      "id": "hordes",
      "icon": "minecraft:zombie_head",
      "title": "Les hordes",
@@ -88,6 +98,16 @@
       "**Adrénaline :** instantanée, +25 de santé temporaire. Pendant 15 secondes vous courez plus vite, ne boitez plus et réanimez et soignez deux fois plus vite.",
       "Clic droit sur un coéquipier avec des pilules ou de l'adrénaline pour les lui donner."
      ]
+    },
+    {
+     "id": "defib",
+     "icon": "aidirector:defibrillator",
+     "title": "Défibrillateur",
+     "text": [
+      "Quand un survivant meurt pour de bon, son **corps** reste au sol un moment.",
+      "Maintenez « utiliser » avec un {{défibrillateur}} dessus pendant **3 secondes** : il revient au même endroit avec 50 de santé permanente et un compteur remis à zéro (plus de noir et blanc).",
+      "Ses objets restent là où il est tombé. Ramassez-les pour lui, c'est la moindre des choses."
+     ]
     }
    ]
   },
@@ -105,6 +125,16 @@
       "**Réanimer :** maintenez le clic droit sur un coéquipier à terre (ou la touche **C**, qui marche même arme en main) pendant 5 secondes, ou 2,5 avec de l'adrénaline. S'éloigner ou être bousculé annule.",
       "**Secourir :** si un infecté spécial attrape quelqu'un, **bousculez-le** (Mouse 4) ou tuez-le. Pendant les traînages et les chevauchées, vous pouvez aussi bousculer la victime.",
       "**Attention :** si tous les survivants sont à terre ou immobilisés en même temps, l'équipe tombe. En solo, vous pouvez vous débattre avec la touche de bousculade après une seconde et demie."
+     ]
+    },
+    {
+     "id": "squad",
+     "icon": "minecraft:player_head",
+     "title": "Votre escouade",
+     "text": [
+      "En bas à gauche, chaque coéquipier : visage, santé (permanente pleine, temporaire pointillée) et ce qu'il porte : trousse ou défibrillateur, pilules ou adrénaline, et un objet à lancer.",
+      "Les coéquipiers hors de vue brillent à travers les murs : **vert** en forme, **jaune/orange** blessé, **rouge clignotant** à terre ou immobilisé. La bile vous aveugle à tout cela.",
+      "Au-dessus d'un coéquipier à terre, immobilisé ou mort, un repère indique son nom et la distance. Foncez."
      ]
     },
     {
@@ -159,7 +189,7 @@
      "title": "Armes de corps à corps",
      "text": [
       "Batte de baseball, batte de cricket, pied-de-biche, guitare électrique, hache de pompier, poêle, club de golf, katana, machette, matraque, couteau de combat, fourche et pelle.",
-      "Chacune abat un **infecté commun d'un seul coup**. Les spéciaux subissent des dégâts normaux.",
+      "Elles infligent des **dégâts normaux**, aux infectés comme à n'importe quel autre monstre : une horde demande toujours du recul et du rythme.",
       "Les armes larges touchent plusieurs ennemis à la fois ; la fourche et le club de golf portent plus loin. La hache de pompier frappe le plus fort."
      ]
     },
@@ -171,6 +201,16 @@
       "Lancez-la : elle rebondit, bipe et clignote en rouge pendant **5 secondes**. Tous les infectés communs à 32 blocs courent vers elle.",
       "Puis elle explose sur une zone de 5x5. Elle ne blesse pas les survivants.",
       "Les infectés spéciaux ne se laissent pas duper par le bip."
+     ]
+    },
+    {
+     "id": "molotov",
+     "icon": "aidirector:molotov",
+     "title": "Molotov",
+     "text": [
+      "Elle se brise à l'impact et laisse une flaque de feu pendant **15 secondes**. Les communs qui y entrent n'en ressortent pas.",
+      "Le Colosse s'enflamme : il perd de la vie sans arrêt mais court un peu plus vite. Prévoyez la fuite.",
+      "Ne restez pas dans votre propre feu. L'eau l'éteint avant qu'il prenne."
      ]
     },
     {
@@ -189,6 +229,55 @@
      "text": [
       "Utilisez un tas de munitions arme en main pour remplir la réserve de ce calibre, jusqu'à six chargeurs.",
       "Chaque tas ne sert qu'une fois et ne recharge pas les armes lourdes comme les lance-grenades ou les mitrailleuses."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "saferooms",
+   "icon": "aidirector:safe_room_door",
+   "title": "Abris",
+   "desc": "Une porte rouge, quatre murs que rien ne brise et quelques minutes de paix.",
+   "entries": [
+    {
+     "id": "sealing",
+     "icon": "aidirector:safe_room_door",
+     "title": "Sécuriser un abri",
+     "text": [
+      "Dans un abri, rien n'apparaît, rien n'explose et rien ne brise les murs. Si la horde arrache un bloc, l'abri **se répare tout seul**.",
+      "Faites entrer **toute l'équipe vivante** et fermez les {{portes rouges}}. Quelques secondes plus tard : point de contrôle enregistré, noir et blanc effacé, les blessés se relèvent et les morts **reviennent**.",
+      "Le Directeur se fige tant que vous êtes tous à l'intérieur, et vous recevez le bilan du trajet : éliminations, précision, tirs alliés et réanimations."
+     ]
+    },
+    {
+     "id": "shelters",
+     "icon": "aidirector:safe_room_radio",
+     "title": "Trois abris",
+     "text": [
+      "**Bunker** : caché dans un monticule, en forêt et sur les collines. Tranchée en zigzag, porte blindée, escalier à 45°, sas de décontamination et poste de garde.",
+      "**Hangar** : une voûte rouillée en pleine plaine, son grand portail soudé par des conteneurs. Mezzanine de tir, atelier, entrepôt et pont roulant.",
+      "**Camp militaire** : tranchée à pieux, rempart avec chemin de ronde et quatre tours de guet de 15 blocs. Poste de commandement, tentes, infirmerie et potager.",
+      "La {{radio}} à l'intérieur vous dit où en est l'abri : portes fermées et qui manque encore."
+     ]
+    },
+    {
+     "id": "crates",
+     "icon": "aidirector:supply_crate",
+     "title": "Caisses de ravitaillement",
+     "text": [
+      "Le Directeur remplit chaque caisse **à l'ouverture**, selon l'état de l'équipe : sous la moitié de santé, des trousses de secours (ou un défibrillateur s'il y a un mort) ; au-dessus, pilules, adrénaline et objets à lancer.",
+      "Chaque survivant reçoit **une part** par caisse. Les caisses d'armurerie contiennent une arme et ses munitions ; celles **verrouillées** ont de meilleures armes et s'ouvrent après un événement de panique.",
+      "Les tas de munitions des abris sont inépuisables."
+     ]
+    },
+    {
+     "id": "crescendo",
+     "icon": "aidirector:crescendo_alarm",
+     "title": "Événements de panique",
+     "text": [
+      "Certains abris cachent une {{alarme}} : un générateur de secours ou un signal de détresse. L'allumer ignore tout répit : **vague après vague** d'infectés jusqu'à ce qu'elle s'arrête.",
+      "Certaines alarmes se bloquent et ne s'arrêtent qu'à la fin de leur durée. D'autres s'éteignent à la main.",
+      "Survivez et les **caisses verrouillées** alentour s'ouvrent. Ça vaut le coup ? À vous de voir."
      ]
     }
    ]

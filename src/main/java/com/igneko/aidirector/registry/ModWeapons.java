@@ -3,6 +3,7 @@ package com.igneko.aidirector.registry;
 import com.igneko.aidirector.core.TheAIDirector;
 import com.igneko.aidirector.item.BileJarItem;
 import com.igneko.aidirector.item.MeleeWeaponItem;
+import com.igneko.aidirector.item.MolotovItem;
 import com.igneko.aidirector.item.MeleeWeaponItem.Stats;
 import com.igneko.aidirector.item.PipeBombItem;
 import net.minecraft.core.registries.Registries;
@@ -25,6 +26,7 @@ public final class ModWeapons {
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TheAIDirector.MOD_ID);
 
     private static final List<RegistryObject<Item>> ALL = new ArrayList<>();
+    private static final List<RegistryObject<Item>> MELEE = new ArrayList<>();
 
     //                                                         daño  vel.   alcance dur.  barre
     public static final RegistryObject<Item> BASEBALL_BAT    = melee("baseball_bat",    new Stats(8f,  -2.8f, 0.5f,  400, false));
@@ -43,6 +45,7 @@ public final class ModWeapons {
 
     public static final RegistryObject<Item> PIPE_BOMB = add(ITEMS.register("pipe_bomb", () -> new PipeBombItem(new Item.Properties().stacksTo(1))));
     public static final RegistryObject<Item> BILE_JAR = add(ITEMS.register("bile_jar", () -> new BileJarItem(new Item.Properties().stacksTo(1))));
+    public static final RegistryObject<Item> MOLOTOV = add(ITEMS.register("molotov", () -> new MolotovItem(new Item.Properties().stacksTo(1))));
 
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("weapons", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.aidirector.weapons"))
@@ -53,12 +56,18 @@ public final class ModWeapons {
     private ModWeapons() {}
 
     private static RegistryObject<Item> melee(String name, Stats stats) {
-        return add(ITEMS.register(name, () -> new MeleeWeaponItem(stats)));
+        RegistryObject<Item> item = add(ITEMS.register(name, () -> new MeleeWeaponItem(stats)));
+        MELEE.add(item);
+        return item;
     }
 
     private static RegistryObject<Item> add(RegistryObject<Item> item) {
         ALL.add(item);
         return item;
+    }
+
+    public static List<RegistryObject<Item>> melee() {
+        return MELEE;
     }
 
     public static List<RegistryObject<Item>> all() {

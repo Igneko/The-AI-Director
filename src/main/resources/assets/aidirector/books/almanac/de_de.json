@@ -40,6 +40,16 @@
      ]
     },
     {
+     "id": "rhythm",
+     "icon": "minecraft:compass",
+     "title": "Der Rhythmus",
+     "text": [
+      "Der Direktor atmet in vier Phasen. **Aufbau**: kleine Gruppen Gewöhnlicher und Hinterhalte von Spezialinfizierten. Kommt zwei Minuten lang kein Höhepunkt, schickt er eine {{Horde}}.",
+      "**Höhepunkt**: Erreicht der Stress des Teams 85 %, hält er den Druck ein paar Sekunden und **lässt dann nach**: Nichts Neues erscheint, bis ihr den Rest erledigt habt.",
+      "**Ruhe**: 30-45 Sekunden Pause (oder bis ihr 60 Blöcke vorankommt). Heilen, nachladen, teilen. Dann geht es von vorn los."
+     ]
+    },
+    {
      "id": "hordes",
      "icon": "minecraft:zombie_head",
      "title": "Horden",
@@ -88,6 +98,16 @@
       "**Adrenalin:** sofort, +25 temporäre Gesundheit. 15 Sekunden lang rennst du schneller, hinkst nicht und belebst und heilst doppelt so schnell.",
       "Rechtsklicke einen Mitspieler mit Pillen oder Adrenalin, um sie ihm zu geben."
      ]
+    },
+    {
+     "id": "defib",
+     "icon": "aidirector:defibrillator",
+     "title": "Defibrillator",
+     "text": [
+      "Stirbt ein Überlebender wirklich, bleibt sein **Körper** eine Weile am Boden liegen.",
+      "Halte mit einem {{Defibrillator}} **3 Sekunden** lang Benutzen darauf: Er kehrt genau dort mit 50 dauerhafter Gesundheit und sauberer Weste (kein Schwarzweiß) zurück.",
+      "Seine Gegenstände bleiben, wo er fiel. Heb sie für ihn auf, das ist das Mindeste."
+     ]
     }
    ]
   },
@@ -105,6 +125,16 @@
       "**Wiederbeleben:** Halte Rechtsklick auf einen am Boden liegenden Mitspieler (oder die Taste **C**, die auch mit Waffe in der Hand funktioniert) 5 Sekunden lang, mit Adrenalin 2,5. Weggehen oder gestoßen werden bricht ab.",
       "**Retten:** Packt ein Spezial-Infizierter jemanden, **stoß ihn** (Mouse 4) oder töte ihn. Beim Ziehen und Reiten kannst du auch das Opfer stoßen.",
       "**Vorsicht:** Liegen alle Überlebenden gleichzeitig am Boden oder sind festgehalten, fällt das Team. Allein kannst du dich nach anderthalb Sekunden mit der Stoßtaste befreien."
+     ]
+    },
+    {
+     "id": "squad",
+     "icon": "minecraft:player_head",
+     "title": "Dein Trupp",
+     "text": [
+      "Unten links siehst du jeden Teamkameraden: Gesicht, Gesundheit (dauerhaft durchgehend, temporär gepunktet) und was er trägt: Verbandskasten oder Defibrillator, Pillen oder Adrenalin und ein Wurfobjekt.",
+      "Kameraden außer Sicht leuchten durch Wände: **grün** gut, **gelb/orange** verletzt, **rot blinkend** am Boden oder festgehalten. Galle macht dich dafür blind.",
+      "Über einem Kameraden, der am Boden liegt, festgehalten wird oder tot ist, zeigt eine Markierung Namen und Entfernung. Los."
      ]
     },
     {
@@ -159,7 +189,7 @@
      "title": "Nahkampfwaffen",
      "text": [
       "Baseballschläger, Kricketschläger, Brecheisen, E-Gitarre, Feuerwehraxt, Bratpfanne, Golfschläger, Katana, Machete, Schlagstock, Kampfmesser, Mistgabel und Schaufel.",
-      "Jede davon fällt einen **gewöhnlichen Infizierten mit einem Schlag**. Spezial-Infizierte nehmen normalen Schaden.",
+      "Sie machen **normalen Schaden**, gegen Infizierte genauso wie gegen jedes andere Monster: Eine Horde verlangt Abstand und Timing.",
       "Breite Waffen treffen mehrere Gegner auf einmal; Mistgabel und Golfschläger reichen weiter. Die Feuerwehraxt schlägt am härtesten zu."
      ]
     },
@@ -171,6 +201,16 @@
       "Wirf sie: Sie springt, piept und blinkt **5 Sekunden** lang rot. Alle gewöhnlichen Infizierten im Umkreis von 32 Blöcken rennen zu ihr.",
       "Dann explodiert sie auf einer Fläche von 5x5. Überlebende verletzt sie nicht.",
       "Spezial-Infizierte fallen auf das Piepen nicht herein."
+     ]
+    },
+    {
+     "id": "molotov",
+     "icon": "aidirector:molotov",
+     "title": "Molotow",
+     "text": [
+      "Er zerbricht beim Aufprall und hinterlässt **15 Sekunden** lang eine Feuerlache. Gewöhnliche, die hineinlaufen, kommen nicht wieder heraus.",
+      "Der Koloss fängt Feuer: Er verliert ständig Leben, rennt aber etwas schneller. Plane die Flucht.",
+      "Bleib nicht in deinem eigenen Feuer stehen. Wasser löscht es, bevor es brennt."
      ]
     },
     {
@@ -189,6 +229,55 @@
      "text": [
       "Benutze einen Munitionsstapel mit einer Waffe in der Hand, um den Vorrat dieses Kalibers auf bis zu sechs Magazine aufzufüllen.",
       "Jeder Stapel funktioniert nur einmal und füllt keine schweren Waffen wie Granatwerfer oder Maschinengewehre auf."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "saferooms",
+   "icon": "aidirector:safe_room_door",
+   "title": "Schutzräume",
+   "desc": "Eine rote Tür, vier Wände, die nichts zerstören kann, und ein paar Minuten Frieden.",
+   "entries": [
+    {
+     "id": "sealing",
+     "icon": "aidirector:safe_room_door",
+     "title": "Einen Schutzraum sichern",
+     "text": [
+      "In einem Schutzraum spawnt nichts, explodiert nichts und nichts zerbricht die Wände. Reißt die Horde einen Block heraus, **repariert sich** der Schutzraum selbst.",
+      "Bringt **das ganze lebende Team** hinein und schließt die {{roten Türen}}. Nach ein paar Sekunden: Kontrollpunkt gespeichert, Schwarzweiß gelöscht, die Gestürzten stehen auf und die Toten **kehren zurück**.",
+      "Der Direktor friert ein, solange ihr alle drin seid, und ihr bekommt die Bilanz des Abschnitts: Abschüsse, Treffsicherheit, Eigenbeschuss und Wiederbelebungen."
+     ]
+    },
+    {
+     "id": "shelters",
+     "icon": "aidirector:safe_room_radio",
+     "title": "Drei Schutzräume",
+     "text": [
+      "**Bunker**: versteckt in einem Hügel in Wäldern und Bergen. Zickzack-Graben, Panzertür, 45°-Treppe, Dekontaminationsschleuse und Wachposten.",
+      "**Hangar**: ein verrostetes Gewölbe auf offener Ebene, das große Tor mit Containern zugeschweißt. Schießempore, Werkstatt, Lager und Kran.",
+      "**Militärlager**: Graben mit Pfählen, Mauer mit Wehrgang und vier 15 Blöcke hohe Wachtürme. Kommandoposten, Zelte, Lazarett und Garten.",
+      "Das {{Funkgerät}} drinnen sagt dir, wie es um den Schutzraum steht: geschlossene Türen und wer noch fehlt."
+     ]
+    },
+    {
+     "id": "crates",
+     "icon": "aidirector:supply_crate",
+     "title": "Versorgungskisten",
+     "text": [
+      "Der Direktor füllt jede Kiste **beim Öffnen**, je nach Zustand des Teams: unter halber Gesundheit Verbandskästen (oder einen Defibrillator, wenn jemand tot ist); darüber Pillen, Adrenalin und Wurfobjekte.",
+      "Jeder Überlebende bekommt **einen Anteil** pro Kiste. Waffenkisten enthalten eine Waffe mit Munition; die **verschlossenen** bessere Waffen, und sie öffnen sich nach einem Panikereignis.",
+      "Munitionsstapel in Schutzräumen gehen nie zur Neige."
+     ]
+    },
+    {
+     "id": "crescendo",
+     "icon": "aidirector:crescendo_alarm",
+     "title": "Panikereignisse",
+     "text": [
+      "Manche Schutzräume verbergen einen {{Alarm}}: einen Notstromgenerator oder ein Notsignal. Einschalten ignoriert jede Ruhe: **Welle um Welle** von Infizierten, bis er verstummt.",
+      "Manche Alarme klemmen und hören erst auf, wenn ihre Zeit abgelaufen ist. Andere lassen sich von Hand abschalten.",
+      "Übersteht ihr es, öffnen sich die **verschlossenen Kisten** in der Nähe. Lohnt es sich? Eure Entscheidung."
      ]
     }
    ]

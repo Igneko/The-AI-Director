@@ -1,0 +1,35 @@
+{
+  "parent": "aidirector:block/supply_crate_medical",
+  "overrides": [
+    {
+      "predicate": {
+        "aidirector:crate": 0.125
+      },
+      "model": "aidirector:block/supply_crate_medical_locked"
+    },
+    {
+      "predicate": {
+        "aidirector:crate": 0.25
+      },
+      "model": "aidirector:block/supply_crate_armory"
+    },
+    {
+      "predicate": {
+        "aidirector:crate": 0.375
+      },
+      "model": "aidirector:block/supply_crate_armory_locked"
+    },
+    {
+      "predicate": {
+        "aidirector:crate": 0.5
+      },
+      "model": "aidirector:block/supply_crate_throwables"
+    },
+    {
+      "predicate": {
+        "aidirector:crate": 0.625
+      },
+      "model": "aidirector:block/supply_crate_throwables_locked"
+    }
+  ]
+}

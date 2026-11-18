@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "active=false,facing=north,powered=false": {
+      "model": "aidirector:block/crescendo_alarm"
+    },
+    "active=false,facing=north,powered=true": {
+      "model": "aidirector:block/crescendo_alarm"
+    },
+    "active=true,facing=north,powered=false": {
+      "model": "aidirector:block/crescendo_alarm_on"
+    },
+    "active=true,facing=north,powered=true": {
+      "model": "aidirector:block/crescendo_alarm_on"
+    },
+    "active=false,facing=east,powered=false": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 90
+    },
+    "active=false,facing=east,powered=true": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 90
+    },
+    "active=true,facing=east,powered=false": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 90
+    },
+    "active=true,facing=east,powered=true": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 90
+    },
+    "active=false,facing=south,powered=false": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 180
+    },
+    "active=false,facing=south,powered=true": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 180
+    },
+    "active=true,facing=south,powered=false": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 180
+    },
+    "active=true,facing=south,powered=true": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 180
+    },
+    "active=false,facing=west,powered=false": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 270
+    },
+    "active=false,facing=west,powered=true": {
+      "model": "aidirector:block/crescendo_alarm",
+      "y": 270
+    },
+    "active=true,facing=west,powered=false": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 270
+    },
+    "active=true,facing=west,powered=true": {
+      "model": "aidirector:block/crescendo_alarm_on",
+      "y": 270
+    }
+  }
+}

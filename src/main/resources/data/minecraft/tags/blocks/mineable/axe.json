@@ -1,1 +1,1 @@
-{ "replace": false, "values": ["aidirector:ammo_pile"] }
+{ "replace": false, "values": ["aidirector:ammo_pile", "aidirector:supply_crate"] }

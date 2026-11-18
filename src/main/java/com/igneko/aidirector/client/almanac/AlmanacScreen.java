@@ -173,10 +173,12 @@ public class AlmanacScreen extends Screen {
         centered(g, Component.literal(content.ui("chapters", "Chapters")).withStyle(ChatFormatting.BOLD), rx + PAGE_W / 2, ry, ACCENT);
         divider(g, rx, ry + 11);
         ry += 17;
-        for (int i = 0; i < content.categories.size(); i++, ry += ROW_H) {
+        // Con muchos capítulos las filas se compactan para que quepan en la página.
+        int rowH = Math.max(16, Math.min(ROW_H, (PAGE_LINES * LINE_H - 12) / Math.max(1, content.categories.size())));
+        for (int i = 0; i < content.categories.size(); i++, ry += rowH) {
             AlmanacContent.Category c = content.categories.get(i);
             final int index = i;
-            row(g, rx, ry, c.icon(), c.title(), mx, my, () -> openCategory(index, true));
+            row(g, rx, ry, rowH, c.icon(), c.title(), mx, my, () -> openCategory(index, true));
         }
     }
 
@@ -256,13 +258,17 @@ public class AlmanacScreen extends Screen {
     }
 
     private void row(GuiGraphics g, int x, int y, ItemStack icon, String title, int mx, int my, Runnable action) {
-        boolean hover = mx >= x - 2 && mx < x + PAGE_W + 2 && my >= y - 1 && my < y + ROW_H - 1;
-        if (hover) g.fill(x - 2, y - 1, x + PAGE_W + 2, y + ROW_H - 1, 0x228E1B16);
+        row(g, x, y, ROW_H, icon, title, mx, my, action);
+    }
+
+    private void row(GuiGraphics g, int x, int y, int rowH, ItemStack icon, String title, int mx, int my, Runnable action) {
+        boolean hover = mx >= x - 2 && mx < x + PAGE_W + 2 && my >= y - 1 && my < y + rowH - 1;
+        if (hover) g.fill(x - 2, y - 1, x + PAGE_W + 2, y + rowH - 1, 0x228E1B16);
         g.renderItem(icon, x, y);
         String text = font.plainSubstrByWidth(title, PAGE_W - 22);
         g.drawString(font, Component.literal(text).withStyle(hover ? Style.EMPTY.withUnderlined(true) : Style.EMPTY),
                 x + 20, y + 5, hover ? HOVER : INK, false);
-        clicks.add(new Click(x - 2, y - 1, PAGE_W + 4, ROW_H, action));
+        clicks.add(new Click(x - 2, y - 1, PAGE_W + 4, rowH, action));
     }
 
     private void divider(GuiGraphics g, int x, int y) {

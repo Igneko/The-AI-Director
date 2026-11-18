@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "S",
+    "B",
+    "C"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "C": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      }
+    ]
+  },
+  "result": {
+    "item": "aidirector:molotov",
+    "count": 1
+  }
+}
