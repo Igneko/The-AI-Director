@@ -3,7 +3,9 @@
  "subtitle": "Survivor's Almanac",
  "ui": {
   "chapters": "Chapters",
-  "entries": "Entries"
+  "entries": "Entries",
+  "index": "Index",
+  "back": "Previous page"
  },
  "intro": [
   "If you are reading this, you are still alive. Congratulations: that is more than most can say.",
@@ -278,6 +280,54 @@
       "Some shelters hide an {{alarm}}: an emergency generator or a distress signal. Switching it on ignores any calm: **wave after wave** of infected until it stops.",
       "Some alarms are jammed and only stop when their time runs out. Others can be switched off by hand.",
       "Survive it and the **locked crates** nearby open. Worth it? Your call."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Points of Interest",
+   "desc": "Huge places the world forgot. More loot than anywhere else, and more infected guarding it.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Finding them",
+     "text": [
+      "Three kinds of **points of interest** are scattered across the world, far rarer than shelters: a **port terminal**, a **quarantine dome** and a **forward desert base**.",
+      "They are not shelters: nothing protects you there. In exchange, they hold the best loot outside a panic event.",
+      "Find the nearest one with __/locate structure #aidirector:landmarks__, or a specific one with __aidirector:landmark_port__, __landmark_dome__ or __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Port terminal",
+     "text": [
+      "A quay on the coast with five ship-to-shore cranes and a **200-block container ship** run aground. Its bridge, its holds and its engine room can all be explored.",
+      "Behind the quay, a **container maze**: forced doors, hidden refuges, clandestine workshops and **tripwires** that fire arrows.",
+      "Industrial loot on the trucks and in the yard, medicine and electronics in the containers, sniper rifles in the **crane cabs** and diving gear on the tugboats. The **sealed hold** hides contraband weapons locked until you survive its alarm."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Quarantine dome",
+     "text": [
+      "A black ribbed pavilion between a **motocross track** and an **asphalt circuit**, hidden behind a dense forest with sniper nests.",
+      "Inside: decontamination and triage, a workshop with armored vehicles on hydraulic lifts and a **command center** with sealed research crates that open after a panic event.",
+      "The white tents hold medical supplies; the police roadblock on the bridge, sidearms and riot shields."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Forward desert base",
+     "text": [
+      "A walled outpost on the dunes: a sand berm crowned with a double row of gabion walls and **concertina wire**. The only way in is the guarded checkpoint.",
+      "Modular tents (operations, barracks and infirmary), a bombed-out concrete barracks with **marksman nests** and buried safes, and a 32-block radio tower.",
+      "The **hangar** behind the tower stores artillery: rockets, explosives and special operations crates that open after its alarm."
      ]
     }
    ]

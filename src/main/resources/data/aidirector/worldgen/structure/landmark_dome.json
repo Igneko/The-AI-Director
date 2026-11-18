@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:landmark",
+  "landmark": "dome",
+  "biomes": "#aidirector:has_structure/landmark_dome",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

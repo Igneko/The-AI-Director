@@ -3,7 +3,9 @@
  "subtitle": "Almanach des Überlebenden",
  "ui": {
   "chapters": "Kapitel",
-  "entries": "Einträge"
+  "entries": "Einträge",
+  "index": "Inhalt",
+  "back": "Vorherige Seite"
  },
  "intro": [
   "Wenn du das liest, lebst du noch. Glückwunsch: Das ist mehr, als die meisten sagen können.",
@@ -278,6 +280,54 @@
       "Manche Schutzräume verbergen einen {{Alarm}}: einen Notstromgenerator oder ein Notsignal. Einschalten ignoriert jede Ruhe: **Welle um Welle** von Infizierten, bis er verstummt.",
       "Manche Alarme klemmen und hören erst auf, wenn ihre Zeit abgelaufen ist. Andere lassen sich von Hand abschalten.",
       "Übersteht ihr es, öffnen sich die **verschlossenen Kisten** in der Nähe. Lohnt es sich? Eure Entscheidung."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Orte von Interesse",
+   "desc": "Riesige Orte, die die Welt vergessen hat. Mehr Beute als irgendwo sonst – und mehr Infizierte, die sie bewachen.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Sie finden",
+     "text": [
+      "Über die Welt verstreut gibt es drei Arten von **Orten von Interesse**, viel seltener als Schutzräume: ein **Hafenterminal**, eine **Quarantänekuppel** und eine **vorgeschobene Wüstenbasis**.",
+      "Es sind keine Schutzräume: Dort schützt euch nichts. Dafür liegt dort die beste Beute außerhalb eines Panik-Events.",
+      "Den nächsten findet ihr mit __/locate structure #aidirector:landmarks__, einen bestimmten mit __aidirector:landmark_port__, __landmark_dome__ oder __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Hafenterminal",
+     "text": [
+      "Ein Kai an der Küste mit fünf Containerbrücken und einem **200 Blöcke langen Containerschiff**, das auf Grund gelaufen ist. Brücke, Laderäume und Maschinenraum lassen sich erkunden.",
+      "Hinter dem Kai ein **Container-Labyrinth**: aufgebrochene Türen, versteckte Unterschlüpfe, Untergrund-Werkstätten und **Stolperdrähte**, die Pfeile abfeuern.",
+      "Industriebeute in den Lkw und auf dem Hof, Medizin und Elektronik in den Containern, Scharfschützengewehre in den **Kranführerkabinen** und Tauchausrüstung auf den Schleppern. Der **versiegelte Laderaum** verbirgt Schmuggelwaffen, die erst nach seinem Alarm freigegeben werden."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Quarantänekuppel",
+     "text": [
+      "Ein schwarzer Pavillon mit weißen Rippen zwischen einer **Motocross-Strecke** und einer **Rennstrecke**, versteckt hinter einem dichten Wald mit Scharfschützennestern.",
+      "Drinnen: Dekontamination und Triage, eine Werkstatt mit Panzerwagen auf Hebebühnen und eine **Kommandozentrale** mit versiegelten Forschungskisten, die sich nach einem Panik-Event öffnen.",
+      "Die weißen Zelte enthalten Sanitätsmaterial; die Polizeisperre auf der Brücke Pistolen und Einsatzschilde."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Vorgeschobene Wüstenbasis",
+     "text": [
+      "Ein befestigter Posten auf den Dünen: ein Sandwall mit einer doppelten Reihe Gabionen und **Stacheldrahtrollen**. Hinein geht es nur über den Kontrollposten.",
+      "Modulzelte (Einsatzzentrale, Unterkunft und Lazarett), eine zerbombte Betonkaserne mit **Schützennestern** und vergrabenen Tresoren sowie ein 32 Blöcke hoher Funkturm.",
+      "Der **Hangar** hinter dem Turm lagert Artillerie: Raketen, Sprengstoff und Kisten für Spezialeinsätze, die sich nach seinem Alarm öffnen."
      ]
     }
    ]

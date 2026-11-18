@@ -60,6 +60,8 @@ public final class DefibService {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onDeath(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player) || !SurvivorService.isManaged(player)) return;
+        player.playNotifySound(ModSounds.PLAYER_DIED.get(), SoundSource.PLAYERS, 1f, 1f);
+        SquadService.notifySquad(player, ModSounds.TEAMMATE_DIED.get());
         SurvivorBodyEntity old = bodyOf(player);
         if (old != null) old.discard();
         SurvivorBodyEntity body = SurvivorBodyEntity.of(player);

@@ -244,5 +244,12 @@
   "subtitles.aidirector.crate.unlock": "Se abre el candado",
   "subtitles.aidirector.alarm.siren": "Suena la alarma",
   "subtitles.aidirector.alarm.stop": "Se apaga la alarma",
-  "subtitles.aidirector.horde.incoming": "Se acerca una horda"
+  "subtitles.aidirector.horde.incoming": "Se acerca una horda",
+  "loot.aidirector.master_key": "Llave maestra del puerto",
+  "loot.aidirector.evacuation_map": "Mapa de evacuación",
+  "loot.aidirector.access_card": "Tarjeta electrónica de acceso",
+  "loot.aidirector.hazmat": "Traje de protección biológica",
+  "subtitles.aidirector.teammate.downed": "Compañero caído",
+  "subtitles.aidirector.teammate.died": "Compañero muerto",
+  "subtitles.aidirector.player.died": "Has muerto"
 }

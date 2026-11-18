@@ -37,6 +37,13 @@ public final class SquadService {
         return ta != null && ta.isAlliedTo(tb);
     }
 
+    /** Aviso sonoro solo para los compañeros de {@code subject} (cada uno lo oye en su posición). */
+    public static void notifySquad(ServerPlayer subject, net.minecraft.sounds.SoundEvent sound) {
+        for (ServerPlayer p : subject.server.getPlayerList().getPlayers()) {
+            if (p != subject && areSquadmates(p, subject)) p.playNotifySound(sound, net.minecraft.sounds.SoundSource.PLAYERS, 1f, 1f);
+        }
+    }
+
     @SubscribeEvent
     public void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.getServer().getTickCount() % SYNC_INTERVAL != 0) return;

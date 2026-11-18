@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:landmark",
+  "landmark": "fob",
+  "biomes": "#aidirector:has_structure/landmark_fob",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

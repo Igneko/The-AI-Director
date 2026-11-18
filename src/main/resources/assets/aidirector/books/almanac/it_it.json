@@ -3,7 +3,9 @@
  "subtitle": "Almanacco del sopravvissuto",
  "ui": {
   "chapters": "Capitoli",
-  "entries": "Voci"
+  "entries": "Voci",
+  "index": "Indice",
+  "back": "Pagina precedente"
  },
  "intro": [
   "Se stai leggendo, sei ancora vivo. Complimenti: è più di quanto possano dire in molti.",
@@ -278,6 +280,54 @@
       "Alcuni rifugi nascondono un {{allarme}}: un generatore d'emergenza o un segnale di soccorso. Accenderlo ignora ogni calma: **ondata dopo ondata** di infetti finché non si ferma.",
       "Alcuni allarmi si inceppano e smettono solo allo scadere del tempo. Altri si spengono a mano.",
       "Sopravvivete e le **casse chiuse** vicine si aprono. Ne vale la pena? Decidete voi."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Luoghi d'interesse",
+   "desc": "Luoghi enormi che il mondo ha dimenticato. Più bottino che altrove, e più infetti a sorvegliarlo.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Trovarli",
+     "text": [
+      "Nel mondo ci sono tre tipi di **luoghi d'interesse**, molto più rari dei rifugi: un **terminal portuale**, una **cupola di quarantena** e una **base avanzata nel deserto**.",
+      "Non sono rifugi: lì niente vi protegge. In cambio, custodiscono il miglior bottino al di fuori di un evento di panico.",
+      "Trovate il più vicino con __/locate structure #aidirector:landmarks__, o uno specifico con __aidirector:landmark_port__, __landmark_dome__ o __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Terminal portuale",
+     "text": [
+      "Una banchina sulla costa con cinque gru portuali e una **nave portacontainer di 200 blocchi** incagliata. Ponte di comando, stive e sala macchine sono esplorabili.",
+      "Dietro la banchina, un **labirinto di container**: porte forzate, rifugi nascosti, officine clandestine e **fili a strappo** che scoccano frecce.",
+      "Bottino industriale nei camion e nel piazzale, medicine ed elettronica nei container, fucili di precisione nelle **cabine delle gru** e attrezzatura subacquea sui rimorchiatori. La **stiva sigillata** nasconde armi di contrabbando chiuse a chiave finché non sopravvivete al suo allarme."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Cupola di quarantena",
+     "text": [
+      "Un padiglione nero con nervature bianche tra una **pista da motocross** e un **autodromo**, nascosto dietro un bosco fitto con postazioni da cecchino.",
+      "Dentro: decontaminazione e triage, un'officina con blindati su ponti idraulici e un **centro di comando** con casse di ricerca sigillate che si aprono dopo un evento di panico.",
+      "Le tende bianche contengono materiale medico; il posto di blocco della polizia sul ponte, pistole e scudi antisommossa."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Base avanzata nel deserto",
+     "text": [
+      "Un avamposto fortificato sulle dune: un terrapieno di sabbia coronato da una doppia fila di gabbioni e **filo spinato**. Si entra solo dal posto di guardia.",
+      "Tende modulari (operazioni, camerata e infermeria), una caserma di cemento bombardata con **nidi da tiratore** e casseforti sepolte, e una torre radio di 32 blocchi.",
+      "L'**hangar** dietro la torre custodisce l'artiglieria: razzi, esplosivi e casse per operazioni speciali che si aprono dopo il suo allarme."
      ]
     }
    ]

@@ -3,7 +3,9 @@
  "subtitle": "Almanach ocalałego",
  "ui": {
   "chapters": "Rozdziały",
-  "entries": "Hasła"
+  "entries": "Hasła",
+  "index": "Spis treści",
+  "back": "Poprzednia strona"
  },
  "intro": [
   "Jeśli to czytasz, wciąż żyjesz. Gratulacje: to więcej, niż może powiedzieć większość.",
@@ -278,6 +280,54 @@
       "Niektóre schrony skrywają {{alarm}}: generator awaryjny albo sygnał ratunkowy. Włączenie go ignoruje każdy spokój: **fala za falą** zarażonych, dopóki nie ucichnie.",
       "Niektóre alarmy się zacinają i milkną dopiero po upływie czasu. Inne można wyłączyć ręcznie.",
       "Przetrwajcie, a **zamknięte skrzynie** w pobliżu się otworzą. Warto? Wasza decyzja."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Ważne miejsca",
+   "desc": "Ogromne miejsca, o których świat zapomniał. Więcej łupów niż gdziekolwiek indziej – i więcej zarażonych, którzy ich pilnują.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Jak je znaleźć",
+     "text": [
+      "Po świecie rozsiane są trzy rodzaje **ważnych miejsc**, znacznie rzadsze niż schrony: **terminal portowy**, **kopuła kwarantanny** i **wysunięta baza na pustyni**.",
+      "To nie są schrony: nic was tam nie chroni. W zamian kryją najlepsze łupy poza wydarzeniem paniki.",
+      "Najbliższe znajdziecie poleceniem __/locate structure #aidirector:landmarks__, a konkretne przez __aidirector:landmark_port__, __landmark_dome__ lub __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Terminal portowy",
+     "text": [
+      "Nabrzeże na wybrzeżu z pięcioma suwnicami i osiadłym na mieliźnie **kontenerowcem o długości 200 bloków**. Można zwiedzić jego mostek, ładownie i maszynownię.",
+      "Za nabrzeżem **labirynt kontenerów**: wyważone drzwi, ukryte kryjówki, nielegalne warsztaty i **linki pułapek**, które strzelają strzałami.",
+      "Łupy przemysłowe w ciężarówkach i na placu, leki i elektronika w kontenerach, karabiny snajperskie w **kabinach dźwigów** i sprzęt do nurkowania na holownikach. **Zaplombowana ładownia** kryje przemycaną broń zamkniętą do czasu, aż przetrwacie jej alarm."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Kopuła kwarantanny",
+     "text": [
+      "Czarny pawilon z białymi żebrami między **torem motocrossowym** a **torem wyścigowym**, ukryty za gęstym lasem ze stanowiskami snajperów.",
+      "W środku: dekontaminacja i segregacja rannych, warsztat z opancerzonymi pojazdami na podnośnikach i **centrum dowodzenia** z zaplombowanymi skrzyniami badawczymi, które otwierają się po wydarzeniu paniki.",
+      "Białe namioty skrywają środki medyczne; blokada policyjna na moście – pistolety i tarcze."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Wysunięta baza na pustyni",
+     "text": [
+      "Ufortyfikowany posterunek na wydmach: wał z piasku zwieńczony podwójnym rzędem gabionów i **drutem kolczastym**. Wejść można tylko przez punkt kontrolny.",
+      "Namioty modułowe (dowodzenie, koszary i ambulatorium), zbombardowane betonowe koszary z **gniazdami strzelców** i zakopanymi sejfami oraz wieża radiowa o wysokości 32 bloków.",
+      "**Hangar** za wieżą skrywa artylerię: rakiety, materiały wybuchowe i skrzynie sił specjalnych, które otwierają się po jego alarmie."
      ]
     }
    ]

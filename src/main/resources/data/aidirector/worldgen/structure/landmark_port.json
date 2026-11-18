@@ -1,0 +1,8 @@
+{
+  "type": "aidirector:landmark",
+  "landmark": "port",
+  "biomes": "#aidirector:has_structure/landmark_port",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_box"
+}

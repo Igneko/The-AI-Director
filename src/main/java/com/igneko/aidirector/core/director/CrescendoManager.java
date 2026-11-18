@@ -117,7 +117,7 @@ public final class CrescendoManager {
             stop(level, true);
             return;
         }
-        if ((now - e.start()) % 30 == 0) {
+        if ((now - e.start()) % 60 == 0) {
             level.playSound(null, e.alarm(), ModSounds.ALARM_SIREN.get(), SoundSource.BLOCKS, 5f, 1f);
             level.sendParticles(ParticleTypes.FLAME, e.alarm().getX() + 0.5, e.alarm().getY() + 1.1, e.alarm().getZ() + 0.5, 3, 0.15, 0.05, 0.15, 0.01);
         }
@@ -162,11 +162,11 @@ public final class CrescendoManager {
                     crate.setReward(true);
                     BlockPos p = be.getBlockPos();
                     level.sendParticles(ParticleTypes.TOTEM_OF_UNDYING, p.getX() + 0.5, p.getY() + 1, p.getZ() + 0.5, 20, 0.3, 0.3, 0.3, 0.2);
-                    level.playSound(null, p, ModSounds.CRATE_UNLOCK.get(), SoundSource.BLOCKS, 1f, 1f);
                     count++;
                 }
             }
         }
+        if (count > 0) level.playSound(null, center, ModSounds.CRATE_UNLOCK.get(), SoundSource.BLOCKS, 2f, 1f);
         return count;
     }
 

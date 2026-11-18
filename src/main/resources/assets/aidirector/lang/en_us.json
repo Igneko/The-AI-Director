@@ -244,5 +244,12 @@
   "subtitles.aidirector.crate.unlock": "Crate unlocks",
   "subtitles.aidirector.alarm.siren": "Alarm blares",
   "subtitles.aidirector.alarm.stop": "Alarm stops",
-  "subtitles.aidirector.horde.incoming": "A horde is coming"
+  "subtitles.aidirector.horde.incoming": "A horde is coming",
+  "loot.aidirector.master_key": "Port master key",
+  "loot.aidirector.evacuation_map": "Evacuation map",
+  "loot.aidirector.access_card": "Electronic access card",
+  "loot.aidirector.hazmat": "Hazmat suit",
+  "subtitles.aidirector.teammate.downed": "Teammate down",
+  "subtitles.aidirector.teammate.died": "Teammate died",
+  "subtitles.aidirector.player.died": "You died"
 }

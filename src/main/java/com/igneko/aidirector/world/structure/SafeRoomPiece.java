@@ -22,7 +22,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
  * {@link Canvas}). Toda la variación "aleatoria" sale de un hash de la posición y de la semilla de
  * la pieza, así que es idéntica en todos los chunks que comparte.
  */
-public class SafeRoomPiece extends StructurePiece {
+public class SafeRoomPiece extends StructurePiece implements CanvasHost {
 
     private final SafeRoomVariant variant;
     private final long seed;
@@ -54,7 +54,7 @@ public class SafeRoomPiece extends StructurePiece {
     @Override
     public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random,
                             BoundingBox box, ChunkPos chunkPos, BlockPos pivot) {
-        Canvas canvas = new Canvas(this, level, box, seed, random);
+        Canvas canvas = new Canvas(this, level, generator, box, seed, random);
         switch (variant) {
             case BUNKER -> BunkerBuilder.build(canvas);
             case HANGAR -> HangarBuilder.build(canvas);
@@ -64,23 +64,33 @@ public class SafeRoomPiece extends StructurePiece {
 
     // ------------------------------------------------------------------ acceso para Canvas
 
-    void put(WorldGenLevel level, BlockState state, int x, int y, int z, BoundingBox box) {
+    @Override
+    public void put(WorldGenLevel level, BlockState state, int x, int y, int z, BoundingBox box) {
         placeBlock(level, state, x, y, z, box);
     }
 
-    BlockState read(WorldGenLevel level, int x, int y, int z, BoundingBox box) {
+    @Override
+    public BlockState read(WorldGenLevel level, int x, int y, int z, BoundingBox box) {
         return getBlock(level, x, y, z, box);
     }
 
-    BlockPos worldPos(int x, int y, int z) {
+    @Override
+    public BlockPos worldPos(int x, int y, int z) {
         return getWorldPos(x, y, z).immutable();
     }
 
-    Rotation rotationValue() {
+    @Override
+    public Rotation rotationValue() {
         return getRotation();
     }
 
-    Mirror mirrorValue() {
+    @Override
+    public Mirror mirrorValue() {
         return getMirror();
+    }
+
+    @Override
+    public BoundingBox structureBounds() {
+        return getBoundingBox();
     }
 }

@@ -1,7 +1,8 @@
 """Renderiza un volcado de estructura (aidirector_dump/<variante>.txt del GameTest) como imagen
 isométrica y cortes por planta, para revisar los refugios sin abrir el juego.
 
-Uso:  python render_dump.py <dump.txt> <salida.png> [y_de_corte ...]
+Uso:  python render_dump.py <dump.txt> <salida.png> [scale=N] [top] [maxy=N] [y_de_corte ...]
+      top     → planta vista desde arriba (el bloque más alto de cada columna)
 """
 import sys
 from PIL import Image, ImageDraw
@@ -30,6 +31,12 @@ COLORS = [
     ('button', (60, 60, 60)), ('hopper', (70, 70, 75)), ('cauldron', (60, 60, 65)), ('chain', (90, 90, 95)),
     ('fence', (110, 80, 50)), ('wall', (115, 115, 115)), ('slab', (140, 140, 140)), ('stairs', (140, 140, 140)),
     ('bedrock', (30, 30, 30)), ('sand', (220, 205, 150)), ('snow', (240, 240, 250)),
+    ('quartz', (236, 233, 226)), ('calcite', (224, 224, 218)), ('bone', (226, 220, 198)), ('clay', (160, 166, 178)),
+    ('cobweb', (225, 225, 225)), ('anvil', (70, 70, 72)), ('furnace', (90, 90, 92)), ('smoker', (90, 85, 80)),
+    ('table', (150, 110, 70)), ('bookshelf', (130, 95, 60)), ('stand', (180, 160, 90)), ('detector', (60, 70, 110)),
+    ('dispenser', (110, 110, 110)), ('observer', (90, 90, 90)), ('piston', (150, 130, 90)), ('rod', (200, 120, 80)),
+    ('ladder', (150, 115, 60)), ('lectern', (160, 120, 70)), ('jukebox', (120, 80, 60)), ('cactus', (60, 130, 50)),
+    ('dead_bush', (140, 105, 60)),
 ]
 
 
@@ -92,15 +99,39 @@ def slice_img(size, blocks, y, scale=8):
     return img
 
 
+def top_view(size, blocks, scale=3):
+    sx, sy, sz = size
+    best = {}
+    for (x, y, z), n in blocks.items():
+        if (x, z) not in best or y > best[(x, z)][0]:
+            best[(x, z)] = (y, n)
+    img = Image.new('RGB', (sx * scale, sz * scale), (20, 20, 22))
+    d = ImageDraw.Draw(img)
+    for (x, z), (y, n) in best.items():
+        shade = 0.55 + 0.45 * y / max(1, sy)
+        c = tuple(min(255, int(v * shade)) for v in color(n))
+        d.rectangle([x * scale, (sz - 1 - z) * scale, x * scale + scale - 1, (sz - 1 - z) * scale + scale - 1], fill=c)
+    return img
+
+
 def main():
     size, blocks = load(sys.argv[1])
-    views = [iso(size, blocks)]
-    for arg in sys.argv[3:]:
-        if arg.startswith('maxy='):
+    args = sys.argv[3:]
+    scale = 6
+    for arg in args:
+        if arg.startswith('scale='):
+            scale = int(arg[6:])
+    views = [] if 'top' in args else [iso(size, blocks, scale)]
+    for arg in args:
+        if arg.startswith('scale='):
+            continue
+        if arg == 'top':
+            views.append(top_view(size, blocks, max(2, scale)))
+        elif arg.startswith('maxy='):
             cut = int(arg[5:])
-            views.append(iso(size, {p: n for p, n in blocks.items() if p[1] <= cut}))
+            views.append(iso(size, {p: n for p, n in blocks.items() if p[1] <= cut}, scale))
         else:
-            views.append(slice_img(size, blocks, int(arg)))
+            views.append(slice_img(size, blocks, int(arg), max(2, scale)))
     w = sum(v.width for v in views) + 10 * len(views)
     h = max(v.height for v in views)
     out = Image.new('RGB', (w, h), (30, 32, 36))

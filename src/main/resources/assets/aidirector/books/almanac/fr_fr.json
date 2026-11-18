@@ -3,7 +3,9 @@
  "subtitle": "Almanach du survivant",
  "ui": {
   "chapters": "Chapitres",
-  "entries": "Articles"
+  "entries": "Articles",
+  "index": "Sommaire",
+  "back": "Page précédente"
  },
  "intro": [
   "Si vous lisez ceci, vous êtes encore en vie. Félicitations : c'est plus que ce que la plupart peuvent dire.",
@@ -278,6 +280,54 @@
       "Certains abris cachent une {{alarme}} : un générateur de secours ou un signal de détresse. L'allumer ignore tout répit : **vague après vague** d'infectés jusqu'à ce qu'elle s'arrête.",
       "Certaines alarmes se bloquent et ne s'arrêtent qu'à la fin de leur durée. D'autres s'éteignent à la main.",
       "Survivez et les **caisses verrouillées** alentour s'ouvrent. Ça vaut le coup ? À vous de voir."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Lieux d'intérêt",
+   "desc": "D'immenses endroits que le monde a oubliés. Plus de butin que n'importe où ailleurs, et plus d'infectés pour le garder.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Les trouver",
+     "text": [
+      "Trois types de **lieux d'intérêt** sont dispersés dans le monde, bien plus rares que les abris : un **terminal portuaire**, un **dôme de quarantaine** et une **base avancée dans le désert**.",
+      "Ce ne sont pas des abris : rien ne vous y protège. En échange, ils renferment le meilleur butin hors d'un événement de panique.",
+      "Trouvez le plus proche avec __/locate structure #aidirector:landmarks__, ou un lieu précis avec __aidirector:landmark_port__, __landmark_dome__ ou __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Terminal portuaire",
+     "text": [
+      "Un quai sur la côte avec cinq portiques et un **porte-conteneurs de 200 blocs** échoué. Sa passerelle, ses cales et sa salle des machines se visitent.",
+      "Derrière le quai, un **labyrinthe de conteneurs** : portes forcées, refuges cachés, ateliers clandestins et **fils piégés** qui tirent des flèches.",
+      "Butin industriel dans les camions et la cour, médicaments et électronique dans les conteneurs, fusils de précision dans les **cabines des grues** et équipement de plongée sur les remorqueurs. La **cale scellée** cache des armes de contrebande verrouillées jusqu'à ce que vous surviviez à son alarme."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Dôme de quarantaine",
+     "text": [
+      "Un pavillon noir aux nervures blanches entre une **piste de motocross** et un **circuit asphalté**, caché derrière une forêt dense avec des nids de tireur.",
+      "À l'intérieur : décontamination et triage, un atelier avec des blindés sur vérins hydrauliques et un **poste de commandement** aux caisses de recherche scellées qui s'ouvrent après un événement de panique.",
+      "Les tentes blanches contiennent du matériel médical ; le barrage de police sur le pont, des armes de poing et des boucliers anti-émeute."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Base avancée du désert",
+     "text": [
+      "Un poste fortifié sur les dunes : un talus de sable couronné d'une double rangée de gabions et de **barbelés**. On n'y entre que par le poste de contrôle.",
+      "Des tentes modulaires (opérations, dortoir et infirmerie), une caserne en béton bombardée avec des **nids de tireur** et des coffres enterrés, et une tour radio de 32 blocs.",
+      "Le **hangar** derrière la tour stocke l'artillerie : roquettes, explosifs et caisses d'opérations spéciales qui s'ouvrent après son alarme."
      ]
     }
    ]

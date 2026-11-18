@@ -56,6 +56,7 @@ public class AlmanacScreen extends Screen {
     private int category = -1, entry = -1, spread = 0;
     private List<List<FormattedCharSequence>> pages = List.of();
     private final List<Click> clicks = new ArrayList<>();
+    @org.jetbrains.annotations.Nullable private String tooltip;
     private int left, top;
 
     public AlmanacScreen() {
@@ -116,6 +117,22 @@ public class AlmanacScreen extends Screen {
         }
     }
 
+    /** Retrocede una página: la doble página anterior o, al principio, el nivel anterior (capítulo / índice). */
+    private void previousPage() {
+        if (spread > 0) turn(-1);
+        else goBack();
+    }
+
+    /** Vuelve al índice del libro desde cualquier página. */
+    private void goIndex() {
+        if (view == View.LANDING) return;
+        view = View.LANDING;
+        category = -1;
+        entry = -1;
+        spread = 0;
+        turnSound();
+    }
+
     private int maxSpread() {
         return switch (view) {
             case ENTRY -> Math.max(0, (pages.size() - 1) / 2);
@@ -157,8 +174,10 @@ public class AlmanacScreen extends Screen {
             case CATEGORY -> renderCategory(g, mouseX, mouseY);
             case ENTRY -> renderEntry(g);
         }
+        tooltip = null;
         renderButtons(g, mouseX, mouseY);
         super.render(g, mouseX, mouseY, partialTick);
+        if (tooltip != null) g.renderTooltip(font, Component.literal(tooltip), mouseX, mouseY);
     }
 
     private void renderLanding(GuiGraphics g, int mx, int my) {
@@ -232,16 +251,30 @@ public class AlmanacScreen extends Screen {
 
     private void renderButtons(GuiGraphics g, int mx, int my) {
         int by = top + BOOK_H - 22;
-        if (spread > 0) button(g, left + 14, by, 0, mx, my, () -> turn(-1));
+        // La flecha de atrás está en todas las páginas salvo en el índice.
+        if (view != View.LANDING || spread > 0) {
+            if (button(g, left + 14, by, 0, mx, my, this::previousPage)) tooltip = content.ui("back", "Previous page");
+        }
         if (spread < maxSpread()) button(g, left + BOOK_W - 32, by, 1, mx, my, () -> turn(1));
         if (view != View.LANDING) button(g, left + BOOK_W / 2 - 9, top + BOOK_H - 12, 2, mx, my, this::goBack);
+        if (view != View.LANDING) indexButton(g, left + RIGHT_X + PAGE_W - 10, top + 9, mx, my);
+    }
+
+    /** Icono de tres rayas en la esquina superior: vuelve al índice. */
+    private void indexButton(GuiGraphics g, int x, int y, int mx, int my) {
+        boolean hover = mx >= x - 2 && mx < x + 12 && my >= y - 2 && my < y + 10;
+        int color = 0xFF000000 | (hover ? HOVER : ACCENT);
+        for (int i = 0; i < 3; i++) g.fill(x, y + i * 3, x + 10, y + i * 3 + 2, color);
+        clicks.add(new Click(x - 2, y - 2, 14, 12, this::goIndex));
+        if (hover) tooltip = content.ui("index", "Index");
     }
 
     /** Botones del atlas: 0 = anterior, 1 = siguiente, 2 = volver (18×10; fila inferior = hover). */
-    private void button(GuiGraphics g, int x, int y, int kind, int mx, int my, Runnable action) {
+    private boolean button(GuiGraphics g, int x, int y, int kind, int mx, int my, Runnable action) {
         boolean hover = mx >= x && mx < x + 18 && my >= y && my < y + 10;
         g.blit(TEX, x, y, 300 + kind * 20, hover ? 12 : 0, 18, 10, TEX_W, TEX_H);
         clicks.add(new Click(x, y, 18, 10, action));
+        return hover;
     }
 
     private int banner(GuiGraphics g, int x, int y, String title, String subtitle) {
@@ -368,9 +401,10 @@ public class AlmanacScreen extends Screen {
     @Override
     public boolean keyPressed(int key, int scan, int mods) {
         switch (key) {
-            case GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_PAGE_UP -> { turn(-1); return true; }
+            case GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_PAGE_UP -> { previousPage(); return true; }
             case GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_PAGE_DOWN -> { turn(1); return true; }
             case GLFW.GLFW_KEY_BACKSPACE -> { goBack(); return true; }
+            case GLFW.GLFW_KEY_HOME -> { goIndex(); return true; }
             default -> { return super.keyPressed(key, scan, mods); }
         }
     }

@@ -9,8 +9,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 /**
- * Eventos de sonido del mod (generado por tools: gen_sounds.py). Cada uno se define en sounds.json
- * reutilizando audio vanilla con otro tono, y puede sustituirse con un resource pack.
+ * Eventos de sonido del mod. Cada uno se define en sounds.json: la mayoría reutiliza audio vanilla
+ * con otro tono y algunos usan audio propio (assets/aidirector/sounds/*.ogg); todos pueden
+ * sustituirse con un resource pack.
  */
 public final class ModSounds {
 
@@ -30,6 +31,9 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> ALARM_SIREN = reg("alarm.siren");
     public static final RegistryObject<SoundEvent> ALARM_STOP = reg("alarm.stop");
     public static final RegistryObject<SoundEvent> HORDE_INCOMING = reg("horde.incoming");
+    public static final RegistryObject<SoundEvent> TEAMMATE_DOWNED = reg("teammate.downed");
+    public static final RegistryObject<SoundEvent> TEAMMATE_DIED = reg("teammate.died");
+    public static final RegistryObject<SoundEvent> PLAYER_DIED = reg("player.died");
     public static final RegistryObject<SoundEvent> LURKER_AMBIENT = reg("lurker.ambient");
     public static final RegistryObject<SoundEvent> LURKER_POUNCE = reg("lurker.pounce");
     public static final RegistryObject<SoundEvent> LURKER_HURT = reg("lurker.hurt");

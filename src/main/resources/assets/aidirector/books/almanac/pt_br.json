@@ -3,7 +3,9 @@
  "subtitle": "Almanaque do Sobrevivente",
  "ui": {
   "chapters": "Capítulos",
-  "entries": "Tópicos"
+  "entries": "Tópicos",
+  "index": "Índice",
+  "back": "Página anterior"
  },
  "intro": [
   "Se você está lendo isto, ainda está vivo. Parabéns: é mais do que a maioria pode dizer.",
@@ -278,6 +280,54 @@
       "Alguns abrigos escondem um {{alarme}}: um gerador de emergência ou um sinal de socorro. Ligá-lo ignora qualquer calmaria: **onda após onda** de infectados até parar.",
       "Alguns alarmes travam e só param quando o tempo acaba. Outros podem ser desligados à mão.",
       "Sobrevivam e as **caixas trancadas** por perto se abrem. Vale a pena? Vocês decidem."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Pontos de interesse",
+   "desc": "Lugares enormes que o mundo esqueceu. Mais saque do que em qualquer outro lugar, e mais infectados guardando.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Como encontrá-los",
+     "text": [
+      "Há três tipos de **pontos de interesse** espalhados pelo mundo, bem mais raros que os abrigos: um **terminal portuário**, uma **cúpula de quarentena** e uma **base avançada no deserto**.",
+      "Não são abrigos: lá nada protege vocês. Em troca, guardam o melhor saque fora de um evento de pânico.",
+      "Encontre o mais próximo com __/locate structure #aidirector:landmarks__, ou um específico com __aidirector:landmark_port__, __landmark_dome__ ou __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Terminal portuário",
+     "text": [
+      "Um cais no litoral com cinco guindastes de pórtico e um **navio porta-contêineres de 200 blocos** encalhado. A ponte de comando, os porões e a casa de máquinas podem ser explorados.",
+      "Atrás do cais, um **labirinto de contêineres**: portas arrombadas, esconderijos, oficinas clandestinas e **armadilhas de fio** que disparam flechas.",
+      "Saque industrial nos caminhões e no pátio, remédios e eletrônicos nos contêineres, rifles de precisão nas **cabines dos guindastes** e equipamento de mergulho nos rebocadores. O **porão lacrado** esconde armas contrabandeadas trancadas até vocês sobreviverem ao alarme dele."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Cúpula de quarentena",
+     "text": [
+      "Um pavilhão preto com nervuras brancas entre uma **pista de motocross** e um **autódromo**, escondido atrás de uma floresta densa com ninhos de atirador.",
+      "Lá dentro: descontaminação e triagem, uma oficina com blindados em elevadores hidráulicos e um **centro de comando** com caixas de pesquisa lacradas que abrem após um evento de pânico.",
+      "As tendas brancas guardam material médico; a barreira policial na ponte, pistolas e escudos antimotim."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Base avançada no deserto",
+     "text": [
+      "Um posto fortificado nas dunas: um talude de areia coroado por uma fileira dupla de gabiões e **arame farpado**. Só se entra pela guarita.",
+      "Tendas modulares (operações, alojamento e enfermaria), um quartel de concreto bombardeado com **ninhos de atirador** e cofres enterrados, e uma torre de rádio de 32 blocos.",
+      "O **hangar** atrás da torre guarda a artilharia: foguetes, explosivos e caixas de operações especiais que abrem após o alarme dele."
      ]
     }
    ]

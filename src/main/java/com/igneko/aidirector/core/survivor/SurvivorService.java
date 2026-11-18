@@ -107,6 +107,7 @@ public final class SurvivorService {
                 player.stopUsingItem();
                 player.displayClientMessage(Component.translatable("message.aidirector.incapacitated"), true);
                 com.igneko.aidirector.core.director.IntensityTracker.onAllyIncapacitated(player);
+                SquadService.notifySquad(player, com.igneko.aidirector.registry.ModSounds.TEAMMATE_DOWNED.get());
             }
             case KILLED -> {
                 ReviveManager.cancelAllInvolving(player);

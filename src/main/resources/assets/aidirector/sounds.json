@@ -137,10 +137,7 @@
     "subtitle": "subtitles.aidirector.smoke.cough",
     "sounds": [
       {
-        "name": "entity.panda.sneeze",
-        "type": "event",
-        "pitch": 0.75,
-        "volume": 0.8
+        "name": "aidirector:smoke_cough"
       }
     ]
   },
@@ -845,16 +842,7 @@
     "subtitle": "subtitles.aidirector.crate.unlock",
     "sounds": [
       {
-        "name": "block.iron_trapdoor.open",
-        "type": "event",
-        "pitch": 0.7,
-        "volume": 1.0
-      },
-      {
-        "name": "entity.player.levelup",
-        "type": "event",
-        "pitch": 1.3,
-        "volume": 0.4
+        "name": "aidirector:crate_victory"
       }
     ]
   },
@@ -862,16 +850,7 @@
     "subtitle": "subtitles.aidirector.alarm.siren",
     "sounds": [
       {
-        "name": "block.note_block.bell",
-        "type": "event",
-        "pitch": 0.6,
-        "volume": 1.0
-      },
-      {
-        "name": "event.raid.horn",
-        "type": "event",
-        "pitch": 1.4,
-        "volume": 0.5
+        "name": "aidirector:alarm_block"
       }
     ]
   },
@@ -900,6 +879,30 @@
         "type": "event",
         "pitch": 0.5,
         "volume": 1.0
+      }
+    ]
+  },
+  "teammate.downed": {
+    "subtitle": "subtitles.aidirector.teammate.downed",
+    "sounds": [
+      {
+        "name": "aidirector:teammate_downed"
+      }
+    ]
+  },
+  "teammate.died": {
+    "subtitle": "subtitles.aidirector.teammate.died",
+    "sounds": [
+      {
+        "name": "aidirector:teammate_died"
+      }
+    ]
+  },
+  "player.died": {
+    "subtitle": "subtitles.aidirector.player.died",
+    "sounds": [
+      {
+        "name": "aidirector:player_died"
       }
     ]
   }

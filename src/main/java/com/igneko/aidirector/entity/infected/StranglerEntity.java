@@ -36,6 +36,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public class StranglerEntity extends SpecialInfectedEntity implements PinService.Pinner {
 
+    /** Marca de la nube de humo que deja al morir (los supervivientes dentro tosen). */
+    public static final String SMOKE_TAG = "aidirector_smoke";
+
+
     private static final EntityDataAccessor<Integer> TONGUE_TARGET = SynchedEntityData.defineId(StranglerEntity.class, EntityDataSerializers.INT);
 
     private static final double TONGUE_RANGE = 25;
@@ -164,6 +168,7 @@ public class StranglerEntity extends SpecialInfectedEntity implements PinService
         cloud.setParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE);
         cloud.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, false, false));
         cloud.setOwner(this);
+        cloud.addTag(SMOKE_TAG);
         level().addFreshEntity(cloud);
         serverLevel().sendParticles(ParticleTypes.LARGE_SMOKE, getX(), getY() + 1, getZ(), 60, 1.5, 0.8, 1.5, 0.02);
         level().playSound(null, getX(), getY(), getZ(), ModSounds.SMOKE_COUGH.get(), SoundSource.HOSTILE, 1.4f, 1f);

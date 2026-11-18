@@ -1,6 +1,8 @@
 package com.igneko.aidirector.registry;
 
 import com.igneko.aidirector.core.TheAIDirector;
+import com.igneko.aidirector.world.structure.LandmarkPiece;
+import com.igneko.aidirector.world.structure.LandmarkStructure;
 import com.igneko.aidirector.world.structure.SafeRoomPiece;
 import com.igneko.aidirector.world.structure.SafeRoomStructure;
 import net.minecraft.core.registries.Registries;
@@ -20,6 +22,10 @@ public final class ModStructures {
             () -> () -> SafeRoomStructure.CODEC);
     public static final RegistryObject<StructurePieceType> SAFE_ROOM_PIECE = PIECES.register("safe_room",
             () -> SafeRoomPiece::new);
+    public static final RegistryObject<StructureType<LandmarkStructure>> LANDMARK = TYPES.register("landmark",
+            () -> () -> LandmarkStructure.CODEC);
+    public static final RegistryObject<StructurePieceType> LANDMARK_PIECE = PIECES.register("landmark",
+            () -> LandmarkPiece::new);
 
     private ModStructures() {}
 

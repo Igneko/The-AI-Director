@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "aidirector:landmark_port",
+    "aidirector:landmark_dome",
+    "aidirector:landmark_fob"
+  ]
+}

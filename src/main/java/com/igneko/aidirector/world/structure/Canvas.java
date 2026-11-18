@@ -34,7 +34,9 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Lienzo de construcción en coordenadas locales de una pieza.
@@ -46,18 +48,74 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
  */
 public final class Canvas {
 
-    private final SafeRoomPiece piece;
+    private final CanvasHost piece;
     private final WorldGenLevel level;
+    @Nullable private final ChunkGenerator generator;
     private final BoundingBox box;
     private final long seed;
     final RandomSource random;
+    /** Recorte en coordenadas locales: los bucles solo recorren lo que cae dentro del chunk. */
+    private final int cx0, cx1, cy0, cy1, cz0, cz1;
 
-    Canvas(SafeRoomPiece piece, WorldGenLevel level, BoundingBox box, long seed, RandomSource random) {
+    Canvas(CanvasHost piece, WorldGenLevel level, @Nullable ChunkGenerator generator, BoundingBox box, long seed, RandomSource random) {
         this.piece = piece;
         this.level = level;
+        this.generator = generator;
         this.box = box;
         this.seed = seed;
         this.random = random;
+        BlockPos o = piece.worldPos(0, 0, 0);
+        BlockPos ex = piece.worldPos(1, 0, 0).subtract(o), ez = piece.worldPos(0, 0, 1).subtract(o);
+        int lx0 = Integer.MAX_VALUE, lx1 = Integer.MIN_VALUE, lz0 = Integer.MAX_VALUE, lz1 = Integer.MIN_VALUE;
+        for (int wx : new int[]{box.minX(), box.maxX()}) {
+            for (int wz : new int[]{box.minZ(), box.maxZ()}) {
+                int dx = wx - o.getX(), dz = wz - o.getZ();
+                int lx = dx * ex.getX() + dz * ex.getZ(), lz = dx * ez.getX() + dz * ez.getZ();
+                lx0 = Math.min(lx0, lx); lx1 = Math.max(lx1, lx);
+                lz0 = Math.min(lz0, lz); lz1 = Math.max(lz1, lz);
+            }
+        }
+        this.cx0 = lx0; this.cx1 = lx1; this.cz0 = lz0; this.cz1 = lz1;
+        this.cy0 = box.minY() - o.getY(); this.cy1 = box.maxY() - o.getY();
+    }
+
+    // ------------------------------------------------------------------ recorte
+
+    public int clipX0() { return cx0; }
+    public int clipX1() { return cx1; }
+    public int clipY0() { return cy0; }
+    public int clipY1() { return cy1; }
+    public int clipZ0() { return cz0; }
+    public int clipZ1() { return cz1; }
+
+    /** ¿Toca la caja local (x1..x2, z1..z2) el trozo que se está generando? */
+    public boolean touches(int x1, int z1, int x2, int z2) {
+        return Math.max(x1, x2) >= cx0 && Math.min(x1, x2) <= cx1 && Math.max(z1, z2) >= cz0 && Math.min(z1, z2) <= cz1;
+    }
+
+    public boolean touches(int x1, int y1, int z1, int x2, int y2, int z2) {
+        return touches(x1, z1, x2, z2) && Math.max(y1, y2) >= cy0 && Math.min(y1, y2) <= cy1;
+    }
+
+    /** Recorre solo las columnas de (x1..x2, z1..z2) que caen en el trozo actual. */
+    public void columns(int x1, int z1, int x2, int z2, ColumnVisitor visitor) {
+        int xa = Math.max(Math.min(x1, x2), cx0), xb = Math.min(Math.max(x1, x2), cx1);
+        int za = Math.max(Math.min(z1, z2), cz0), zb = Math.min(Math.max(z1, z2), cz1);
+        for (int x = xa; x <= xb; x++) for (int z = za; z <= zb; z++) visitor.visit(x, z);
+    }
+
+    @FunctionalInterface
+    public interface ColumnVisitor {
+        void visit(int x, int z);
+    }
+
+    @Nullable
+    public ChunkGenerator generator() {
+        return generator;
+    }
+
+    public WorldGenLevel level() {
+        return level;
     }
 
     // ------------------------------------------------------------------ bloques
@@ -77,15 +135,43 @@ public final class Canvas {
     }
 
     public void fill(int x1, int y1, int z1, int x2, int y2, int z2, BlockState state) {
-        for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++)
-            for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++)
-                for (int z = Math.min(z1, z2); z <= Math.max(z1, z2); z++) set(x, y, z, state);
+        int xa = Math.max(Math.min(x1, x2), cx0), xb = Math.min(Math.max(x1, x2), cx1);
+        int ya = Math.max(Math.min(y1, y2), cy0), yb = Math.min(Math.max(y1, y2), cy1);
+        int za = Math.max(Math.min(z1, z2), cz0), zb = Math.min(Math.max(z1, z2), cz1);
+        for (int x = xa; x <= xb; x++)
+            for (int y = ya; y <= yb; y++)
+                for (int z = za; z <= zb; z++) set(x, y, z, state);
     }
 
     public void fill(int x1, int y1, int z1, int x2, int y2, int z2, Palette palette) {
-        for (int x = Math.min(x1, x2); x <= Math.max(x1, x2); x++)
-            for (int y = Math.min(y1, y2); y <= Math.max(y1, y2); y++)
-                for (int z = Math.min(z1, z2); z <= Math.max(z1, z2); z++) set(x, y, z, palette);
+        int xa = Math.max(Math.min(x1, x2), cx0), xb = Math.min(Math.max(x1, x2), cx1);
+        int ya = Math.max(Math.min(y1, y2), cy0), yb = Math.min(Math.max(y1, y2), cy1);
+        int za = Math.max(Math.min(z1, z2), cz0), zb = Math.min(Math.max(z1, z2), cz1);
+        for (int x = xa; x <= xb; x++)
+            for (int y = ya; y <= yb; y++)
+                for (int z = za; z <= zb; z++) set(x, y, z, palette);
+    }
+
+    /** Línea recta de bloques (tensores, cables, vigas en diagonal). */
+    public void line(int x1, int y1, int z1, int x2, int y2, int z2, BlockState state) {
+        int n = Math.max(Math.abs(x2 - x1), Math.max(Math.abs(y2 - y1), Math.abs(z2 - z1)));
+        if (!touches(Math.min(x1, x2), Math.min(y1, y2), Math.min(z1, z2), Math.max(x1, x2), Math.max(y1, y2), Math.max(z1, z2))) return;
+        if (n == 0) {
+            set(x1, y1, z1, state);
+            return;
+        }
+        for (int i = 0; i <= n; i++) {
+            set(x1 + Math.round((x2 - x1) * i / (float) n), y1 + Math.round((y2 - y1) * i / (float) n),
+                    z1 + Math.round((z2 - z1) * i / (float) n), state);
+        }
+    }
+
+    /** Coloca un árbol (u otra característica) con el tronco en (x, y, z) si ese punto cae en este trozo. */
+    public void feature(int x, int y, int z, net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.feature.ConfiguredFeature<?, ?>> key) {
+        BlockPos world = world(x, y, z);
+        if (generator == null || !box.isInside(world)) return;
+        level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.CONFIGURED_FEATURE).getHolder(key)
+                .ifPresent(f -> f.value().place(level, generator, RandomSource.create(seed ^ world.asLong()), world));
     }
 
     public void air(int x1, int y1, int z1, int x2, int y2, int z2) {
@@ -123,6 +209,11 @@ public final class Canvas {
 
     public BlockPos world(int x, int y, int z) {
         return piece.worldPos(x, y, z);
+    }
+
+    /** La pieza está reflejada (orientaciones sur y oeste): los textos se escriben al revés. */
+    public boolean mirrored() {
+        return piece.mirrorValue() != net.minecraft.world.level.block.Mirror.NONE;
     }
 
     /** Dirección local → dirección real en el mundo. */
@@ -182,7 +273,7 @@ public final class Canvas {
         BlockPos world = world(x, y, z);
         if (!box.isInside(world) || !(level.getBlockEntity(world) instanceof SafeRoomRadioBlockEntity radio)) return;
         BlockPos a = world(x1, y1, z1), b = world(x2, y2, z2);
-        radio.configure(BoundingBox.fromCorners(a, b), piece.getBoundingBox(), world(sx, sy, sz), variant);
+        radio.configure(BoundingBox.fromCorners(a, b), piece.structureBounds(), world(sx, sy, sz), variant);
     }
 
     public void crate(int x, int y, int z, Direction facing, SupplyCrateBlock.Kind kind, boolean locked) {
@@ -217,6 +308,16 @@ public final class Canvas {
         BlockPos world = world(x, y, z);
         if (!box.isInside(world)) return;
         ItemFrame frame = new ItemFrame(level.getLevel(), world, dir(facing));
+        frame.setItem(item, false);
+        level.addFreshEntity(frame);
+    }
+
+    /** Marco luminoso (para mapas y pantallas); {@code facing} es hacia dónde mira. */
+    public void glowFrame(int x, int y, int z, Direction facing, ItemStack item) {
+        BlockPos world = world(x, y, z);
+        if (!box.isInside(world)) return;
+        net.minecraft.world.entity.decoration.GlowItemFrame frame =
+                new net.minecraft.world.entity.decoration.GlowItemFrame(level.getLevel(), world, dir(facing));
         frame.setItem(item, false);
         level.addFreshEntity(frame);
     }

@@ -3,7 +3,9 @@
  "subtitle": "Almanaque del superviviente",
  "ui": {
   "chapters": "Capítulos",
-  "entries": "Entradas"
+  "entries": "Entradas",
+  "index": "Índice",
+  "back": "Página anterior"
  },
  "intro": [
   "Si estás leyendo esto, sigues vivo. Felicidades: es más de lo que puede decir la mayoría.",
@@ -278,6 +280,54 @@
       "Algunos refugios esconden una {{alarma}}: un generador de emergencia o una señal de socorro. Encenderla ignora cualquier calma: **oleada tras oleada** de infectados hasta que pare.",
       "Algunas alarmas se atascan y solo paran cuando se acaba su tiempo. Otras se pueden apagar a mano.",
       "Si lo superáis, se abren las **cajas cerradas** de alrededor. ¿Merece la pena? Vosotros decidís."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "landmarks",
+   "icon": "minecraft:filled_map",
+   "title": "Puntos de interés",
+   "desc": "Lugares enormes que el mundo olvidó. Más botín que en ningún otro sitio, y más infectados guardándolo.",
+   "entries": [
+    {
+     "id": "zones",
+     "icon": "minecraft:spyglass",
+     "title": "Encontrarlos",
+     "text": [
+      "Por el mundo hay tres tipos de **puntos de interés**, mucho más raros que los refugios: una **terminal portuaria**, un **domo de cuarentena** y una **base avanzada en el desierto**.",
+      "No son refugios: allí nada os protege. A cambio, guardan el mejor botín fuera de un evento de pánico.",
+      "Buscad el más cercano con __/locate structure #aidirector:landmarks__, o uno concreto con __aidirector:landmark_port__, __landmark_dome__ o __landmark_fob__."
+     ]
+    },
+    {
+     "id": "port",
+     "icon": "minecraft:oak_boat",
+     "title": "Terminal portuaria",
+     "text": [
+      "Un muelle en la costa con cinco grúas pórtico y un **buque portacontenedores de 200 bloques** encallado. Su puente, sus bodegas y su sala de máquinas se pueden recorrer.",
+      "Tras el muelle, un **laberinto de contenedores**: puertas forzadas, refugios escondidos, talleres clandestinos y **cables trampa** que disparan flechas.",
+      "Botín industrial en los camiones y el patio, medicinas y electrónica en los contenedores, rifles de francotirador en las **cabinas de las grúas** y equipo de buceo en los remolcadores. La **bodega sellada** esconde armas de contrabando bajo llave hasta que sobreviváis a su alarma."
+     ]
+    },
+    {
+     "id": "dome",
+     "icon": "minecraft:black_concrete",
+     "title": "Domo de cuarentena",
+     "text": [
+      "Un pabellón negro con nervaduras blancas entre un **circuito de motocross** y un **autódromo**, oculto tras un bosque denso con puestos de francotirador.",
+      "Dentro: descontaminación y triaje, un taller con blindados sobre elevadores hidráulicos y un **centro de mando** con cajas de investigación selladas que se abren tras un evento de pánico.",
+      "Las carpas blancas guardan material médico; el control policial del puente, pistolas y escudos antidisturbios."
+     ]
+    },
+    {
+     "id": "fob",
+     "icon": "minecraft:sandstone",
+     "title": "Base avanzada del desierto",
+     "text": [
+      "Un puesto amurallado sobre las dunas: talud de arena coronado por una doble fila de gaviones y **alambre de concertina**. Solo se entra por la garita.",
+      "Tiendas modulares (operaciones, barracón y enfermería), un cuartel de hormigón bombardeado con **nidos de tirador** y cajas fuertes enterradas, y una torre de radio de 32 bloques.",
+      "El **hangar** tras la torre guarda la artillería: cohetes, explosivos y cajas de operaciones especiales que se abren tras su alarma."
      ]
     }
    ]

@@ -159,6 +159,15 @@ public final class SurvivorEventHandler {
 
     // ------------------------------------------------------------------ tick
 
+    private static boolean inStranglerSmoke(ServerPlayer player) {
+        for (net.minecraft.world.entity.AreaEffectCloud cloud : player.level().getEntitiesOfClass(
+                net.minecraft.world.entity.AreaEffectCloud.class, player.getBoundingBox().inflate(4))) {
+            if (cloud.getTags().contains(com.igneko.aidirector.entity.infected.StranglerEntity.SMOKE_TAG)
+                    && cloud.distanceToSqr(player) <= cloud.getRadius() * cloud.getRadius() + 1) return true;
+        }
+        return false;
+    }
+
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)) return;
@@ -168,6 +177,12 @@ public final class SurvivorEventHandler {
         if (!SurvivorService.isManaged(player) || !player.isAlive()) {
             SurvivorService.applyEffects(player, data);
             return;
+        }
+
+        if ((player.tickCount + player.getId()) % 100 == 0 && inStranglerSmoke(player)) {
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                    com.igneko.aidirector.registry.ModSounds.SMOKE_COUGH.get(), net.minecraft.sounds.SoundSource.PLAYERS,
+                    0.9f, 0.9f + player.getRandom().nextFloat() * 0.2f);
         }
 
         SurvivorHealthData.Outcome outcome = data.tick(AIDirectorConfig.rules());

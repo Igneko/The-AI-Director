@@ -69,7 +69,8 @@ public final class SafeRoomGameTests {
                 if (radio.doors().size() != 2) helper.fail("La zona " + radio.variant() + " tiene " + radio.doors().size() + " puertas de refugio (esperadas 2)");
                 if (!radio.contains(radio.spawn())) helper.fail("El punto de reaparición de " + radio.variant() + " está fuera de la zona");
                 if (!level.getBlockState(radio.spawn()).isAir() || !level.getBlockState(radio.spawn().above()).isAir()) {
-                    helper.fail("El punto de reaparición de " + radio.variant() + " está obstruido");
+                    helper.fail("El punto de reaparición de " + radio.variant() + " está obstruido en " + radio.spawn().toShortString() + " por "
+                            + level.getBlockState(radio.spawn()) + " / " + level.getBlockState(radio.spawn().above()));
                 }
             }
             helper.succeed();
@@ -98,15 +99,19 @@ public final class SafeRoomGameTests {
         var gen = new net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator(biomes, noise);
         var height = net.minecraft.world.level.LevelHeightAccessor.create(-64, 384);
         var structures = ra.registryOrThrow(net.minecraft.core.registries.Registries.STRUCTURE);
-        List<net.minecraft.world.level.levelgen.structure.Structure> rooms = List.of("bunker", "hangar", "camp").stream()
-                .map(n -> structures.get(new net.minecraft.resources.ResourceLocation(TheAIDirector.MOD_ID, "safe_room_" + n))).toList();
+        boolean landmarks = "landmarks".equals(System.getenv("AIDIR_SPACING_SET"));
+        int salt = landmarks ? 51893517 : 74126831;
+        List<String> names = landmarks ? List.of("landmark_port", "landmark_dome", "landmark_fob")
+                : List.of("safe_room_bunker", "safe_room_hangar", "safe_room_camp");
+        List<net.minecraft.world.level.levelgen.structure.Structure> rooms = names.stream()
+                .map(n -> structures.get(new net.minecraft.resources.ResourceLocation(TheAIDirector.MOD_ID, n))).toList();
         StringBuilder out = new StringBuilder();
-        int radius = 5;
+        int radius = landmarks ? 4 : 5;
         for (String spec : env.split(";")) {
             String[] sp = spec.split(",");
             int spacing = Integer.parseInt(sp[0].trim()), separation = Integer.parseInt(sp[1].trim());
             var placement = new net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement(
-                    spacing, separation, net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType.TRIANGULAR, 74126831);
+                    spacing, separation, net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType.TRIANGULAR, salt);
             List<Double> nearest = new java.util.ArrayList<>(), locate = new java.util.ArrayList<>();
             int cells = 0, found = 0;
             for (long seed : new long[]{1L, 42L, 2024L, 987654321L}) {

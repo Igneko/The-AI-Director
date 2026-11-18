@@ -1,0 +1,27 @@
+{
+  "structures": [
+    {
+      "structure": "aidirector:landmark_port",
+      "weight": 1
+    },
+    {
+      "structure": "aidirector:landmark_dome",
+      "weight": 1
+    },
+    {
+      "structure": "aidirector:landmark_fob",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 80,
+    "separation": 56,
+    "spread_type": "triangular",
+    "salt": 51893517,
+    "exclusion_zone": {
+      "other_set": "aidirector:safe_rooms",
+      "chunk_count": 10
+    }
+  }
+}
