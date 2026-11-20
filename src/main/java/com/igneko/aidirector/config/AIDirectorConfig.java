@@ -69,6 +69,9 @@ public final class AIDirectorConfig {
     private static final ForgeConfigSpec.IntValue HORDE_VERTICAL_SEARCH;
     private static final ForgeConfigSpec.DoubleValue HORDE_SPEED_BONUS;
     private static final ForgeConfigSpec.BooleanValue HORDE_FIRE_IMMUNE;
+    private static final ForgeConfigSpec.IntValue HORDE_SAFE_RADIUS;
+    private static final ForgeConfigSpec.IntValue HORDE_WARNING;
+    private static final ForgeConfigSpec.IntValue HORDE_BATCHES;
 
     // Infectados especiales
     private static final ForgeConfigSpec.DoubleValue INF_HEALTH_MULT;
@@ -155,7 +158,13 @@ public final class AIDirectorConfig {
                                 int relaxSeconds, double behemothChance, int behemothCooldownMinutes) {}
 
     public record HordeSettings(int size, int areaSize, double minDistance, int verticalSearch,
-                                double speedBonus, boolean fireImmune) {}
+                                double speedBonus, boolean fireImmune, int safeRadius, int warningSeconds, int batches) {
+
+        /** Lado efectivo del área: siempre deja al menos 15 bloques de margen más allá del radio de seguridad. */
+        public int effectiveArea() {
+            return Math.max(areaSize, 2 * (safeRadius + 15));
+        }
+    }
 
     public record CombatSettings(double shoveRange, double shoveHalfAngleCos, double knockback, int staggerTicks,
                                  double chainRadius, ShoveFatigue.Rules fatigue, boolean taczMeleeShoves) {}
@@ -182,7 +191,7 @@ public final class AIDirectorConfig {
             60, 12, 10, List.of("tacz:uzi", "tacz:ump45", "tacz:hk_mp5a5", "tacz:m870", "tacz:db_short"),
             List.of("tacz:ak47", "tacz:m4a1", "tacz:scar_l", "tacz:spas_12", "tacz:m1014", "tacz:aug"));
     private static volatile SquadSettings squad = new SquadSettings(256, true, true, true);
-    private static volatile HordeSettings horde = new HordeSettings(30, 40, 8.0, 12, 0.3, true);
+    private static volatile HordeSettings horde = new HordeSettings(30, 60, 8.0, 12, 0.15, true, 15, 6, 3);
 
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
@@ -261,15 +270,21 @@ public final class AIDirectorConfig {
         HORDE_SIZE = b.comment("Infectados por horda")
                 .defineInRange("hordeSize", 30, 1, 300);
         HORDE_AREA = b.comment("Lado del cuadrado (bloques) alrededor del jugador donde aparece la horda")
-                .defineInRange("hordeAreaSize", 40, 8, 128);
+                .defineInRange("hordeAreaSize", 60, 8, 128);
         HORDE_MIN_DISTANCE = b.comment("Distancia mínima al jugador para no aparecer encima de él")
                 .defineInRange("hordeMinDistance", 8.0, 0.0, 60.0);
         HORDE_VERTICAL_SEARCH = b.comment("Bloques arriba/abajo que se exploran buscando suelo")
                 .defineInRange("hordeVerticalSearch", 12, 1, 64);
-        HORDE_SPEED_BONUS = b.comment("Bonificación de velocidad de los infectados de horda (0.3 = +30 %)")
-                .defineInRange("hordeSpeedBonus", 0.3, 0.0, 3.0);
+        HORDE_SPEED_BONUS = b.comment("Bonificación de velocidad de los infectados de horda (0.15 = +15 %)")
+                .defineInRange("hordeSpeedBonus", 0.15, 0.0, 3.0);
         HORDE_FIRE_IMMUNE = b.comment("Los infectados de horda no mueren quemados por el sol")
                 .define("hordeFireImmune", true);
+        HORDE_SAFE_RADIUS = b.comment("Radio (bloques) alrededor de CUALQUIER jugador en el que no aparece ningún infectado de horda")
+                .defineInRange("hordeSafeRadius", 15, 0, 48);
+        HORDE_WARNING = b.comment("Segundos de aviso (sirena y mensaje) entre que el Director decide la horda y su aparición")
+                .defineInRange("hordeWarningSeconds", 6, 0, 30);
+        HORDE_BATCHES = b.comment("La horda aparece en tandas, una cada pocos segundos, en lugar de toda de golpe")
+                .defineInRange("hordeBatches", 3, 1, 8);
         b.pop();
 
         b.comment("Infectados especiales (vida y daño en puntos vanilla: 1 = medio corazón; L4D2 / 5)").push("infected");
@@ -458,7 +473,8 @@ public final class AIDirectorConfig {
         infected = new InfectedSettings(INF_HEALTH_MULT.get(), INF_DAMAGE_MULT.get(), BEHEMOTH_HEALTH.get(),
                 TEAM_WIPE.get(), TEAM_WIPE_MIN.get(), BILE_HORDE_SIZE.get());
         horde = new HordeSettings(HORDE_SIZE.get(), HORDE_AREA.get(), HORDE_MIN_DISTANCE.get(),
-                HORDE_VERTICAL_SEARCH.get(), HORDE_SPEED_BONUS.get(), HORDE_FIRE_IMMUNE.get());
+                HORDE_VERTICAL_SEARCH.get(), HORDE_SPEED_BONUS.get(), HORDE_FIRE_IMMUNE.get(),
+                HORDE_SAFE_RADIUS.get(), HORDE_WARNING.get(), HORDE_BATCHES.get());
         int sustainMin = DIR_SUSTAIN_MIN.get();
         int relaxMin = DIR_RELAX_MIN.get();
         director = new DirectorSettings(DIR_ENABLED.get(), new DirectorFsm.Rules(DIR_PEAK.get().floatValue(), DIR_BUILDUP_MAX.get(),

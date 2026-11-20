@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:gold_ingot",
+    "minecraft:emerald",
+    "minecraft:lapis_lazuli",
+    "minecraft:amethyst_shard",
+    {
+      "id": "#forge:ingots/silver",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/platinum",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/ruby",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/sapphire",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/amethyst",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/topaz",
+      "required": false
+    }
+  ]
+}

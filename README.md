@@ -127,6 +127,8 @@ An in-game book that explains the mod from inside the fiction, in **eleven langu
 | **GeckoLib** (required) | Animated models for the infected. |
 | **Player Animator** (optional) | Extra poses and animations. |
 
+**Loot from other mods.** Every point of interest draws part of its loot from item tags (industrial materials, electronics, medical supplies, food, tools, gear and valuables). They always contain vanilla items, and automatically add items from popular mods and the common Forge tags when those mods are installed. Modpack makers can extend them with a datapack, without touching the mod.
+
 The mod is designed for **multiplayer** first and works on dedicated servers. Most of its rules can be adjusted in the configuration file: stress thresholds, healing rules, shelter behaviour, loot tiers, squad range and more.
 
 ---

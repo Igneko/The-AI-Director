@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -27,17 +27,6 @@
             {
               "function": "minecraft:set_nbt",
               "tag": "{GunId:\"tacz:rpk\",GunFireMode:\"AUTO\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:modern_kinetic_gun",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{GunId:\"tacz:m107\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
         },
@@ -70,17 +59,32 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
+              "tag": "{GunId:\"tacz:m107\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
               "tag": "{GunId:\"tacz:rpg7\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 6
         }
       ]
     },
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2,
-        "max": 3
+        "min": 1,
+        "max": 2
       },
       "entries": [
         {
@@ -92,8 +96,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 20,
-                "max": 40
+                "min": 15,
+                "max": 30
               }
             },
             {
@@ -111,32 +115,13 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 20,
-                "max": 40
+                "min": 15,
+                "max": 30
               }
             },
             {
               "function": "minecraft:set_nbt",
               "tag": "{AmmoId:\"tacz:762x39\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:ammo",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 4,
-                "max": 10
-              }
-            },
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AmmoId:\"tacz:50bmg\"}"
             }
           ]
         },
@@ -150,12 +135,31 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 10,
-                "max": 25
+                "max": 20
               }
             },
             {
               "function": "minecraft:set_nbt",
               "tag": "{AmmoId:\"tacz:308\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 3,
+                "max": 8
+              }
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AmmoId:\"tacz:50bmg\"}"
             }
           ]
         },
@@ -183,8 +187,8 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
-        "max": 2
+        "min": 0,
+        "max": 1
       },
       "entries": [
         {
@@ -209,20 +213,19 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_helmet",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:shield",
           "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 2
       },
       "entries": [
@@ -263,6 +266,32 @@
           "type": "minecraft:item",
           "name": "minecraft:recovery_compass",
           "weight": 1
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/valuables",
+          "expand": true,
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/tech",
+          "expand": true,
+          "weight": 2
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 3
         }
       ]
     }

@@ -75,6 +75,42 @@ final class PortBuilder {
         coils(c);
         apronProps(c);
         backFence(c);
+        stashes(c);
+    }
+
+    // ================================================================== escondites
+
+    /**
+     * Cuartos secretos con botín mejor que el de los cofres a la vista: cuatro escotillas de mantenimiento
+     * repartidas por el muelle, el patio, la oficina y la garita, y una cámara oculta dentro de la proa
+     * del barco (se entra por una escotilla de la cubierta del castillo y una escalera de mano).
+     */
+    private static void stashes(Canvas c) {
+        Props.stash(c, 100, Q, 78, "port_stash", "port_industrial", null);
+        Props.stash(c, 246, Q, 70, "port_stash", null, SupplyCrateBlock.Kind.THROWABLES);
+        Props.stash(c, 43, Q, 126, "port_stash", "port_industrial", null);
+        Props.stash(c, 30, Q, 190, "port_stash", "port_commercial", SupplyCrateBlock.Kind.MEDICAL);
+        Props.stash(c, 250, Q, 207, "port_stash", "port_industrial", null);
+        bowStash(c);
+    }
+
+    /** Cámara oculta en la proa: 7 × 7 × 4, bajo cubierta, con escalera desde una escotilla del castillo. */
+    private static void bowStash(Canvas c) {
+        int x0 = 197, x1 = 203, z0 = 43, z1 = 49, y0 = 9, y1 = 12;
+        if (!c.touches(x0 - 1, z0 - 1, x1 + 1, z1 + 1)) return;
+        c.air(x0, y0, z0, x1, y1, z1);
+        c.air(x0, y1 + 1, 46, x0, DK + 2, 46);
+        for (int y = y0; y <= DK + 2; y++) c.set(x0, y, 46, Canvas.ladder(Direction.EAST));
+        c.set(x0, DK + 3, 46, trapdoor(Blocks.DARK_OAK_TRAPDOOR, Direction.SOUTH, false, false));
+        c.container(x1, y0, 44, facing(Blocks.CHEST, Direction.WEST), loot("port_stash"));
+        c.container(x1, y0, 46, facing(Blocks.CHEST, Direction.WEST), loot("port_military"));
+        c.container(x1, y0, 48, facing(Blocks.CHEST, Direction.WEST), loot("port_stash"));
+        c.crate(x1 - 1, y0, 49, Direction.NORTH, SupplyCrateBlock.Kind.ARMORY, false);
+        c.crate(x1 - 3, y0, 49, Direction.NORTH, SupplyCrateBlock.Kind.MEDICAL, false);
+        c.set(x1 - 1, y0, 43, facing(Blocks.BARREL, Direction.UP));
+        for (int x = x0 + 2; x <= x1 - 1; x += 2) c.set(x, y1, 46, hangingLantern(Blocks.SOUL_LANTERN));
+        c.set(x0 + 3, y0, 44, s(Blocks.CAULDRON));
+        c.armorStand(x0 + 2, y0, 48, Direction.EAST, new ItemStack(Items.IRON_HELMET));
     }
 
     // ================================================================== agua y muelle

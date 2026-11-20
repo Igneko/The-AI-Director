@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -44,7 +44,7 @@
         {
           "type": "minecraft:item",
           "name": "tacz:modern_kinetic_gun",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_nbt",
@@ -62,6 +62,10 @@
               "tag": "{GunId:\"tacz:qbz_95\",GunFireMode:\"AUTO\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
@@ -81,8 +85,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 20,
-                "max": 40
+                "min": 15,
+                "max": 30
               }
             },
             {
@@ -100,13 +104,51 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 25,
-                "max": 50
+                "min": 20,
+                "max": 40
               }
             },
             {
               "function": "minecraft:set_nbt",
               "tag": "{AmmoId:\"tacz:57x28\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 10,
+                "max": 20
+              }
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AmmoId:\"tacz:308\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 12
+              }
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AmmoId:\"tacz:12g\"}"
             }
           ]
         },
@@ -125,44 +167,6 @@
             },
             {
               "function": "minecraft:set_nbt",
-              "tag": "{AmmoId:\"tacz:308\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:ammo",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 8,
-                "max": 16
-              }
-            },
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AmmoId:\"tacz:12g\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:ammo",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 20,
-                "max": 40
-              }
-            },
-            {
-              "function": "minecraft:set_nbt",
               "tag": "{AmmoId:\"tacz:58x42\"}"
             }
           ]
@@ -172,14 +176,14 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2,
+        "min": 1,
         "max": 3
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:potion",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_potion",
@@ -233,19 +237,40 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:potion",
-          "weight": 2,
+          "name": "aidirector:adrenaline",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/tech",
+          "expand": true,
+          "weight": 4,
           "functions": [
             {
-              "function": "minecraft:set_potion",
-              "id": "minecraft:healing"
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "aidirector:adrenaline",
-          "weight": 2
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/valuables",
+          "expand": true,
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",
@@ -263,13 +288,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:iron_chestplate",
-          "weight": 2
+          "weight": 1
         }
       ]
     }

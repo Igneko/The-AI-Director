@@ -1,0 +1,61 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cooked_beef",
+    "minecraft:cooked_chicken",
+    "minecraft:cooked_porkchop",
+    "minecraft:baked_potato",
+    "minecraft:bread",
+    "minecraft:cookie",
+    "minecraft:dried_kelp",
+    "minecraft:apple",
+    {
+      "id": "#forge:cooked_beef",
+      "required": false
+    },
+    {
+      "id": "#forge:cooked_chicken",
+      "required": false
+    },
+    {
+      "id": "#forge:cooked_pork",
+      "required": false
+    },
+    {
+      "id": "#forge:cooked_mutton",
+      "required": false
+    },
+    {
+      "id": "#forge:cooked_fishes",
+      "required": false
+    },
+    {
+      "id": "#forge:bread",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:bacon_and_eggs",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:beef_stew",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:chicken_soup",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:vegetable_soup",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:fried_rice",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:pasta_with_meatballs",
+      "required": false
+    }
+  ]
+}

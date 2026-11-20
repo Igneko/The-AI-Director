@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -73,13 +73,17 @@
               "tag": "{GunId:\"tacz:hk_mp5a5\",GunFireMode:\"AUTO\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2,
+        "min": 1,
         "max": 3
       },
       "entries": [
@@ -92,8 +96,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 12,
-                "max": 30
+                "min": 10,
+                "max": 24
               }
             },
             {
@@ -111,8 +115,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 12,
-                "max": 24
+                "min": 10,
+                "max": 20
               }
             },
             {
@@ -130,8 +134,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 7,
-                "max": 14
+                "min": 5,
+                "max": 10
               }
             },
             {
@@ -139,29 +143,21 @@
               "tag": "{AmmoId:\"tacz:50ae\"}"
             }
           ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "type": "minecraft:uniform",
-        "min": 1,
-        "max": 2
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:shield",
-          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_helmet",
+          "name": "minecraft:shield",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bread",
+          "name": "minecraft:iron_helmet",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/food",
+          "expand": true,
           "weight": 2,
           "functions": [
             {
@@ -169,10 +165,15 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aidirector:pain_pills",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -184,26 +185,6 @@
               "id": "minecraft:healing"
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "aidirector:pain_pills",
-          "weight": 2
         }
       ]
     }

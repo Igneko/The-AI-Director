@@ -80,6 +80,15 @@ final class DomeBuilder {
         vehicles(c);
         forest(c);
         bridge(c);
+        stashes(c);
+    }
+
+    /** Escotillas de mantenimiento con cuartos secretos: nave del domo, boxes del autódromo, pabellón y torre del puente. */
+    private static void stashes(Canvas c) {
+        Props.stash(c, 147, G, 104, "dome_stash", "dome_mechanic", null);
+        Props.stash(c, 225, G, 95, "dome_stash", null, SupplyCrateBlock.Kind.ARMORY);
+        Props.stash(c, 119, G, 226, "dome_stash", "dome_medical", SupplyCrateBlock.Kind.MEDICAL);
+        Props.stash(c, 192, G, 207, "dome_stash", "dome_police", null);
     }
 
     // ================================================================== terreno por zonas

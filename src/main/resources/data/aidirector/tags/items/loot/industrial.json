@@ -1,0 +1,95 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_ingot",
+    "minecraft:copper_ingot",
+    "minecraft:coal",
+    "minecraft:iron_nugget",
+    "minecraft:chain",
+    "minecraft:gunpowder",
+    {
+      "id": "#forge:ingots/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/zinc",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/brass",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/steel",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:plates",
+      "required": false
+    },
+    {
+      "id": "#forge:gears",
+      "required": false
+    },
+    {
+      "id": "create:andesite_alloy",
+      "required": false
+    },
+    {
+      "id": "create:iron_sheet",
+      "required": false
+    },
+    {
+      "id": "create:copper_sheet",
+      "required": false
+    },
+    {
+      "id": "create:brass_ingot",
+      "required": false
+    },
+    {
+      "id": "create:zinc_ingot",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:ingot_steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:plate_iron",
+      "required": false
+    },
+    {
+      "id": "thermal:tin_ingot",
+      "required": false
+    },
+    {
+      "id": "thermal:lead_ingot",
+      "required": false
+    },
+    {
+      "id": "mekanism:ingot_steel",
+      "required": false
+    },
+    {
+      "id": "mekanism:ingot_bronze",
+      "required": false
+    },
+    {
+      "id": "mekanism:ingot_tin",
+      "required": false
+    }
+  ]
+}

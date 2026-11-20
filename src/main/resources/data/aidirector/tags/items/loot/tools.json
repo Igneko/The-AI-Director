@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:shears",
+    "minecraft:flint_and_steel",
+    "minecraft:fishing_rod",
+    "minecraft:spyglass",
+    "minecraft:compass",
+    "minecraft:lead",
+    "minecraft:bucket",
+    {
+      "id": "#forge:tools/wrenches",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/knives",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/hammers",
+      "required": false
+    },
+    {
+      "id": "create:wrench",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:iron_knife",
+      "required": false
+    }
+  ]
+}

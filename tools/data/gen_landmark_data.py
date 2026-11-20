@@ -138,93 +138,169 @@ def table(name, *pools):
     write(f'{NS}/loot_tables/chests/{name}.json', {'type': 'minecraft:chest', 'pools': list(pools)})
 
 
+# ---------------------------------------------------------------- etiquetas de ítems (compatibilidad con otros mods)
+#
+# Cada tabla de botín puede sacar un objeto al azar de una etiqueta "aidirector:loot/<nombre>". Las etiquetas
+# traen objetos de vanilla (siempre hay algo) y entradas OPCIONALES de otros mods y etiquetas comunes de Forge: si el
+# mod no está instalado, la entrada se ignora sin errores. Los creadores de modpacks pueden ampliarlas con un datapack.
+
+def opt(i):
+    return {'id': i, 'required': False}
+
+
+ITEM_TAGS = {
+    'industrial': (
+        ['minecraft:iron_ingot', 'minecraft:copper_ingot', 'minecraft:coal', 'minecraft:iron_nugget', 'minecraft:chain', 'minecraft:gunpowder'],
+        ['#forge:ingots/tin', '#forge:ingots/lead', '#forge:ingots/zinc', '#forge:ingots/bronze', '#forge:ingots/brass',
+         '#forge:ingots/steel', '#forge:ingots/nickel', '#forge:plates', '#forge:gears',
+         'create:andesite_alloy', 'create:iron_sheet', 'create:copper_sheet', 'create:brass_ingot', 'create:zinc_ingot',
+         'immersiveengineering:ingot_steel', 'immersiveengineering:plate_iron', 'thermal:tin_ingot', 'thermal:lead_ingot',
+         'mekanism:ingot_steel', 'mekanism:ingot_bronze', 'mekanism:ingot_tin']),
+    'tech': (
+        ['minecraft:redstone', 'minecraft:repeater', 'minecraft:comparator', 'minecraft:observer', 'minecraft:daylight_detector',
+         'minecraft:glowstone_dust'],
+        ['create:electron_tube', 'create:precision_mechanism', 'mekanism:basic_control_circuit', 'mekanism:alloy_infused',
+         'immersiveengineering:component_electronic', 'immersiveengineering:component_iron', 'thermal:rf_coil',
+         'appliedenergistics2:certus_quartz_crystal', 'ae2:certus_quartz_crystal', 'ae2:logic_processor']),
+    'medical': (
+        ['minecraft:honey_bottle', 'minecraft:glistering_melon_slice', 'minecraft:golden_carrot', 'minecraft:paper'],
+        ['firstaid:bandage', 'firstaid:plaster', 'firstaid:morphine', 'firstaid:tonic', 'toughasnails:purified_water_bottle',
+         'farmersdelight:hot_cocoa', 'farmersdelight:honey_cookie']),
+    'food': (
+        ['minecraft:cooked_beef', 'minecraft:cooked_chicken', 'minecraft:cooked_porkchop', 'minecraft:baked_potato',
+         'minecraft:bread', 'minecraft:cookie', 'minecraft:dried_kelp', 'minecraft:apple'],
+        ['#forge:cooked_beef', '#forge:cooked_chicken', '#forge:cooked_pork', '#forge:cooked_mutton', '#forge:cooked_fishes',
+         '#forge:bread', 'farmersdelight:bacon_and_eggs', 'farmersdelight:beef_stew', 'farmersdelight:chicken_soup',
+         'farmersdelight:vegetable_soup', 'farmersdelight:fried_rice', 'farmersdelight:pasta_with_meatballs']),
+    'tools': (
+        ['minecraft:shears', 'minecraft:flint_and_steel', 'minecraft:fishing_rod', 'minecraft:spyglass', 'minecraft:compass',
+         'minecraft:lead', 'minecraft:bucket'],
+        ['#forge:tools/wrenches', '#forge:tools/knives', '#forge:tools/hammers', 'create:wrench', 'farmersdelight:iron_knife']),
+    'gear': (
+        ['minecraft:leather_helmet', 'minecraft:leather_chestplate', 'minecraft:leather_leggings', 'minecraft:leather_boots',
+         'minecraft:chainmail_helmet', 'minecraft:chainmail_boots', 'minecraft:shield'],
+        ['create:copper_diving_helmet', 'create:copper_backtank', 'sophisticatedbackpacks:backpack']),
+    'valuables': (
+        ['minecraft:gold_ingot', 'minecraft:emerald', 'minecraft:lapis_lazuli', 'minecraft:amethyst_shard'],
+        ['#forge:ingots/silver', '#forge:ingots/platinum', '#forge:gems/ruby', '#forge:gems/sapphire', '#forge:gems/amethyst',
+         '#forge:gems/topaz']),
+}
+
+for name, (vanilla, modded) in ITEM_TAGS.items():
+    write(f'{NS}/tags/items/loot/{name}.json', {'replace': False, 'values': vanilla + [opt(i) for i in modded]})
+
+
+def mtag(name, w, a=1, b=1):
+    """Un objeto al azar de la etiqueta aidirector:loot/<name> (vanilla + otros mods si están instalados)."""
+    e = {'type': 'minecraft:tag', 'name': f'{NS}:loot/{name}', 'expand': True, 'weight': w}
+    if (a, b) != (1, 1):
+        e['functions'] = [count(a, b)]
+    return e
+
+
 # Puerto ---------------------------------------------------------------
+# Calidad: industrial/textil/electrónica/comercial/médico = común; tactical/tugboat = poco común;
+# military y stash = raro (la bodega sellada, el puente, los escondites).
 table('port_industrial',
-      pool(3, 6, item('iron_ingot', 6, 1, 5), item('copper_ingot', 6, 2, 8), item('coal', 6, 3, 12),
-           item('redstone', 4, 2, 8), damaged('iron_pickaxe', 2), damaged('iron_axe', 2), item('shears', 2),
-           item('flint_and_steel', 1), item('lava_bucket', 1), item('coal_block', 2, 1, 2), item('bread', 3, 1, 4),
-           item('dried_kelp', 3, 4, 10), item('chain', 3, 2, 6), item('lantern', 2)),
-      pool(0, 1, mod('pipe_bomb', 1), empty(4)))
+      pool(2, 4, item('iron_ingot', 5, 1, 4), item('copper_ingot', 5, 2, 6), item('coal', 5, 3, 10), item('redstone', 3, 2, 6),
+           mtag('industrial', 5, 1, 3), mtag('tools', 3), item('chain', 2, 2, 5), item('coal_block', 1), item('lantern', 2),
+           damaged('iron_pickaxe', 1), damaged('iron_axe', 1)),
+      pool(0, 1, mod('pipe_bomb', 1), item('lava_bucket', 1), empty(7)))
 table('port_medical',
-      pool(2, 4, mod('first_aid_kit', 2), mod('pain_pills', 4), mod('adrenaline', 2), potion('healing', 2),
-           item('milk_bucket', 2), item('honey_bottle', 2, 1, 2), item('golden_apple', 1), potion('regeneration', 1)))
+      pool(1, 3, mod('first_aid_kit', 2), mod('pain_pills', 4), mod('adrenaline', 1), potion('healing', 2), item('milk_bucket', 2),
+           mtag('medical', 4, 1, 2), item('golden_apple', 1)))
 table('port_textile',
-      pool(3, 5, item('leather', 5, 2, 6), item('white_wool', 4, 2, 8), item('string', 3, 3, 10),
-           enchanted('leather_chestplate', 2, 8), enchanted('leather_leggings', 2, 8), item('leather_boots', 2),
-           item('leather_helmet', 2), item('rabbit_hide', 2, 2, 5)))
+      pool(2, 4, item('leather', 5, 2, 6), item('white_wool', 4, 2, 8), item('string', 3, 3, 10), item('rabbit_hide', 2, 2, 5),
+           mtag('gear', 4), enchanted('leather_chestplate', 1, 8), enchanted('leather_leggings', 1, 8)))
 table('port_electronics',
-      pool(3, 5, item('redstone', 6, 4, 12), item('repeater', 3, 1, 3), item('comparator', 2, 1, 2),
-           item('daylight_detector', 1), item('observer', 2, 1, 2), item('redstone_torch', 3, 2, 6),
-           item('redstone_block', 2), item('copper_ingot', 3, 2, 6), item('glowstone_dust', 2, 2, 6),
-           item('compass', 1), item('clock', 1)))
+      pool(2, 4, item('redstone', 5, 4, 12), item('copper_ingot', 3, 2, 6), item('glowstone_dust', 2, 2, 6), mtag('tech', 7, 1, 3),
+           item('redstone_block', 1), item('compass', 1), item('clock', 1)))
 table('port_commercial',
-      pool(3, 5, item('gold_ingot', 2, 1, 3), item('emerald', 2, 1, 3), item('book', 2, 1, 3), item('paper', 3, 2, 6),
-           item('glass_bottle', 2, 1, 3), item('leather', 3, 2, 4), mod('pain_pills', 2), mod('first_aid_kit', 1),
-           item('candle', 2, 1, 3), item('spyglass', 1)))
+      pool(2, 4, mtag('valuables', 4, 1, 3), item('book', 2, 1, 3), item('paper', 3, 2, 6), item('glass_bottle', 2, 1, 3),
+           mtag('food', 4, 1, 4), mod('pain_pills', 2), item('candle', 2, 1, 3), item('spyglass', 1)))
 table('port_tactical',
-      pool(1, 1, gun('m700', 3), gun('kar98', 3), gun('ai_awp', 1), gun('sks_tactical', 3), gun('springfield1873', 2)),
-      pool(1, 2, att('scope_standard_8x', 2), att('scope_mk5hd', 1), att('scope_vudu', 1), att('scope_acog_ta31', 2),
-           att('scope_elcan_4x', 2), att('scope_lpvo_1_6', 2)),
-      pool(2, 3, ammo('30_06', 3, 8, 20), ammo('792x57', 3, 8, 20), ammo('338', 1, 5, 12), ammo('762x39', 3, 15, 30),
-           ammo('45_70', 2, 8, 16), item('spyglass', 1)))
+      pool(0, 1, gun('m700', 3), gun('kar98', 3), gun('sks_tactical', 3), gun('springfield1873', 2), gun('ai_awp', 1), empty(5)),
+      pool(0, 1, att('scope_acog_ta31', 2), att('scope_elcan_4x', 2), att('scope_lpvo_1_6', 2), att('scope_standard_8x', 1),
+           att('scope_mk5hd', 1), att('scope_vudu', 1), empty(6)),
+      pool(2, 3, ammo('30_06', 3, 6, 16), ammo('792x57', 3, 6, 16), ammo('762x39', 3, 12, 24), ammo('45_70', 2, 6, 12),
+           ammo('338', 1, 4, 8), item('spyglass', 1), mtag('food', 2)))
 table('port_tugboat',
-      pool(3, 5, item('turtle_helmet', 2), potion('water_breathing', 4), potion('long_water_breathing', 2),
-           damaged('trident', 1), item('firework_rocket', 4, 2, 6), item('fishing_rod', 2), item('cod', 3, 2, 6),
-           item('lead', 2, 1, 2), item('nautilus_shell', 1), item('compass', 2)))
+      pool(2, 4, item('turtle_helmet', 1), potion('water_breathing', 3), item('firework_rocket', 4, 2, 6), item('fishing_rod', 2),
+           item('cod', 3, 2, 6), item('lead', 2, 1, 2), item('compass', 2), mtag('tools', 3), mtag('food', 3, 1, 3),
+           damaged('trident', 1)))
 table('port_military',
-      pool(1, 1, gun('m249', 2), gun('rpk', 2), gun('m107', 1), gun('fn_evolys', 2), gun('hk_g3', 2), gun('rpg7', 1)),
-      pool(2, 3, ammo('556x45', 3, 20, 40), ammo('762x39', 3, 20, 40), ammo('50bmg', 1, 4, 10), ammo('308', 2, 10, 25),
+      pool(0, 1, gun('m249', 2), gun('rpk', 2), gun('fn_evolys', 2), gun('hk_g3', 2), gun('m107', 1), gun('rpg7', 1), empty(6)),
+      pool(1, 2, ammo('556x45', 3, 15, 30), ammo('762x39', 3, 15, 30), ammo('308', 2, 10, 20), ammo('50bmg', 1, 3, 8),
            ammo('rpg_rocket', 1, 1, 2)),
-      pool(1, 2, item('iron_chestplate', 3), item('iron_leggings', 3), item('iron_helmet', 3), item('diamond_chestplate', 1),
-           item('diamond_helmet', 1), item('shield', 2)),
-      pool(1, 2, item('map', 3, 1, 1, named('evacuation_map')), item('tripwire_hook', 2, 1, 1, named('master_key')),
-           item('compass', 2), item('recovery_compass', 1)))
+      pool(0, 1, item('iron_chestplate', 3), item('iron_leggings', 3), item('iron_helmet', 3), item('diamond_chestplate', 1),
+           item('shield', 2), empty(5)),
+      pool(0, 2, item('map', 3, 1, 1, named('evacuation_map')), item('tripwire_hook', 2, 1, 1, named('master_key')),
+           item('compass', 2), item('recovery_compass', 1), mtag('valuables', 2, 1, 2), mtag('tech', 2), empty(3)))
+table('port_stash',
+      pool(1, 1, gun('m1911', 2), gun('glock_17', 2), gun('uzi', 2), gun('hk_mp5a5', 2), gun('ump45', 1), gun('sks_tactical', 2),
+           gun('mk14', 1), gun('fn_fal', 1), gun('ak47', 1), empty(5)),
+      pool(2, 3, ammo('9mm', 3, 12, 24), ammo('45acp', 3, 12, 24), ammo('762x39', 2, 12, 24), ammo('308', 2, 8, 16),
+           mtag('valuables', 3, 1, 3), mtag('industrial', 3, 2, 4), mtag('tech', 3, 1, 3), mod('first_aid_kit', 2),
+           mod('adrenaline', 1), mtag('food', 2, 2, 4)),
+      pool(0, 1, enchanted('iron_chestplate', 1, 12), enchanted('iron_helmet', 1, 12), item('diamond', 1), potion('strength', 1), empty(8)))
 
 # Domo -----------------------------------------------------------------
 table('dome_mechanic',
-      pool(3, 6, item('piston', 4, 1, 3), item('iron_ingot', 4, 2, 6), item('lava_bucket', 1), item('iron_helmet', 2),
-           enchanted('leather_chestplate', 2, 12), enchanted('leather_leggings', 2, 12), damaged('iron_pickaxe', 1),
-           item('shears', 1), item('flint_and_steel', 1), item('chain', 3, 2, 5), item('redstone', 3, 2, 6),
-           item('minecart', 1), item('black_wool', 2, 1, 4)))
+      pool(2, 4, item('piston', 3, 1, 3), item('iron_ingot', 4, 2, 5), mtag('industrial', 5, 1, 3), mtag('tools', 3),
+           item('chain', 3, 2, 5), item('redstone', 3, 2, 6), item('black_wool', 2, 1, 4), item('iron_helmet', 1),
+           enchanted('leather_chestplate', 1, 12), item('minecart', 1)),
+      pool(0, 1, item('lava_bucket', 1), item('flint_and_steel', 1), empty(5)))
 table('dome_medical',
-      pool(3, 5, mod('first_aid_kit', 3), mod('pain_pills', 4), mod('adrenaline', 2), potion('regeneration', 2),
-           potion('healing', 2), item('golden_carrot', 3, 2, 6), item('cooked_beef', 2, 2, 5), item('lantern', 2),
-           item('torch', 2, 4, 10)),
+      pool(2, 3, mod('first_aid_kit', 3), mod('pain_pills', 4), mod('adrenaline', 1), potion('regeneration', 1), potion('healing', 2),
+           mtag('medical', 4, 1, 2), mtag('food', 3, 1, 3), item('torch', 2, 4, 10)),
       pool(0, 1, dyed('leather_chestplate', 1, 16766720, 'hazmat'), dyed('leather_leggings', 1, 16766720, 'hazmat'),
-           dyed('leather_helmet', 1, 16766720, 'hazmat'), dyed('leather_boots', 1, 16766720, 'hazmat'), empty(4)))
+           dyed('leather_helmet', 1, 16766720, 'hazmat'), dyed('leather_boots', 1, 16766720, 'hazmat'), empty(5)))
 table('dome_police',
-      pool(1, 1, gun('glock_17', 3), gun('p320', 2), gun('m1911', 3), gun('deagle', 1), gun('cz75', 2), gun('hk_mp5a5', 1)),
-      pool(2, 3, ammo('9mm', 4, 12, 30), ammo('45acp', 3, 12, 24), ammo('50ae', 1, 7, 14)),
-      pool(1, 2, item('shield', 3), item('iron_helmet', 2), item('bread', 2, 1, 3), potion('healing', 1),
-           item('leather', 2, 1, 3), mod('pain_pills', 2)))
+      pool(0, 1, gun('glock_17', 3), gun('p320', 2), gun('m1911', 3), gun('deagle', 1), gun('cz75', 2), gun('hk_mp5a5', 1), empty(5)),
+      pool(1, 3, ammo('9mm', 4, 10, 24), ammo('45acp', 3, 10, 20), ammo('50ae', 1, 5, 10), item('shield', 2),
+           item('iron_helmet', 1), mtag('food', 2, 1, 2), mod('pain_pills', 2), potion('healing', 1)))
 table('dome_research',
-      pool(1, 1, gun('vector45', 3), gun('p90', 3), gun('fn_evolys', 2), gun('aa12', 2), gun('qbz_95', 2)),
-      pool(1, 2, ammo('45acp', 3, 20, 40), ammo('57x28', 3, 25, 50), ammo('308', 2, 15, 30), ammo('12g', 2, 8, 16),
-           ammo('58x42', 2, 20, 40)),
-      pool(2, 3, potion('strength', 2), potion('swiftness', 2), potion('regeneration', 2), potion('fire_resistance', 1),
-           potion('night_vision', 2), potion('healing', 2), mod('adrenaline', 2),
-           item('paper', 2, 1, 1, named('access_card')), item('diamond_chestplate', 1), item('iron_chestplate', 2)))
+      pool(0, 1, gun('vector45', 3), gun('p90', 3), gun('fn_evolys', 2), gun('aa12', 1), gun('qbz_95', 2), empty(5)),
+      pool(1, 2, ammo('45acp', 3, 15, 30), ammo('57x28', 3, 20, 40), ammo('308', 2, 10, 20), ammo('12g', 2, 6, 12),
+           ammo('58x42', 2, 15, 30)),
+      pool(1, 3, potion('strength', 1), potion('swiftness', 2), potion('regeneration', 2), potion('fire_resistance', 1),
+           potion('night_vision', 2), mod('adrenaline', 2), mtag('tech', 4, 1, 3), mtag('valuables', 2, 1, 2),
+           item('paper', 2, 1, 1, named('access_card')), item('iron_chestplate', 1)))
+table('dome_stash',
+      pool(1, 1, gun('vector45', 2), gun('p90', 2), gun('hk_mp5a5', 2), gun('qbz_95', 1), gun('g36k', 1), gun('hk416d', 1),
+           gun('m4a1', 1), empty(5)),
+      pool(2, 3, ammo('45acp', 3, 15, 30), ammo('57x28', 3, 20, 40), ammo('556x45', 3, 15, 30), mod('first_aid_kit', 2),
+           mod('adrenaline', 2), mtag('tech', 3, 1, 3), mtag('industrial', 2, 2, 4), mtag('valuables', 2, 1, 2),
+           potion('night_vision', 1), item('golden_apple', 1)),
+      pool(0, 1, enchanted('iron_chestplate', 1, 14), enchanted('iron_leggings', 1, 14), item('diamond', 1), mod('molotov', 1), empty(7)))
 
 # Base avanzada ----------------------------------------------------------
 table('fob_guard',
-      pool(0, 1, gun('glock_17', 3), gun('m1911', 3), gun('uzi', 2), gun('hk_mp5a5', 1), gun('ump45', 1), empty(2)),
-      pool(2, 3, ammo('9mm', 4, 12, 30), ammo('45acp', 3, 12, 24), item('firework_rocket', 3, 2, 5), item('spyglass', 2),
-           potion('water', 4), item('bread', 2, 1, 3), item('dried_kelp', 2, 3, 8)))
+      pool(0, 1, gun('glock_17', 3), gun('m1911', 3), gun('uzi', 2), gun('hk_mp5a5', 1), gun('ump45', 1), empty(6)),
+      pool(1, 3, ammo('9mm', 4, 10, 24), ammo('45acp', 3, 10, 20), item('firework_rocket', 3, 2, 5), item('spyglass', 2),
+           potion('water', 3), mtag('food', 3, 1, 3), mtag('tools', 2)))
 table('fob_tactical',
-      pool(1, 1, gun('ak47', 3), gun('m4a1', 3), gun('hk416d', 2), gun('g36k', 2), gun('qbz_95', 1)),
-      pool(2, 3, ammo('762x39', 3, 20, 40), ammo('556x45', 4, 20, 40), ammo('58x42', 1, 20, 40)),
-      pool(2, 3, item('chainmail_chestplate', 2), item('iron_chestplate', 2), dyed('leather_chestplate', 2, 12755563),
-           mod('first_aid_kit', 2), mod('adrenaline', 1), item('compass', 2), item('map', 2)))
+      pool(0, 1, gun('ak47', 3), gun('m4a1', 3), gun('hk416d', 2), gun('g36k', 2), gun('qbz_95', 1), empty(5)),
+      pool(1, 3, ammo('762x39', 3, 15, 30), ammo('556x45', 4, 15, 30), ammo('58x42', 1, 15, 30)),
+      pool(1, 3, item('chainmail_chestplate', 2), item('iron_chestplate', 1), dyed('leather_chestplate', 2, 12755563),
+           mod('first_aid_kit', 2), mod('adrenaline', 1), item('compass', 2), item('map', 2), mtag('gear', 3), mtag('medical', 2)))
 table('fob_assault',
-      pool(1, 1, gun('mk14', 3), gun('sks_tactical', 3), gun('scar_h', 2), gun('fn_fal', 2), gun('hk_g3', 1)),
-      pool(1, 1, att('scope_acog_ta31', 2), att('scope_elcan_4x', 2), att('scope_hamr', 1), att('scope_lpvo_1_6', 2), empty(2)),
-      pool(2, 3, ammo('308', 4, 15, 30), ammo('762x39', 3, 20, 40)),
-      pool(1, 2, mod('pipe_bomb', 3), mod('molotov', 1), damaged('iron_chestplate', 2), damaged('iron_helmet', 2)))
+      pool(0, 1, gun('mk14', 3), gun('sks_tactical', 3), gun('scar_h', 2), gun('fn_fal', 2), gun('hk_g3', 1), empty(5)),
+      pool(0, 1, att('scope_acog_ta31', 2), att('scope_elcan_4x', 2), att('scope_hamr', 1), att('scope_lpvo_1_6', 2), empty(7)),
+      pool(1, 2, ammo('308', 4, 10, 20), ammo('762x39', 3, 15, 30)),
+      pool(0, 2, mod('pipe_bomb', 3), mod('molotov', 1), damaged('iron_chestplate', 2), damaged('iron_helmet', 2), mtag('tools', 2), empty(3)))
 table('fob_artillery',
-      pool(1, 1, gun('rpg7', 2), gun('m320', 2), gun('m249', 2), gun('m107', 1)),
-      pool(1, 2, ammo('rpg_rocket', 3, 1, 3), ammo('40mm', 3, 2, 5), ammo('556x45', 2, 20, 40), ammo('50bmg', 1, 4, 10)),
-      pool(2, 4, item('tnt', 4, 1, 4), item('redstone_block', 3, 1, 3), att('scope_vudu', 1), att('scope_mk5hd', 1),
-           att('scope_standard_8x', 1), mod('pipe_bomb', 2), item('diamond', 1)))
+      pool(0, 1, gun('rpg7', 2), gun('m320', 2), gun('m249', 2), gun('m107', 1), empty(5)),
+      pool(1, 2, ammo('rpg_rocket', 2, 1, 2), ammo('40mm', 3, 2, 4), ammo('556x45', 2, 15, 30), ammo('50bmg', 1, 3, 8)),
+      pool(1, 3, item('tnt', 4, 1, 3), item('redstone_block', 2, 1, 2), mod('pipe_bomb', 2), mtag('industrial', 3, 2, 4),
+           mtag('tech', 3, 1, 2), att('scope_vudu', 1), att('scope_mk5hd', 1), item('diamond', 1)))
+table('fob_stash',
+      pool(1, 1, gun('ak47', 2), gun('m4a1', 2), gun('hk416d', 1), gun('mk14', 1), gun('scar_h', 1), gun('fn_fal', 1),
+           gun('sks_tactical', 2), gun('m1911', 2), empty(5)),
+      pool(2, 3, ammo('762x39', 3, 15, 30), ammo('556x45', 3, 15, 30), ammo('308', 2, 10, 20), ammo('45acp', 2, 12, 24),
+           mod('first_aid_kit', 2), mod('adrenaline', 1), mtag('valuables', 3, 1, 3), mtag('industrial', 3, 2, 4),
+           mtag('tools', 2), mtag('food', 2, 2, 4)),
+      pool(0, 1, enchanted('iron_chestplate', 1, 12), item('chainmail_chestplate', 1), item('diamond', 1), mod('pipe_bomb', 1), empty(7)))
 
 # Trampas ----------------------------------------------------------------
 table('trap_arrows', pool(1, 1, item('arrow', 1, 8, 16)))

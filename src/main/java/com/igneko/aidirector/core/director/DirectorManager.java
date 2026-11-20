@@ -50,6 +50,9 @@ public final class DirectorManager {
         @Nullable Vec3 phaseAnchor;
         DirectorFsm.Phase lastPhase = DirectorFsm.Phase.BUILD_UP;
         int trickleTimer;
+        /** Horda en cola: aviso previo y aparición por tandas. */
+        @Nullable UUID hordeTarget;
+        int hordeWait, hordeBatches, hordeRemaining;
     }
 
     private static final Map<ServerLevel, LevelDirector> DIRECTORS = new HashMap<>();
@@ -120,10 +123,20 @@ public final class DirectorManager {
         // Mientras viva un Coloso cerca del equipo, el Director congela las hordas normales (§7.8).
         if (behemothNear(level, team)) return;
 
+        tickPendingHorde(level, d, team);
         if (action == DirectorFsm.Action.FORCE_HORDE) {
             ServerPlayer target = pickTarget(level, team);
             if (target != null) {
-                EnhancedHordesCompat.spawnHordeForPlayer(target);
+                AIDirectorConfig.HordeSettings horde = AIDirectorConfig.horde();
+                if (horde.warningSeconds() <= 0 && horde.batches() <= 1) {
+                    EnhancedHordesCompat.spawnHordeForPlayer(target);
+                } else {
+                    // Aviso con sirena y la horda llega por tandas, no de golpe encima del equipo.
+                    d.hordeTarget = target.getUUID();
+                    d.hordeWait = Math.max(0, horde.warningSeconds() - 1);
+                    d.hordeBatches = Math.max(1, horde.batches());
+                    d.hordeRemaining = horde.size();
+                }
                 for (ServerPlayer p : team) {
                     p.displayClientMessage(Component.translatable("message.aidirector.horde.incoming").withStyle(ChatFormatting.RED), true);
                 }
@@ -139,6 +152,23 @@ public final class DirectorManager {
                 EnhancedHordesCompat.spawnRing(level, target.blockPosition(), size, 26, 40, target);
             }
         }
+    }
+
+    /** Avanza la horda en cola: espera el aviso y luego lanza una tanda cada pocos segundos. */
+    private static void tickPendingHorde(ServerLevel level, LevelDirector d, List<ServerPlayer> team) {
+        if (d.hordeBatches <= 0) return;
+        if (d.hordeWait-- > 0) return;
+        ServerPlayer target = team.stream().filter(p -> p.getUUID().equals(d.hordeTarget)).findFirst()
+                .orElseGet(() -> pickTarget(level, team));
+        if (target == null) {
+            d.hordeBatches = 0;
+            return;
+        }
+        int count = d.hordeBatches == 1 ? d.hordeRemaining : Math.max(1, d.hordeRemaining / d.hordeBatches);
+        EnhancedHordesCompat.triggerPanicEvent(level, target.blockPosition(), count, target);
+        d.hordeRemaining = Math.max(0, d.hordeRemaining - count);
+        d.hordeBatches--;
+        d.hordeWait = 2;
     }
 
     private static boolean behemothNear(ServerLevel level, List<ServerPlayer> team) {

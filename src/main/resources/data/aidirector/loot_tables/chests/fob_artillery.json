@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -51,6 +51,10 @@
               "tag": "{GunId:\"tacz:m107\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
@@ -64,14 +68,14 @@
         {
           "type": "minecraft:item",
           "name": "tacz:ammo",
-          "weight": 3,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             },
             {
@@ -90,7 +94,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 5
+                "max": 4
               }
             },
             {
@@ -108,8 +112,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 20,
-                "max": 40
+                "min": 15,
+                "max": 30
               }
             },
             {
@@ -127,8 +131,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
-                "max": 10
+                "min": 3,
+                "max": 8
               }
             },
             {
@@ -142,8 +146,8 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 2,
-        "max": 4
+        "min": 1,
+        "max": 3
       },
       "entries": [
         {
@@ -156,7 +160,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 4
+                "max": 3
               }
             }
           ]
@@ -164,6 +168,43 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:redstone_block",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aidirector:pipe_bomb",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/industrial",
+          "expand": true,
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/tech",
+          "expand": true,
           "weight": 3,
           "functions": [
             {
@@ -171,7 +212,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]
@@ -197,22 +238,6 @@
               "tag": "{AttachmentId:\"tacz:scope_mk5hd\"}"
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:attachment",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AttachmentId:\"tacz:scope_standard_8x\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "aidirector:pipe_bomb",
-          "weight": 2
         },
         {
           "type": "minecraft:item",

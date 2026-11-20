@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:leather_helmet",
+    "minecraft:leather_chestplate",
+    "minecraft:leather_leggings",
+    "minecraft:leather_boots",
+    "minecraft:chainmail_helmet",
+    "minecraft:chainmail_boots",
+    "minecraft:shield",
+    {
+      "id": "create:copper_diving_helmet",
+      "required": false
+    },
+    {
+      "id": "create:copper_backtank",
+      "required": false
+    },
+    {
+      "id": "sophisticatedbackpacks:backpack",
+      "required": false
+    }
+  ]
+}

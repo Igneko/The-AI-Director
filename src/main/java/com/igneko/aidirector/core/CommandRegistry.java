@@ -125,7 +125,7 @@ public class CommandRegistry {
     private static int forceHorde(CommandSourceStack source, int count) throws CommandSyntaxException {
         ServerPlayer player = source.getPlayerOrException();
         int spawned = EnhancedHordesCompat.triggerPanicEvent(player.serverLevel(), player.blockPosition(), count, player);
-        int area = AIDirectorConfig.horde().areaSize();
+        int area = AIDirectorConfig.horde().effectiveArea();
         source.sendSuccess(() -> Component.literal(String.format(
             "§e[AI Director] §fHorda forzada: §c%d§f/%d infectados en un área de %dx%d bloques.",
             spawned, count, area, area)), false);

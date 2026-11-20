@@ -4,7 +4,7 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
+        "min": 0,
         "max": 1
       },
       "entries": [
@@ -33,17 +33,6 @@
         {
           "type": "minecraft:item",
           "name": "tacz:modern_kinetic_gun",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{GunId:\"tacz:ai_awp\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:modern_kinetic_gun",
           "weight": 3,
           "functions": [
             {
@@ -62,49 +51,31 @@
               "tag": "{GunId:\"tacz:springfield1873\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{GunId:\"tacz:ai_awp\",GunFireMode:\"SEMI\",GunCurrentAmmoCount:0,HasBulletInBarrel:0b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 5
         }
       ]
     },
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 1,
-        "max": 2
+        "min": 0,
+        "max": 1
       },
       "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "tacz:attachment",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AttachmentId:\"tacz:scope_standard_8x\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:attachment",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AttachmentId:\"tacz:scope_mk5hd\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:attachment",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AttachmentId:\"tacz:scope_vudu\"}"
-            }
-          ]
-        },
         {
           "type": "minecraft:item",
           "name": "tacz:attachment",
@@ -137,6 +108,43 @@
               "tag": "{AttachmentId:\"tacz:scope_lpvo_1_6\"}"
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:attachment",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AttachmentId:\"tacz:scope_standard_8x\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:attachment",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AttachmentId:\"tacz:scope_mk5hd\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:attachment",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AttachmentId:\"tacz:scope_vudu\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 6
         }
       ]
     },
@@ -156,8 +164,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 8,
-                "max": 20
+                "min": 6,
+                "max": 16
               }
             },
             {
@@ -175,32 +183,13 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 8,
-                "max": 20
+                "min": 6,
+                "max": 16
               }
             },
             {
               "function": "minecraft:set_nbt",
               "tag": "{AmmoId:\"tacz:792x57\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "tacz:ammo",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 5,
-                "max": 12
-              }
-            },
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{AmmoId:\"tacz:338\"}"
             }
           ]
         },
@@ -213,8 +202,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 15,
-                "max": 30
+                "min": 12,
+                "max": 24
               }
             },
             {
@@ -232,8 +221,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 8,
-                "max": 16
+                "min": 6,
+                "max": 12
               }
             },
             {
@@ -244,8 +233,33 @@
         },
         {
           "type": "minecraft:item",
+          "name": "tacz:ammo",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 4,
+                "max": 8
+              }
+            },
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{AmmoId:\"tacz:338\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:spyglass",
           "weight": 1
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/food",
+          "expand": true,
+          "weight": 2
         }
       ]
     }

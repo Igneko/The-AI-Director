@@ -7,6 +7,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import com.igneko.aidirector.world.saferoom.SupplyCrateBlock;
+import org.jetbrains.annotations.Nullable;
 
 import static com.igneko.aidirector.world.structure.Canvas.facing;
 import static com.igneko.aidirector.world.structure.Canvas.hangingLantern;
@@ -221,6 +223,28 @@ final class Props {
                     .setValue(BlockStateProperties.EAST, true).setValue(BlockStateProperties.WEST, true));
         }
         c.set(x2 + 1, y, z, s(Blocks.BARREL));
+    }
+
+    private static final Palette STASH_WALL = Palette.weighted(Blocks.STONE_BRICKS, 3, Blocks.CRACKED_STONE_BRICKS, 1,
+            Blocks.MOSSY_STONE_BRICKS, 1);
+
+    /**
+     * Escondite subterráneo de 3×3×2 bajo una escotilla de madera a ras de suelo, con escalera, un cofre
+     * (y opcionalmente un barril y una caja de suministros). {@code (hx, hy, hz)} es el bloque de suelo
+     * donde va la escotilla; el cuarto se excava debajo, rodeado de ladrillo para no depender del terreno.
+     */
+    static void stash(Canvas c, int hx, int hy, int hz, String chestLoot, @Nullable String barrelLoot,
+                      @Nullable SupplyCrateBlock.Kind crate) {
+        if (!c.touches(hx - 1, hy - 3, hz - 1, hx + 3, hy + 2, hz + 3)) return;
+        c.fill(hx - 1, hy - 3, hz - 1, hx + 3, hy - 1, hz + 3, STASH_WALL);
+        c.air(hx, hy - 2, hz, hx + 2, hy - 1, hz + 2);
+        c.air(hx, hy + 1, hz, hx, hy + 2, hz);
+        for (int y = hy - 2; y <= hy - 1; y++) c.set(hx, y, hz, Canvas.ladder(Direction.EAST));
+        c.set(hx, hy, hz, trapdoor(Blocks.DARK_OAK_TRAPDOOR, Direction.SOUTH, false, false));
+        c.container(hx + 2, hy - 2, hz + 1, facing(Blocks.CHEST, Direction.WEST), loot(chestLoot));
+        if (barrelLoot != null) c.container(hx + 2, hy - 2, hz + 2, facing(Blocks.BARREL, Direction.UP), loot(barrelLoot));
+        if (crate != null) c.crate(hx + 1, hy - 2, hz + 2, Direction.NORTH, crate, false);
+        c.set(hx + 1, hy - 1, hz + 1, hangingLantern(Blocks.LANTERN));
     }
 
     /** Palanca y botón apoyados en el suelo (los de pared se caerían sin soporte). */

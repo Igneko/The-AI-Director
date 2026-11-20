@@ -57,8 +57,45 @@ public final class LandmarkGameTests {
                         new ChunkPos(whole.getCenter()), whole.getCenter());
             }
             dump(level, lm, whole);
+            lootReport(level, lm, whole, helper);
         }
         helper.succeed();
+    }
+
+    /** Cuenta los contenedores con botín de la zona por tabla y falla si alguna tabla no existe. */
+    private static void lootReport(ServerLevel level, Landmark lm, BoundingBox box, GameTestHelper helper) {
+        java.util.Map<String, Integer> perTable = new java.util.TreeMap<>();
+        int containers = 0, crates = 0;
+        for (int cx = box.minX() >> 4; cx <= box.maxX() >> 4; cx++) {
+            for (int cz = box.minZ() >> 4; cz <= box.maxZ() >> 4; cz++) {
+                for (net.minecraft.world.level.block.entity.BlockEntity be : new java.util.ArrayList<>(level.getChunk(cx, cz).getBlockEntities().values())) {
+                    if (!box.isInside(be.getBlockPos())) continue;
+                    if (be instanceof net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity) {
+                        net.minecraft.nbt.CompoundTag tag = be.saveWithoutMetadata();
+                        String table = tag.getString("LootTable");
+                        containers++;
+                        perTable.merge(table.isEmpty() ? "(sin tabla)" : table, 1, Integer::sum);
+                        if (!table.isEmpty()) {
+                            net.minecraft.resources.ResourceLocation id = new net.minecraft.resources.ResourceLocation(table);
+                            if (level.getServer().getLootData().getLootTable(id) == net.minecraft.world.level.storage.loot.LootTable.EMPTY) {
+                                helper.fail("La tabla de botín " + id + " no existe o no se pudo cargar (" + lm + ")");
+                            }
+                        }
+                    } else if (be instanceof com.igneko.aidirector.world.saferoom.SupplyCrateBlockEntity) {
+                        crates++;
+                    }
+                }
+            }
+        }
+        Path dir = FMLPaths.GAMEDIR.get().resolve("aidirector_dump");
+        try {
+            Files.createDirectories(dir);
+            StringBuilder out = new StringBuilder(lm + ": " + containers + " contenedores, " + crates + " cajas de suministros\n");
+            perTable.forEach((k, v) -> out.append("  ").append(v).append("  ").append(k).append('\n'));
+            Files.writeString(dir.resolve("landmark_loot_" + lm.getSerializedName() + ".txt"), out.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /** Plataforma maciza bajo la huella (con margen) y aire por encima. */

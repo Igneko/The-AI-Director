@@ -66,6 +66,15 @@ final class FobBuilder {
         smallTent(c, 78);
         smallTent(c, 86);
         eastYard(c);
+        stashes(c);
+    }
+
+    /** Escotillas con cuartos secretos: cuartel en ruinas, hangar, pie de la torre de radio y barracón. */
+    private static void stashes(Canvas c) {
+        Props.stash(c, 61, G, 51, "fob_stash", "fob_guard", null);
+        Props.stash(c, 64, G, 81, "fob_stash", "fob_artillery", SupplyCrateBlock.Kind.THROWABLES);
+        Props.stash(c, 45, G, 78, "fob_stash", null, SupplyCrateBlock.Kind.MEDICAL);
+        Props.stash(c, 36, G, 34, "fob_stash", "fob_tactical", null);
     }
 
     /** Distancia al borde de la huella (0 en el borde). */

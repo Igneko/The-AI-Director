@@ -61,7 +61,7 @@ public final class EnhancedHordesCompat {
     public static int triggerPanicEvent(ServerLevel level, BlockPos center, int count, @Nullable ServerPlayer target) {
         AIDirectorConfig.HordeSettings cfg = AIDirectorConfig.horde();
         RandomSource random = level.getRandom();
-        int half = Math.max(2, cfg.areaSize() / 2);
+        int half = Math.max(2, cfg.effectiveArea() / 2);
         double minDistSq = cfg.minDistance() * cfg.minDistance();
 
         int spawned = 0;
@@ -74,10 +74,21 @@ public final class EnhancedHordesCompat {
             if (dx * dx + dz * dz < minDistSq) continue;
 
             BlockPos pos = findGround(level, x, center.getY(), z, cfg.verticalSearch());
-            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null) continue;
+            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null || tooCloseToPlayer(level, pos, cfg.safeRadius())) continue;
             if (spawnMember(level, pos, random, cfg, target)) spawned++;
         }
         return spawned;
+    }
+
+    /** ¿Hay algún jugador (de cualquiera) a menos de {@code radius} bloques de {@code pos}? */
+    public static boolean tooCloseToPlayer(ServerLevel level, BlockPos pos, int radius) {
+        if (radius <= 0) return false;
+        double r2 = (double) radius * radius;
+        for (ServerPlayer p : level.players()) {
+            if (p.isSpectator() || !p.isAlive()) continue;
+            if (p.distanceToSqr(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5) < r2) return true;
+        }
+        return false;
     }
 
     /**
@@ -97,7 +108,7 @@ public final class EnhancedHordesCompat {
             int z = (int) Math.floor(center.getZ() + 0.5 + Math.sin(angle) * dist);
             if (!level.hasChunkAt(new BlockPos(x, center.getY(), z))) continue;
             BlockPos pos = findGround(level, x, center.getY(), z, cfg.verticalSearch());
-            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null) continue;
+            if (pos == null || SafeZoneManager.zoneAt(level, pos) != null || tooCloseToPlayer(level, pos, cfg.safeRadius())) continue;
             if (spawnMember(level, pos, random, cfg, target)) spawned++;
         }
         return spawned;

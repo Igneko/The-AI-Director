@@ -1,0 +1,51 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:redstone",
+    "minecraft:repeater",
+    "minecraft:comparator",
+    "minecraft:observer",
+    "minecraft:daylight_detector",
+    "minecraft:glowstone_dust",
+    {
+      "id": "create:electron_tube",
+      "required": false
+    },
+    {
+      "id": "create:precision_mechanism",
+      "required": false
+    },
+    {
+      "id": "mekanism:basic_control_circuit",
+      "required": false
+    },
+    {
+      "id": "mekanism:alloy_infused",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:component_electronic",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:component_iron",
+      "required": false
+    },
+    {
+      "id": "thermal:rf_coil",
+      "required": false
+    },
+    {
+      "id": "appliedenergistics2:certus_quartz_crystal",
+      "required": false
+    },
+    {
+      "id": "ae2:certus_quartz_crystal",
+      "required": false
+    },
+    {
+      "id": "ae2:logic_processor",
+      "required": false
+    }
+  ]
+}

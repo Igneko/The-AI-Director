@@ -4,8 +4,8 @@
     {
       "rolls": {
         "type": "minecraft:uniform",
-        "min": 3,
-        "max": 5
+        "min": 2,
+        "max": 4
       },
       "entries": [
         {
@@ -55,38 +55,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_chestplate",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 8
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_leggings",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 8
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_boots",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_helmet",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:rabbit_hide",
           "weight": 2,
           "functions": [
@@ -97,6 +65,34 @@
                 "min": 2,
                 "max": 5
               }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:tag",
+          "name": "aidirector:loot/gear",
+          "expand": true,
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 8
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_leggings",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 8
             }
           ]
         }
